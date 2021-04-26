@@ -10,4 +10,4 @@ app.get("/test", (req, res) => {
     return res.json({msg: "Hello World!"});
 });
 
-app.listen(3333, () => console.log("Server is running..."));
+app.listen(3334, () => console.log("Server is running..."));
