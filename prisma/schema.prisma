@@ -10,3 +10,230 @@ datasource db {
 generator client {
   provider = "prisma-client-js"
 }
+
+//Alunos
+model Alunos{
+  RA Int @id @default(autoincrement())
+  telefone String
+  senha String
+  email String @unique
+  nome String
+  foto String
+  
+  idSerie Int
+  serie Series @relation(fields: [idSerie], references: [id])
+  
+  testes TestesAluno[]
+
+  conversas Conversas[]
+
+  atividades AtividadesAluno[]
+}
+
+//Séries
+model Series {
+  id Int @id @default(autoincrement())
+  curso Curso
+  tipo TipoSerie
+  ano Int
+  periodo Periodo
+  
+  alunos Alunos[]
+
+  turmas Turmas[]
+}
+
+enum Periodo {
+  DIURNO
+  NOTURNO
+}
+
+enum Curso {
+  ENFERMAGEM
+  EDIFICACOES
+  GEODESIA
+  INFORMATICA
+  MECANICA
+  QUALIDADE
+}
+
+enum TipoSerie {
+  MEDIOTECNICO
+  TECNICO
+}
+
+//Conversas
+model Conversas{
+  id Int @id @default(autoincrement())
+  mensagem String
+
+  rgProfessor String
+  professor Professores @relation(fields: [rgProfessor], references: [RG])
+
+  raAluno Int
+  aluno Alunos @relation(fields: [raAluno], references: [RA])
+}
+
+//Turmas
+model Turmas{
+  id Int @id @default(autoincrement())
+  nome String
+  icone String
+  corPrim String
+  corSec String
+
+  idSerie Int
+  serie Series @relation(fields: [idSerie], references: [id])
+
+  rgProfessor String
+  professor Professores @relation(fields: [rgProfessor], references: [RG])
+
+  topicos Topicos[]
+
+  atividadesAlunos AtividadesAluno[]
+
+  testesAlunos TestesAluno[]
+}
+
+//Professor
+model Professores {
+  RG String @id
+  telefone String
+  senha String
+  email String @unique
+  nome String
+  foto String
+  
+  conversas Conversas[]
+
+  turmas Turmas[]
+
+  arquivoProfessor ArquivosProfessor[]
+}
+
+//ArquivosProfessor
+model ArquivosProfessor {
+  id Int @id @default(autoincrement())
+  link String
+  nome String
+  
+  rgProfessor String
+  professor Professores @relation(fields: [rgProfessor], references: [RG])
+  
+  arquivosMateriais ArquivosMateriais[]
+  
+  arquivosAtividades ArquivosAtividades[]
+}
+
+//Tópico
+model Topicos {
+  id Int @id @default(autoincrement())
+  nome String
+  descricao String
+
+  idTurma Int
+  turma Turmas @relation(fields: [idTurma], references: [id])
+
+  Materiais Materiais[]
+  
+  atividades Atividades[]
+  
+  testes Testes[]
+}
+
+//Material
+model Materiais{
+  id Int @id @default(autoincrement())
+  data DateTime 
+  conteudo String
+  
+  idTopico Int
+  topico Topicos @relation(fields: [idTopico], references: [id])
+
+  arquivosMateriais ArquivosMateriais[]
+}
+
+//Atividade
+model Atividades {
+  id Int @id @default(autoincrement())
+  conteudo String
+  nome String
+  dataInicio DateTime
+  dataFim DateTime
+
+  idTopico Int
+  topico Topicos @relation(fields: [idTopico], references: [id])
+  
+  arquivosAtividades ArquivosAtividades[]
+
+  atividadesAlunos AtividadesAluno[]
+}
+
+//AtividadeAluno
+model AtividadesAluno {
+  id Int @id @default(autoincrement())
+  dataEnvio DateTime @default(now())
+  link String
+  nome String
+  nota Decimal
+  
+  raAluno Int
+  aluno Alunos @relation(fields: [raAluno], references: [RA])
+
+  idAtividade Int
+  atividade Atividades @relation(fields: [idAtividade], references: [id])
+
+  idTurma Int
+  turma Turmas @relation(fields: [idTurma], references: [id])
+}
+
+//Teste
+model Testes{
+  id Int @id @default(autoincrement())
+  conteudo String
+  dataInicio DateTime
+  dataFim DateTime
+  
+  idTopico Int
+  topicos Topicos @relation(fields: [idTopico], references: [id])
+
+  testesAlunos TestesAluno[]
+}
+
+//TestesAluno
+model TestesAluno{
+  id Int @id @default(autoincrement())
+  dataEnvio DateTime @default(now())
+  nota Decimal
+
+  idTeste Int
+  teste Testes @relation(fields: [idTeste], references: [id])
+
+  raAluno Int
+  aluno Alunos @relation(fields: [raAluno], references: [RA])
+
+  idTurma Int
+  turma Turmas @relation(fields: [idTurma], references: [id])
+}
+
+//ArquivosMateriais
+model ArquivosMateriais{
+  id Int @id @default(autoincrement())
+
+  idArquivoProfessor Int
+  arquivoProfessor ArquivosProfessor @relation(fields: [idArquivoProfessor], references: [id])
+  
+  idMaterial Int
+  material Materiais @relation(fields: [idMaterial], references: [id])
+}
+
+//ArquivosAtividades
+model ArquivosAtividades{
+  id Int @id @default(autoincrement())
+
+  idArquivoProfessor Int
+  arquivoProfessor ArquivosProfessor @relation(fields: [idArquivoProfessor], references: [id])
+
+  idAtividade Int
+  atividades Atividades @relation(fields: [idAtividade], references: [id])
+}
