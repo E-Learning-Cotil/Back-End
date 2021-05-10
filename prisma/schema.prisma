@@ -35,7 +35,7 @@ model Series {
   id Int @id @default(autoincrement())
   curso Curso
   tipo TipoSerie
-  ano Int
+  ano String
   periodo Periodo
   
   alunos Alunos[]
