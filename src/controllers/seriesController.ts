@@ -1,32 +1,31 @@
+import {Request, Response} from 'express';
 import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
 class SeriesController{
-    async create(req, res){
-        const result = await prisma.series.create({
-            data: {
-                curso: "GEODESIA",
-                ano: 2,
-                tipo: "MEDIOTECNICO",
-                periodo: "NOTURNO"
-            },
-        })
-    
-        console.log(result);
-    
-        return res.status(201).json({message: "OK"});
+    async list(req: Request, res: Response){
+        try {
+            const results = await prisma.series.findMany({
+                where: req.query
+            });
+            
+            return res.json(results);
+        } catch (error) {
+            return res.status(404).json({error: error.message});
+        }
     }
 
-    async list(req, res){
-        const results = await prisma.series.findMany({
-            where: {
-                ano: 2
-            }
-        });
-    
-        return res.json(results);
+    async create(req: Request, res: Response){
+        try {
+            await prisma.series.create({
+                data: req.body
+            });
+
+            return res.status(201).json({message: "OK"});
+        } catch (error) {
+            return res.status(404).json({error: error.message});
+        }
     }
 }
-
 export default new SeriesController();
