@@ -1,7 +1,7 @@
 import express from 'express';
 
 import SeriesController from './controllers/seriesController';
-import AlunosController from './controllers/AlunosController';
+import AlunosController from './controllers/alunosController';
 
 const router = express.Router();
 
