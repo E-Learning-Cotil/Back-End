@@ -6,7 +6,7 @@ const prisma = new PrismaClient();
 class turmasController{
     async listOne(req: Request, res: Response){
         const {id} = req.params;
-        
+
         try {
             const result = await prisma.turmas.findFirst({
                 where: {
@@ -20,7 +20,11 @@ class turmasController{
         }
     }
 
-	async list(req: Request, res: Response){
+	async list(req: any, res: Response){
+        const {idSerie} = req.query;
+
+        if (idSerie) req.query.idSerie = Number(idSerie);
+
         try {
             const results = await prisma.turmas.findMany({
                 where: req.query
