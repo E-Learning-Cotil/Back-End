@@ -1,9 +1,13 @@
 import express from 'express';
 
+import renderDocs from './docs';
 import SeriesController from './controllers/seriesController';
 import AlunosController from './controllers/alunosController';
 
 const router = express.Router();
+
+//Docs
+router.get('/', renderDocs);
 
 //Series
 router.get('/series/list', SeriesController.list);

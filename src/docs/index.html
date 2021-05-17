@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E - Learning</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: sans-serif;
+        }
+
+        body{
+            background: #202020;
+            color: #fff;
+        }
+
+        header{
+            background: #009418;
+            width: 100%;
+            height: 70px;
+            padding: 10px 10% 10px 10%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        header h2{
+            color: #202020;
+        }
+
+        header a{
+            display: block;
+            width: 100px;
+            height: 40px;
+            background: #6C1795;
+            padding: 5px;
+            box-sizing: border-box;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        header a img{
+            height: 24px;
+            width: auto;
+        }
+
+        .content{
+            width: 80%;
+            margin: 50px 10% 50px 10%;
+        }
+
+        details summary{
+            margin-top: 10px;
+            width: max-content;
+            border-radius: 4px;
+            background: #009418;
+            padding: 10px;
+            outline: none;
+            cursor: pointer;
+            font-size: 18px;
+        }
+
+        .item{
+            margin-top: 10px;
+            margin-left: 20px;
+        }
+
+        .link{
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            padding: 4px;
+            background: #6C1795;
+            width: max-content;
+            color: white; 
+            margin-top: 5px;
+        }
+
+        .link a{
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h2>API E-Learning</h2>
+        <a href="https://github.com/E-Learning-Cotil" target="_blank">
+            <img src="https://icon-library.com/images/github-icon-white/github-icon-white-6.jpg" alt="GitHub">
+            <span>GitHub</span>
+        </a>
+    </header>
+
+    <div class="content">
+        <h1>Documentação:</h1>
+        <details>
+            <summary>Séries</summary>
+            <div class="item">
+                <h3>Listagem de séries</h3>
+                <p><b>Descrição: </b>Devolve uma lista de séries cadastradas no sistema</p>
+                <p><b>Método: </b> GET</p>
+                <div class="link">
+                    <p>Link:</p>
+                    <a href="/series/list">Listagem de séries</a>
+                </div>
+            </div>
+            <div class="item">
+                <h3>Criação de uma série</h3>
+                <p><b>Descrição: </b>Rota para cadastrar uma série no sistema</p>
+                <p><b>Método: </b> POST</p>
+                <div class="link">
+                    <p>Link:</p>
+                    <a href="/series/create">Criação de uma série</a>
+                </div>
+            </div>
+        </details>
+        <details>
+            <summary>Alunos</summary>
+            <div class="item">
+                <h3>Listagem de alunos</h3>
+                <p><b>Descrição: </b>Devolve uma lista de alunos cadastradas no sistema</p>
+                <p><b>Método: </b> GET</p>
+                <div class="link">
+                    <p>Link:</p>
+                    <a href="/alunos/list">Listagem de alunos</a>
+                </div>
+            </div>
+            <div class="item">
+                <h3>Listagem de apenas um aluno</h3>
+                <p><b>Descrição: </b>Devolve o aluno cadastrado no sitema com o RA passado na URL</p>
+                <p><b>Método: </b> GET</p>
+                <div class="link">
+                    <p>Link:</p>
+                    <a href="/alunos/list-one/1">Listagem de apenas um aluno</a>
+                </div>
+            </div>
+            <div class="item">
+                <h3>Criação de um aluno</h3>
+                <p><b>Descrição: </b>Rota para cadastrar um aluno no sistem</p>
+                <p><b>Método: </b> POST</p>
+                <div class="link">
+                    <p>Link:</p>
+                    <a href="/alunos/create">Criação de um aluno</a>
+                </div>
+            </div>
+            <div class="item">
+                <h3>Atualização de um aluno</h3>
+                <p><b>Descrição: </b>Rota para atualizar um aluno no sistem</p>
+                <p><b>Método: </b> PUT</p>
+                <div class="link">
+                    <p>Link:</p>
+                    <a href="/alunos/update/1">Atualização de um aluno</a>
+                </div>
+            </div>
+        </details>
+    </div>
+</body>
+</html>
