@@ -19,6 +19,7 @@ CREATE TABLE `Series` (
     `tipo` ENUM('MEDIOTECNICO', 'TECNICO') NOT NULL,
     `ano` VARCHAR(191) NOT NULL,
     `periodo` ENUM('DIURNO', 'NOTURNO') NOT NULL,
+    `sigla` VARCHAR(191) NOT NULL,
 
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;

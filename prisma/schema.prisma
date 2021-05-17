@@ -9,6 +9,7 @@ datasource db {
 
 generator client {
   provider = "prisma-client-js"
+  previewFeatures = ["selectRelationCount"]
 }
 
 //Alunos
@@ -37,6 +38,7 @@ model Series {
   tipo TipoSerie
   ano String
   periodo Periodo
+  sigla String
   
   alunos Alunos[]
 
