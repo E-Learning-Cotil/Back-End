@@ -49,6 +49,47 @@ class turmasController{
 			return res.status(404).json({error: error.message });
 		}
 	}
+
+	async listByAluno(req: Request, res: Response){
+        const {id} = req.params;
+
+        try {
+            const {idSerie} = await prisma.alunos.findFirst({
+				select: {
+					idSerie: true
+				}, 
+				where: {
+					RA: Number(id)
+				}
+			});
+
+			const result = await prisma.turmas.findMany({
+                where: {
+                    idSerie: idSerie
+                }
+            });
+            
+            return res.json(result);
+        } catch (error) {
+            return res.status(404).json({error: error.message});
+        }
+    } 
+
+    async listByProfessor(req: Request, res: Response){
+        const {id} = req.params;
+
+        try {
+			const result = await prisma.turmas.findMany({
+                where: {
+                    rgProfessor: id
+                }
+            });
+            
+            return res.json(result);
+        } catch (error) {
+            return res.status(404).json({error: error.message});
+        }
+    } 
 }
 
 export default new turmasController();

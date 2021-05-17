@@ -32,5 +32,7 @@ router.put('/professores/update/:id', ProfessoresController.update);
 router.get('/turmas/list-one/:id', TurmasController.listOne);
 router.get('/turmas/list', TurmasController.list);
 router.post('/turmas/create', TurmasController.create);
+router.get('/turmas/list-by-aluno/:id', TurmasController.listByAluno);
+router.get('/turmas/list-by-professor/:id', TurmasController.listByProfessor);
 
 export default router;
