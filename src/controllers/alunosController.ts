@@ -1,14 +1,9 @@
 import {Request, Response} from 'express';
 import { PrismaClient } from '@prisma/client';
-import bcrypt from 'bcrypt';
+
+import encryptPassword from '../utils/encryptPassword';
 
 const prisma = new PrismaClient();
-
-async function encryptPassword(pass: string){
-	const password = await bcrypt.hash(pass, 10);
-    
-    return password;
-}
 
 class AlunosController{
     async listOne(req: Request, res: Response){
@@ -81,7 +76,7 @@ class AlunosController{
         try {
 			await prisma.alunos.update({
                 where: {
-                    RA: Number(id) // ja volto ta
+                    RA: Number(id)
                 },
                 data: {
                     ...req.body
