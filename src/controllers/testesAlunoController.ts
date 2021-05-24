@@ -3,12 +3,12 @@ import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
-class atividadesAlunoController{
+class testesAlunoController{
     async listOne(req: Request, res: Response){
         const {id} = req.params;
 
         try {
-            const result = await prisma.atividadesAluno.findFirst({
+            const result = await prisma.testesAluno.findFirst({
                 where: {
                     id: Number(id)
                 }
@@ -21,15 +21,15 @@ class atividadesAlunoController{
     }
 
     async list(req: any, res: Response){
-		const {raAluno, idAtividade, idTurma, nota} = req.query;
+		const {raAluno, idTeste, idTurma, nota} = req.query;
 
         if (nota) req.query.nota = Number(nota);
         if (raAluno) req.query.raAluno = Number(raAluno);
-        if (idAtividade) req.query.idAtividade = Number(idAtividade);
+        if (idTeste) req.query.idTeste = Number(idTeste);
         if (idTurma) req.query.idTurma = Number(idTurma);
 
         try {
-            const results = await prisma.atividadesAluno.findMany({
+            const results = await prisma.testesAluno.findMany({
                 where: req.query
             });
             
@@ -40,19 +40,19 @@ class atividadesAlunoController{
     }
 
     async create(req: Request, res: Response){
-        const {idAtividade, raAluno} = req.body;
+        const {idTeste, raAluno} = req.body;
 
 		try {
-            const result = await prisma.atividadesAluno.findFirst({
+            const result = await prisma.testesAluno.findFirst({
                 where:{
-                    idAtividade,
+                    idTeste,
                     raAluno
                 }
             })
 
-            if(result) return res.status(404).json({message: "Atividade já respondida!"});
+            if(result) return res.status(404).json({message:"Teste já respondido!"});
 
-			await prisma.atividadesAluno.create({
+			await prisma.testesAluno.create({
 				data: {
 					...req.body
 				}
@@ -67,7 +67,7 @@ class atividadesAlunoController{
     async update(req: Request, res: Response){
         const {id} = req.params;
         try {
-			await prisma.atividadesAluno.update({
+			await prisma.testesAluno.update({
                 where: {
                     id: Number(id)
                 },
@@ -83,4 +83,4 @@ class atividadesAlunoController{
     }
 }
 
-export default new atividadesAlunoController();
+export default new testesAlunoController();
