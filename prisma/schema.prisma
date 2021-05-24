@@ -178,7 +178,7 @@ model AtividadesAluno {
   dataEnvio DateTime @default(now())
   link String
   nome String
-  nota Decimal
+  nota Decimal?
   
   raAluno Int
   aluno Alunos @relation(fields: [raAluno], references: [RA])

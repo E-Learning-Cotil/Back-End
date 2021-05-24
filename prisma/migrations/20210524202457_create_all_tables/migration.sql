@@ -109,7 +109,7 @@ CREATE TABLE `AtividadesAluno` (
     `dataEnvio` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     `link` VARCHAR(191) NOT NULL,
     `nome` VARCHAR(191) NOT NULL,
-    `nota` DECIMAL(65, 30) NOT NULL,
+    `nota` DECIMAL(65, 30),
     `raAluno` INTEGER NOT NULL,
     `idAtividade` INTEGER NOT NULL,
     `idTurma` INTEGER NOT NULL,

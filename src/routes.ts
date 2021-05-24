@@ -6,10 +6,13 @@ import SeriesController from './controllers/seriesController';
 import AlunosController from './controllers/alunosController';
 import ProfessoresController from './controllers/professoresController';
 import TurmasController from './controllers/turmasController';
+
 import TopicosController from './controllers/topicosController';
 import MateriaisController from './controllers/materiaisController';
 import AtividadesController from './controllers/atividadesController';
 import TestesController from './controllers/testesController';
+
+import AtividadesAlunoController from './controllers/atividadesAlunoController';
 
 const router = express.Router();
 
@@ -61,5 +64,11 @@ router.get('/testes/list-one/:id', TestesController.listOne);
 router.get('/testes/list/', TestesController.list);
 router.post('/testes/create/', TestesController.create);
 router.put('/testes/update/:id', TestesController.update);
+
+//Atividades Aluno
+router.get('/atividades-aluno/list-one/:id', AtividadesAlunoController.listOne);
+router.get('/atividades-aluno/list/', AtividadesAlunoController.list);
+router.post('/atividades-aluno/create/', AtividadesAlunoController.create);
+router.put('/atividades-aluno/update/:id', AtividadesAlunoController.update);
 
 export default router;
