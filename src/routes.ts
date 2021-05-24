@@ -6,6 +6,7 @@ import SeriesController from './controllers/seriesController';
 import AlunosController from './controllers/alunosController';
 import ProfessoresController from './controllers/professoresController';
 import TurmasController from './controllers/turmasController';
+import TopicosController from './controllers/topicosController';
 
 const router = express.Router();
 
@@ -34,5 +35,15 @@ router.get('/turmas/list', TurmasController.list);
 router.post('/turmas/create', TurmasController.create);
 router.get('/turmas/list-by-aluno/:id', TurmasController.listByAluno);
 router.get('/turmas/list-by-professor/:id', TurmasController.listByProfessor);
+
+//Tópicos
+router.get('/topicos/list-one/:id', TopicosController.listOne);
+router.get('/topicos/list/', TopicosController.list);
+router.post('/topicos/create/', TopicosController.create);
+
+//Materiais
+router.get('/topicos/list-one/:id', TopicosController.listOne);
+router.get('/topicos/list/', TopicosController.list);
+router.post('/topicos/create/', TopicosController.create);
 
 export default router;
