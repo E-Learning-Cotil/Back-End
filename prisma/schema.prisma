@@ -148,6 +148,7 @@ model Materiais{
   id Int @id @default(autoincrement())
   data DateTime @default(now())
   conteudo String
+  nome String
   
   idTopico Int
   topico Topicos @relation(fields: [idTopico], references: [id])
