@@ -7,6 +7,7 @@ import AlunosController from './controllers/alunosController';
 import ProfessoresController from './controllers/professoresController';
 import TurmasController from './controllers/turmasController';
 import TopicosController from './controllers/topicosController';
+import MateriaisController from './controllers/materiaisController';
 
 const router = express.Router();
 
@@ -42,8 +43,9 @@ router.get('/topicos/list/', TopicosController.list);
 router.post('/topicos/create/', TopicosController.create);
 
 //Materiais
-router.get('/topicos/list-one/:id', TopicosController.listOne);
-router.get('/topicos/list/', TopicosController.list);
-router.post('/topicos/create/', TopicosController.create);
+router.get('/materiais/list-one/:id', MateriaisController.listOne);
+router.get('/materiais/list/', MateriaisController.list);
+router.post('/materiais/create/', MateriaisController.create);
+router.put('/materiais/update/:id', MateriaisController.update);
 
 export default router;

@@ -146,7 +146,7 @@ model Topicos {
 //Material
 model Materiais{
   id Int @id @default(autoincrement())
-  data DateTime 
+  data DateTime @default(now())
   conteudo String
   
   idTopico Int

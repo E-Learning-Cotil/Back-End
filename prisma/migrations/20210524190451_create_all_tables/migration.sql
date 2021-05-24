@@ -83,7 +83,7 @@ CREATE TABLE `Topicos` (
 -- CreateTable
 CREATE TABLE `Materiais` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
-    `data` DATETIME(3) NOT NULL,
+    `data` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     `conteudo` VARCHAR(191) NOT NULL,
     `idTopico` INTEGER NOT NULL,
 
