@@ -9,6 +9,7 @@ import TurmasController from './controllers/turmasController';
 import TopicosController from './controllers/topicosController';
 import MateriaisController from './controllers/materiaisController';
 import AtividadesController from './controllers/atividadesController';
+import TestesController from './controllers/testesController';
 
 const router = express.Router();
 
@@ -54,5 +55,11 @@ router.get('/atividades/list-one/:id', AtividadesController.listOne);
 router.get('/atividades/list/', AtividadesController.list);
 router.post('/atividades/create/', AtividadesController.create);
 router.put('/atividades/update/:id', AtividadesController.update);
+
+//Testes
+router.get('/testes/list-one/:id', TestesController.listOne);
+router.get('/testes/list/', TestesController.list);
+router.post('/testes/create/', TestesController.create);
+router.put('/testes/update/:id', TestesController.update);
 
 export default router;
