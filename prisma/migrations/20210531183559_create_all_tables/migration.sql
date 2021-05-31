@@ -1,6 +1,6 @@
 -- CreateTable
 CREATE TABLE `Alunos` (
-    `RA` INTEGER NOT NULL AUTO_INCREMENT,
+    `ra` INTEGER NOT NULL AUTO_INCREMENT,
     `telefone` VARCHAR(191) NOT NULL,
     `senha` VARCHAR(191) NOT NULL,
     `email` VARCHAR(191) NOT NULL,
@@ -9,7 +9,7 @@ CREATE TABLE `Alunos` (
     `idSerie` INTEGER NOT NULL,
 UNIQUE INDEX `Alunos.email_unique`(`email`),
 
-    PRIMARY KEY (`RA`)
+    PRIMARY KEY (`ra`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable
@@ -49,7 +49,7 @@ CREATE TABLE `Turmas` (
 
 -- CreateTable
 CREATE TABLE `Professores` (
-    `RG` VARCHAR(191) NOT NULL,
+    `rg` VARCHAR(191) NOT NULL,
     `telefone` VARCHAR(191) NOT NULL,
     `senha` VARCHAR(191) NOT NULL,
     `email` VARCHAR(191) NOT NULL,
@@ -57,7 +57,7 @@ CREATE TABLE `Professores` (
     `foto` VARCHAR(191) NOT NULL,
 UNIQUE INDEX `Professores.email_unique`(`email`),
 
-    PRIMARY KEY (`RG`)
+    PRIMARY KEY (`rg`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable
@@ -162,19 +162,19 @@ CREATE TABLE `ArquivosAtividades` (
 ALTER TABLE `Alunos` ADD FOREIGN KEY (`idSerie`) REFERENCES `Series`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE `Conversas` ADD FOREIGN KEY (`rgProfessor`) REFERENCES `Professores`(`RG`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `Conversas` ADD FOREIGN KEY (`rgProfessor`) REFERENCES `Professores`(`rg`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE `Conversas` ADD FOREIGN KEY (`raAluno`) REFERENCES `Alunos`(`RA`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `Conversas` ADD FOREIGN KEY (`raAluno`) REFERENCES `Alunos`(`ra`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE `Turmas` ADD FOREIGN KEY (`idSerie`) REFERENCES `Series`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE `Turmas` ADD FOREIGN KEY (`rgProfessor`) REFERENCES `Professores`(`RG`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `Turmas` ADD FOREIGN KEY (`rgProfessor`) REFERENCES `Professores`(`rg`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE `ArquivosProfessor` ADD FOREIGN KEY (`rgProfessor`) REFERENCES `Professores`(`RG`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `ArquivosProfessor` ADD FOREIGN KEY (`rgProfessor`) REFERENCES `Professores`(`rg`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE `Topicos` ADD FOREIGN KEY (`idTurma`) REFERENCES `Turmas`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
@@ -186,7 +186,7 @@ ALTER TABLE `Materiais` ADD FOREIGN KEY (`idTopico`) REFERENCES `Topicos`(`id`) 
 ALTER TABLE `Atividades` ADD FOREIGN KEY (`idTopico`) REFERENCES `Topicos`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE `AtividadesAluno` ADD FOREIGN KEY (`raAluno`) REFERENCES `Alunos`(`RA`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `AtividadesAluno` ADD FOREIGN KEY (`raAluno`) REFERENCES `Alunos`(`ra`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE `AtividadesAluno` ADD FOREIGN KEY (`idAtividade`) REFERENCES `Atividades`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
@@ -201,7 +201,7 @@ ALTER TABLE `Testes` ADD FOREIGN KEY (`idTopico`) REFERENCES `Topicos`(`id`) ON 
 ALTER TABLE `TestesAluno` ADD FOREIGN KEY (`idTeste`) REFERENCES `Testes`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE `TestesAluno` ADD FOREIGN KEY (`raAluno`) REFERENCES `Alunos`(`RA`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `TestesAluno` ADD FOREIGN KEY (`raAluno`) REFERENCES `Alunos`(`ra`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE `TestesAluno` ADD FOREIGN KEY (`idTurma`) REFERENCES `Turmas`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;

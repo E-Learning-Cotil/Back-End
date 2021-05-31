@@ -10,10 +10,10 @@ class professoresController{
         try {
             const results = await prisma.professores.findFirst({
                 where: {
-                    RG: req.params.id
+                    rg: req.params.id
                 },
                 select: {
-                    RG: true,
+                    rg: true,
                     telefone: true,
                     email: true,
                     nome: true,
@@ -32,7 +32,7 @@ class professoresController{
             const results = await prisma.professores.findMany({
                 where: req.query,
                 select: {
-                    RG: true,
+                    rg: true,
                     telefone: true,
                     email: true,
                     nome: true,
@@ -69,7 +69,7 @@ class professoresController{
         try {
 			await prisma.professores.update({
                 where: {
-                    RG: id
+                    rg: id
                 },
                 data: {
                     ...req.body

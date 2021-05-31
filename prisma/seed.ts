@@ -87,7 +87,7 @@ async function main() {
 				telefone: '19987654321',
 				email: 'emailProfessor1@email.com',
 				nome: 'Maria',
-				RG: '123',
+				rg: '123',
 				foto: 'fotoMaria',
 				senha: '$2b$10$UMhTts2J9TZ73yYnhpoVz.X374teS6sIff29VntcbFvLlx5RdTBqi'
 			},
@@ -95,7 +95,7 @@ async function main() {
 				telefone: '19912345678',
 				email: 'emailProfessor2@email.com',
 				nome: 'Márcia',
-				RG: '321',
+				rg: '321',
 				foto: 'fotoMárcia',
 				senha: '$2b$10$UMhTts2J9TZ73yYnhpoVz.X374teS6sIff29VntcbFvLlx5RdTBqi'
 			},
@@ -103,7 +103,7 @@ async function main() {
 				telefone: '19987651234',
 				email: 'emailProfessor3@email.com',
 				nome: 'Mônica',
-				RG: '789',
+				rg: '789',
 				foto: 'fotoMônica',
 				senha: '$2b$10$UMhTts2J9TZ73yYnhpoVz.X374teS6sIff29VntcbFvLlx5RdTBqi'
 			},
@@ -111,7 +111,7 @@ async function main() {
 				telefone: '19956784321',
 				email: 'emailProfessor4@email.com',
 				nome: 'Mariana',
-				RG: '987',
+				rg: '987',
 				foto: 'fotoMariana',
 				senha: '$2b$10$UMhTts2J9TZ73yYnhpoVz.X374teS6sIff29VntcbFvLlx5RdTBqi'
 			},

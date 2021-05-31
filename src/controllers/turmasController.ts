@@ -59,7 +59,7 @@ class turmasController{
 					idSerie: true
 				}, 
 				where: {
-					RA: Number(id)
+					ra: Number(id)
 				}
 			});
 

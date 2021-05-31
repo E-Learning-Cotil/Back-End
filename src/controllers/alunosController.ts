@@ -10,10 +10,10 @@ class AlunosController{
         try {
 			const result = await prisma.alunos.findFirst({
 				where: {
-                    RA: Number(req.params.id)
+                    ra: Number(req.params.id)
                 },
                 select:{
-                    RA: true,
+                    ra: true,
 					telefone: true,
 					email: true,
 					nome: true,
@@ -29,16 +29,16 @@ class AlunosController{
     }
 
 	async list(req: any, res: Response){
-		const {idSerie, RA} = req.query;
+		const {idSerie, ra} = req.query;
 		
         if (idSerie) req.query.idSerie = Number(idSerie);
-        if (RA) req.query.RA = Number(RA);
+        if (ra) req.query.ra = Number(ra);
 
 		try {
 			const results = await prisma.alunos.findMany({
 				where: req.query,
 				select:{
-                    RA: true,
+                    ra: true,
 					telefone: true,
 					email: true,
 					nome: true,
@@ -76,7 +76,7 @@ class AlunosController{
         try {
 			await prisma.alunos.update({
                 where: {
-                    RA: Number(id)
+                    ra: Number(id)
                 },
                 data: {
                     ...req.body

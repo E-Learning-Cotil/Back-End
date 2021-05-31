@@ -14,7 +14,7 @@ generator client {
 
 //Alunos
 model Alunos{
-  RA Int @id @default(autoincrement())
+  ra Int @id @default(autoincrement())
   telefone String
   senha String
   email String @unique
@@ -70,10 +70,10 @@ model Conversas{
   mensagem String
 
   rgProfessor String
-  professor Professores @relation(fields: [rgProfessor], references: [RG])
+  professor Professores @relation(fields: [rgProfessor], references: [rg])
 
   raAluno Int
-  aluno Alunos @relation(fields: [raAluno], references: [RA])
+  aluno Alunos @relation(fields: [raAluno], references: [ra])
 }
 
 //Turmas
@@ -88,7 +88,7 @@ model Turmas{
   serie Series @relation(fields: [idSerie], references: [id])
 
   rgProfessor String
-  professor Professores @relation(fields: [rgProfessor], references: [RG])
+  professor Professores @relation(fields: [rgProfessor], references: [rg])
 
   topicos Topicos[]
 
@@ -99,7 +99,7 @@ model Turmas{
 
 //Professor
 model Professores {
-  RG String @id
+  rg String @id
   telefone String
   senha String
   email String @unique
@@ -120,7 +120,7 @@ model ArquivosProfessor {
   nome String
   
   rgProfessor String
-  professor Professores @relation(fields: [rgProfessor], references: [RG])
+  professor Professores @relation(fields: [rgProfessor], references: [rg])
   
   arquivosMateriais ArquivosMateriais[]
   
@@ -181,7 +181,7 @@ model AtividadesAluno {
   nota Decimal?
   
   raAluno Int
-  aluno Alunos @relation(fields: [raAluno], references: [RA])
+  aluno Alunos @relation(fields: [raAluno], references: [ra])
 
   idAtividade Int
   atividade Atividades @relation(fields: [idAtividade], references: [id])
@@ -213,7 +213,7 @@ model TestesAluno{
   teste Testes @relation(fields: [idTeste], references: [id])
 
   raAluno Int
-  aluno Alunos @relation(fields: [raAluno], references: [RA])
+  aluno Alunos @relation(fields: [raAluno], references: [ra])
 
   idTurma Int
   turma Turmas @relation(fields: [idTurma], references: [id])
