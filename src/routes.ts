@@ -17,6 +17,8 @@ import TestesAlunoController from './controllers/testesAlunoController';
 
 import BoletimController from './controllers/boletimController';
 
+import HomePageController from './controllers/homePageController';
+
 const router = express.Router();
 
 //Docs
@@ -82,5 +84,8 @@ router.put('/testes-aluno/update/:id', TestesAlunoController.update);
 
 //Boletim
 router.get('/boletim/:id', BoletimController.get);
+
+//Home Page
+router.get('/homepage/:id', HomePageController.get);
 
 export default router;
