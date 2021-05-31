@@ -15,6 +15,8 @@ import TestesController from './controllers/testesController';
 import AtividadesAlunoController from './controllers/atividadesAlunoController';
 import TestesAlunoController from './controllers/testesAlunoController';
 
+import BoletimController from './controllers/boletimController';
+
 const router = express.Router();
 
 //Docs
@@ -77,5 +79,8 @@ router.get('/testes-aluno/list-one/:id', TestesAlunoController.listOne);
 router.get('/testes-aluno/list/', TestesAlunoController.list);
 router.post('/testes-aluno/create/', TestesAlunoController.create);
 router.put('/testes-aluno/update/:id', TestesAlunoController.update);
+
+//Boletim
+router.get('/boletim/:id', BoletimController.get);
 
 export default router;

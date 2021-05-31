@@ -57,7 +57,7 @@ async function main() {
 				telefone: '19912345678',
 				email: 'emailAluno2@email.com',
 				nome: 'José',
-				idSerie: 1,
+				idSerie: 2,
 				foto: 'fotoJosé',
 				senha: '$2b$10$UMhTts2J9TZ73yYnhpoVz.X374teS6sIff29VntcbFvLlx5RdTBqi'
 			},
@@ -65,7 +65,7 @@ async function main() {
 				telefone: '19987651234',
 				email: 'emailAluno3@email.com',
 				nome: 'Jorge',
-				idSerie: 1,
+				idSerie: 3,
 				foto: 'fotoJorge',
 				senha: '$2b$10$UMhTts2J9TZ73yYnhpoVz.X374teS6sIff29VntcbFvLlx5RdTBqi'
 			},
@@ -73,7 +73,7 @@ async function main() {
 				telefone: '19956784321',
 				email: 'emailAluno4@email.com',
 				nome: 'Josué',
-				idSerie: 1,
+				idSerie: 4,
 				foto: 'fotoJosué',
 				senha: '$2b$10$UMhTts2J9TZ73yYnhpoVz.X374teS6sIff29VntcbFvLlx5RdTBqi'
 			},
