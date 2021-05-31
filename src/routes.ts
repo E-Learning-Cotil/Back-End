@@ -19,6 +19,8 @@ import BoletimController from './controllers/boletimController';
 
 import HomePageController from './controllers/homePageController';
 
+import basicAuth from './middlewares/basicAuth';
+
 const router = express.Router();
 
 //Docs
@@ -26,24 +28,24 @@ router.get('/', renderDocs);
 
 //Series
 router.get('/series/list', SeriesController.list);
-router.post('/series/create', SeriesController.create);
+router.post('/series/create', basicAuth, SeriesController.create);
 
 //Alunos
 router.get('/alunos/list-one/:id', AlunosController.listOne);
 router.get('/alunos/list', AlunosController.list);
-router.post('/alunos/create', AlunosController.create);
-router.put('/alunos/update/:id', AlunosController.update);
+router.post('/alunos/create', basicAuth, AlunosController.create);
+router.put('/alunos/update/:id', basicAuth, AlunosController.update);
 
 //Professores
 router.get('/professores/list-one/:id', ProfessoresController.listOne);
 router.get('/professores/list', ProfessoresController.list);
-router.post('/professores/create', ProfessoresController.create);
-router.put('/professores/update/:id', ProfessoresController.update);
+router.post('/professores/create', basicAuth, ProfessoresController.create);
+router.put('/professores/update/:id', basicAuth, ProfessoresController.update);
 
 //Turmas
 router.get('/turmas/list-one/:id', TurmasController.listOne);
 router.get('/turmas/list', TurmasController.list);
-router.post('/turmas/create', TurmasController.create);
+router.post('/turmas/create', basicAuth, TurmasController.create);
 router.get('/turmas/list-by-aluno/:id', TurmasController.listByAluno);
 router.get('/turmas/list-by-professor/:id', TurmasController.listByProfessor);
 
