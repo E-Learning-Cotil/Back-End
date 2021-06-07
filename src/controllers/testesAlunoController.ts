@@ -1,10 +1,11 @@
-import {Request, Response} from 'express';
+import { Request, Response, NextFunction } from 'express';
 import { PrismaClient } from '@prisma/client';
+import { InternalError } from '../errors/InternalError';
 
 const prisma = new PrismaClient();
 
 class testesAlunoController{
-    async listOne(req: Request, res: Response){
+    async listOne(req: Request, res: Response, next: NextFunction){
         const {id} = req.params;
 
         try {
@@ -16,11 +17,12 @@ class testesAlunoController{
             
             return res.json(result);
         } catch (error) {
-            return res.status(404).json({error: error.message});
+            const err = new InternalError('Falha ao listar um teste feito por um aluno!', 400, error.message); 
+            next(err);
         }
     }
 
-    async list(req: any, res: Response){
+    async list(req: any, res: Response, next: NextFunction){
 		const {raAluno, idTeste, idTurma, nota} = req.query;
 
         if (nota) req.query.nota = Number(nota);
@@ -35,11 +37,12 @@ class testesAlunoController{
             
             return res.json(results);
         } catch (error) {
-            return res.status(404).json({error: error.message});
+            const err = new InternalError('Falha ao listar todos os testes feitos por alunos!', 400, error.message);
+            next(err);
         }
     }
 
-    async create(req: Request, res: Response){
+    async create(req: Request, res: Response, next: NextFunction){
         const {idTeste, raAluno} = req.body;
 
 		try {
@@ -60,11 +63,12 @@ class testesAlunoController{
             
             return res.status(201).json({message: "OK"});
 		} catch (error) {
-			return res.status(404).json({error: error.message });
+			const err = new InternalError('Falha ao criar um teste feito por um aluno!', 400, error.message); 
+            next(err);
 		}
 	}
 
-    async update(req: Request, res: Response){
+    async update(req: Request, res: Response, next: NextFunction){
         const {id} = req.params;
         try {
 			await prisma.testesAluno.update({
@@ -78,7 +82,8 @@ class testesAlunoController{
             
             return res.status(200).json({message: "OK"});
 		} catch (error) {
-			return res.status(404).json({error: error.message });
+			const err = new InternalError('Falha ao atualizar um teste feito por um aluno!', 400, error.message); 
+            next(err);
 		}
     }
 }

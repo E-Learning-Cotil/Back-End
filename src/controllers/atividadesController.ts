@@ -1,10 +1,11 @@
-import {Request, Response} from 'express';
+import { Request, Response, NextFunction } from 'express';
 import { PrismaClient } from '@prisma/client';
+import { InternalError } from '../errors/InternalError';
 
 const prisma = new PrismaClient();
 
 class atividadesController{
-    async listOne(req: Request, res: Response){
+    async listOne(req: Request, res: Response, next: NextFunction){
         const {id} = req.params;
 
         try {
@@ -16,11 +17,12 @@ class atividadesController{
             
             return res.json(result);
         } catch (error) {
-            return res.status(404).json({error: error.message});
+            const err = new InternalError('Falha ao listar uma atividade!', 400, error.message);
+            next(err);
         }
     }
 
-    async list(req: any, res: Response){
+    async list(req: any, res: Response, next: NextFunction){
 		const {idTopico} = req.query;
 
         if (idTopico) req.query.idTopico = Number(idTopico);
@@ -32,11 +34,12 @@ class atividadesController{
             
             return res.json(results);
         } catch (error) {
-            return res.status(404).json({error: error.message});
+            const err = new InternalError('Falha ao listar todas as atividades!', 400, error.message);
+            next(err);
         }
     }
 
-    async create(req: Request, res: Response){
+    async create(req: Request, res: Response, next: NextFunction){
 		try {
 			await prisma.atividades.create({
 				data: {
@@ -46,11 +49,12 @@ class atividadesController{
             
             return res.status(201).json({message: "OK"});
 		} catch (error) {
-			return res.status(404).json({error: error.message });
+			const err = new InternalError('Falha ao criar uma atividade!', 400, error.message);
+            next(err);
 		}
 	}
 
-    async update(req: Request, res: Response){
+    async update(req: Request, res: Response, next: NextFunction){
         const {id} = req.params;
         try {
 			await prisma.atividades.update({
@@ -64,7 +68,8 @@ class atividadesController{
             
             return res.status(200).json({message: "OK"});
 		} catch (error) {
-			return res.status(404).json({error: error.message });
+			const err = new InternalError('Falha ao atualizar uma atividade!', 400, error.message);
+            next(err);
 		}
     }
 }

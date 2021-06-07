@@ -1,10 +1,11 @@
-import {Request, Response} from 'express';
+import {NextFunction, Request, Response} from 'express';
 import { PrismaClient } from '@prisma/client';
+import { InternalError } from '../errors/InternalError';
 
 const prisma = new PrismaClient();
 
 class turmasController{
-    async listOne(req: Request, res: Response){
+    async listOne(req: Request, res: Response, next: NextFunction){
         const {id} = req.params;
 
         try {
@@ -16,11 +17,12 @@ class turmasController{
             
             return res.json(result);
         } catch (error) {
-            return res.status(404).json({error: error.message});
+            const err = new InternalError('Falha ao listar uma turma!', 400, error.message); 
+            next(err);
         }
     }
 
-	async list(req: any, res: Response){
+	async list(req: any, res: Response, next: NextFunction){
         const {idSerie} = req.query;
 
         if (idSerie) req.query.idSerie = Number(idSerie);
@@ -32,50 +34,12 @@ class turmasController{
             
             return res.json(results);
         } catch (error) {
-            return res.status(404).json({error: error.message});
+            const err = new InternalError('Falha ao listar as turmas!', 400, error.message); 
+            next(err);
         }
     }
 
-	async create(req: Request, res: Response){
-		try {
-			await prisma.turmas.create({
-				data: {
-					...req.body
-				}
-			});
-            
-            return res.status(201).json({message: "OK"});
-		} catch (error) {
-			return res.status(404).json({error: error.message });
-		}
-	}
-
-	async listByAluno(req: Request, res: Response){
-        const {id} = req.params;
-
-        try {
-            const {idSerie} = await prisma.alunos.findFirst({
-				select: {
-					idSerie: true
-				}, 
-				where: {
-					ra: Number(id)
-				}
-			});
-
-			const result = await prisma.turmas.findMany({
-                where: {
-                    idSerie: idSerie
-                }
-            });
-            
-            return res.json(result);
-        } catch (error) {
-            return res.status(404).json({error: error.message});
-        }
-    } 
-
-    async listByProfessor(req: Request, res: Response){
+    async listByProfessor(req: Request, res: Response, next: NextFunction){
         const {id} = req.params;
 
         try {
@@ -87,9 +51,51 @@ class turmasController{
             
             return res.json(result);
         } catch (error) {
-            return res.status(404).json({error: error.message});
+            const err = new InternalError('Falha ao listar as turmas filtrando por professor!', 400, error.message); 
+            next(err);
         }
     } 
+
+	async listByAluno(req: Request, res: Response, next: NextFunction){
+        const {id} = req.params;
+        
+        try {
+            const {idSerie} = await prisma.alunos.findFirst({
+				select: {
+                    idSerie: true
+				}, 
+				where: {
+                    ra: Number(id)
+				}
+			});
+            
+			const result = await prisma.turmas.findMany({
+                where: {
+                    idSerie: idSerie
+                }
+            });
+            
+            return res.json(result);
+        } catch (error) {
+            const err = new InternalError('Falha ao listar as turmas filtrando por aluno!', 400, error.message); 
+            next(err);
+        }
+    }
+
+    async create(req: Request, res: Response, next: NextFunction){
+        try {
+            await prisma.turmas.create({
+                data: {
+                    ...req.body
+                }
+            });
+            
+            return res.status(201).json({message: "OK"});
+        } catch (error) {
+            const err = new InternalError('Falha ao criar uma turma!', 400, error.message); 
+            next(err);
+        }
+    }
 }
 
 export default new turmasController();

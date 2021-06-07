@@ -1,10 +1,11 @@
-import {Request, Response} from 'express';
+import { InternalError } from './../errors/InternalError';
+import {NextFunction, Request, Response} from 'express';
 import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
 class topicosController{
-    async listOne(req: Request, res: Response){
+    async listOne(req: Request, res: Response, next: NextFunction){
         const {id} = req.params;
 
         try {
@@ -16,11 +17,12 @@ class topicosController{
             
             return res.json(result);
         } catch (error) {
-            return res.status(404).json({error: error.message});
+            const err = new InternalError('Falha ao listar um tópico!', 400, error.message); 
+            next(err);
         }
     }
 
-    async list(req: any, res: Response){
+    async list(req: any, res: Response, next: NextFunction){
 		const {idTurma} = req.query;
 
         if (idTurma) req.query.idTurma = Number(idTurma);
@@ -32,11 +34,12 @@ class topicosController{
             
             return res.json(results);
         } catch (error) {
-            return res.status(404).json({error: error.message});
+            const err = new InternalError('Falha ao listar todos os tópicos!', 400, error.message); 
+            next(err);
         }
     }
 
-    async create(req: Request, res: Response){
+    async create(req: Request, res: Response, next: NextFunction){
 		try {
 			await prisma.topicos.create({
 				data: {
@@ -46,7 +49,8 @@ class topicosController{
             
             return res.status(201).json({message: "OK"});
 		} catch (error) {
-			return res.status(404).json({error: error.message });
+			const err = new InternalError('Falha ao criar um tópico!', 400, error.message); 
+            next(err);
 		}
 	}
 }

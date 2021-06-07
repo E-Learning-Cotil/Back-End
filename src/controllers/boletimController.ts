@@ -1,10 +1,11 @@
-import { Request, Response} from 'express';
+import { Request, Response, NextFunction } from 'express';
 import { PrismaClient } from '@prisma/client';
+import { InternalError } from '../errors/InternalError';
 
 const prisma = new PrismaClient();
 
 class boletimController{
-    async get(req: Request, res: Response){
+    async get(req: Request, res: Response, next: NextFunction){
         const {id} = req.params;
 
 		try {
@@ -65,7 +66,8 @@ class boletimController{
             
 			return res.json(notasPorTurmas);
 		} catch (error) {
-			return res.status(404).json("Erro ao gerar o boletim");
+			const err = new InternalError('Falha ao carregar o boletim!', 400, error.message);
+            next(err);
 		}
     }
 }

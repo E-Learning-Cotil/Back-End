@@ -1,10 +1,11 @@
-import {Request, Response} from 'express';
+import {Request, Response, NextFunction} from 'express';
 import { PrismaClient } from '@prisma/client';
+import { InternalError } from '../errors/InternalError';
 
 const prisma = new PrismaClient();
 
 class SeriesController{
-    async list(req: Request, res: Response){
+    async list(req: Request, res: Response, next: NextFunction){
         try {
             const results = await prisma.series.findMany({
                 where: req.query,
@@ -17,11 +18,12 @@ class SeriesController{
             
             return res.json(results);
         } catch (error) {
-            return res.status(404).json({error: error.message});
+            const err = new InternalError('Falha ao listar todas as séries!', 400, error.message);
+            next(err);
         }
     }
 
-    async create(req: Request, res: Response){
+    async create(req: Request, res: Response, next: NextFunction){
         const {curso, tipo, periodo} = req.body;
         
         let siglaCurso;
@@ -72,7 +74,8 @@ class SeriesController{
 
             return res.status(201).json({message: "OK"});
         } catch (error) {
-            return res.status(404).json({error: error.message});
+            const err = new InternalError('Falha ao criar uma nova série!', 400, error.message); 
+            next(err);
         }
     }
 }

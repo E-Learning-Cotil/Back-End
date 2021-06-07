@@ -1,10 +1,11 @@
-import { Request, Response} from 'express';
+import { Request, Response, NextFunction } from 'express';
 import { PrismaClient } from '@prisma/client';
+import { InternalError } from '../errors/InternalError';
 
 const prisma = new PrismaClient();
 
 class homePageController{
-	async get(req: Request, res: Response){
+	async get(req: Request, res: Response, next: NextFunction){
         const {id} = req.params;
         const {amount = 6} = req.query;
 
@@ -69,7 +70,8 @@ class homePageController{
             return res.json(response);
 
         } catch (error) {
-			return res.status(404).json("Erro ao carregar os itens da homepage");
+			const err = new InternalError('Falha ao carregar os itens da página principal', 400, error.message);
+            next(err);
         }
     }
 }
