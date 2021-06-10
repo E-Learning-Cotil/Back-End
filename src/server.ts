@@ -17,7 +17,7 @@ app.use((req, res, next) => {
 });
 
 app.use((error, req, res, next) => {
-    const err = new InternalError(null, error.status, error.message);
+    const err = new InternalError(error.message, error.status, error.description);
 
     res
         .status(err.status)
