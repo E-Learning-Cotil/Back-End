@@ -1,5 +1,7 @@
 import express from 'express';
 
+import storage from './config/storage';
+
 import renderDocs from './docs';
 
 import SeriesController from './controllers/seriesController';
@@ -18,6 +20,8 @@ import TestesAlunoController from './controllers/testesAlunoController';
 import BoletimController from './controllers/boletimController';
 
 import HomePageController from './controllers/homePageController';
+
+import ImagesController from './controllers/imagesController';
 
 import basicAuth from './middlewares/basicAuth';
 
@@ -89,5 +93,8 @@ router.get('/boletim/:id', BoletimController.get);
 
 //Home Page
 router.get('/homepage/:id', HomePageController.get);
+
+//Imagens
+router.post('/upload', storage.single('file'), ImagesController.upload);
 
 export default router;
