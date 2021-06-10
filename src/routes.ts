@@ -95,6 +95,6 @@ router.get('/boletim/:id', BoletimController.get);
 router.get('/homepage/:id', HomePageController.get);
 
 //Imagens
-router.post('/upload', storage.single('file'), ImagesController.upload);
+router.post('/image/upload', storage.single('file'), ImagesController.upload);
 
 export default router;
