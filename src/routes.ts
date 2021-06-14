@@ -14,6 +14,8 @@ import MateriaisController from './controllers/materiaisController';
 import AtividadesController from './controllers/atividadesController';
 import TestesController from './controllers/testesController';
 
+import ConversasController from './controllers/conversasController';
+
 import AtividadesAlunoController from './controllers/atividadesAlunoController';
 import TestesAlunoController from './controllers/testesAlunoController';
 
@@ -87,6 +89,11 @@ router.get('/testes-aluno/list-one/:id', TestesAlunoController.listOne);
 router.get('/testes-aluno/list/', TestesAlunoController.list);
 router.post('/testes-aluno/create/', TestesAlunoController.create);
 router.put('/testes-aluno/update/:id', TestesAlunoController.update);
+
+//Conversas
+router.get('/conversas', ConversasController.list);
+router.post('/conversas', ConversasController.create);
+router.get('/conversas/mensagens/:id', ConversasController.listMessages);
 
 //Boletim
 router.get('/boletim/:id', BoletimController.get);

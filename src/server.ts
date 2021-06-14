@@ -1,7 +1,8 @@
-import { InternalError } from './errors/InternalError';
-require("dotenv").config();
+require("dotenv").config();    
 import express from 'express';
 import cors from 'cors';
+
+import { InternalError } from './errors/InternalError';
 
 import routes from './routes';
 
