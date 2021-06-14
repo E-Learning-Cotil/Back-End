@@ -50,7 +50,7 @@ async function main() {
 				email: 'emailAluno1@email.com',
 				nome: 'João',
 				idSerie: 1,
-				foto: 'fotoJoão',
+				foto: 'https://i.imgur.com/5hT8bpz.jpg',
 				senha: '$2b$10$UMhTts2J9TZ73yYnhpoVz.X374teS6sIff29VntcbFvLlx5RdTBqi'
 			},
 			{
@@ -58,7 +58,7 @@ async function main() {
 				email: 'emailAluno2@email.com',
 				nome: 'José',
 				idSerie: 2,
-				foto: 'fotoJosé',
+				foto: 'https://i.imgur.com/5hT8bpz.jpg',
 				senha: '$2b$10$UMhTts2J9TZ73yYnhpoVz.X374teS6sIff29VntcbFvLlx5RdTBqi'
 			},
 			{
@@ -66,7 +66,7 @@ async function main() {
 				email: 'emailAluno3@email.com',
 				nome: 'Jorge',
 				idSerie: 3,
-				foto: 'fotoJorge',
+				foto: 'https://i.imgur.com/5hT8bpz.jpg',
 				senha: '$2b$10$UMhTts2J9TZ73yYnhpoVz.X374teS6sIff29VntcbFvLlx5RdTBqi'
 			},
 			{
@@ -74,7 +74,7 @@ async function main() {
 				email: 'emailAluno4@email.com',
 				nome: 'Josué',
 				idSerie: 4,
-				foto: 'fotoJosué',
+				foto: 'https://i.imgur.com/5hT8bpz.jpg',
 				senha: '$2b$10$UMhTts2J9TZ73yYnhpoVz.X374teS6sIff29VntcbFvLlx5RdTBqi'
 			},
 		],
@@ -88,7 +88,7 @@ async function main() {
 				email: 'emailProfessor1@email.com',
 				nome: 'Maria',
 				rg: '123',
-				foto: 'fotoMaria',
+				foto: 'https://i.imgur.com/bHx9lr1.jpg',
 				senha: '$2b$10$UMhTts2J9TZ73yYnhpoVz.X374teS6sIff29VntcbFvLlx5RdTBqi'
 			},
 			{
@@ -96,7 +96,7 @@ async function main() {
 				email: 'emailProfessor2@email.com',
 				nome: 'Márcia',
 				rg: '321',
-				foto: 'fotoMárcia',
+				foto: 'https://i.imgur.com/bHx9lr1.jpg',
 				senha: '$2b$10$UMhTts2J9TZ73yYnhpoVz.X374teS6sIff29VntcbFvLlx5RdTBqi'
 			},
 			{
@@ -104,7 +104,7 @@ async function main() {
 				email: 'emailProfessor3@email.com',
 				nome: 'Mônica',
 				rg: '789',
-				foto: 'fotoMônica',
+				foto: 'https://i.imgur.com/bHx9lr1.jpg',
 				senha: '$2b$10$UMhTts2J9TZ73yYnhpoVz.X374teS6sIff29VntcbFvLlx5RdTBqi'
 			},
 			{
@@ -112,7 +112,7 @@ async function main() {
 				email: 'emailProfessor4@email.com',
 				nome: 'Mariana',
 				rg: '987',
-				foto: 'fotoMariana',
+				foto: 'https://i.imgur.com/bHx9lr1.jpg',
 				senha: '$2b$10$UMhTts2J9TZ73yYnhpoVz.X374teS6sIff29VntcbFvLlx5RdTBqi'
 			},
 		],

@@ -68,12 +68,19 @@ enum TipoSerie {
 model Conversas{
   id Int @id @default(autoincrement())
   mensagem String
-
+  origem OrigemMensagem
+  data DateTime @default(now())
+  
   rgProfessor String
   professor Professores @relation(fields: [rgProfessor], references: [rg])
 
   raAluno Int
   aluno Alunos @relation(fields: [raAluno], references: [ra])
+}
+
+enum OrigemMensagem {
+  PROFESSOR
+  ALUNO
 }
 
 //Turmas
