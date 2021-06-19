@@ -6,8 +6,10 @@ CREATE TABLE `Alunos` (
     `email` VARCHAR(191) NOT NULL,
     `nome` VARCHAR(191) NOT NULL,
     `foto` VARCHAR(191) NOT NULL,
+    `socket` VARCHAR(191),
     `idSerie` INTEGER NOT NULL,
 UNIQUE INDEX `Alunos.email_unique`(`email`),
+UNIQUE INDEX `Alunos.socket_unique`(`socket`),
 
     PRIMARY KEY (`ra`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
@@ -57,7 +59,9 @@ CREATE TABLE `Professores` (
     `email` VARCHAR(191) NOT NULL,
     `nome` VARCHAR(191) NOT NULL,
     `foto` VARCHAR(191) NOT NULL,
+    `socket` VARCHAR(191),
 UNIQUE INDEX `Professores.email_unique`(`email`),
+UNIQUE INDEX `Professores.socket_unique`(`socket`),
 
     PRIMARY KEY (`rg`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;

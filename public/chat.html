@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/3.1.3/socket.io.min.js"></script>
+    <style>
+        .mine{
+            margin-left: 50px;
+        }
+    </style>
+</head>
+<body>
+    <h1>UI Teste - CHAT</h1>
+
+    <h2>Definição de usuário:</h2>
+    <span>Cargo: </span> <input type="text" id="role"><br>
+    <span>Identificador: </span> <input type="text" id="identity"><br>
+    <button onclick="identify()">Se identificar</button>
+
+    <h2>Pessoas: </h2>
+    <div id="people">
+    </div>
+
+    <h2>Mandar mensagem:</h2>
+    <div id="messages">
+    </div>
+    <input type="text" id="msg">
+    <button onclick="sendMessage()">
+        Enviar
+    </button>
+
+    <script type="text/javascript">
+        let socket;
+        let otherUser;
+
+        (() => {
+            socket = new io("http://localhost:3334");
+            
+            socket.on("conversations", data => loadConversas(data));
+            socket.on("previous_messages", data => loadMensagens(data));
+            socket.on("new_message", data => loadMensagens(data));
+        })()
+        
+        function identify(){
+            const identity = document.getElementById("identity").value;
+            const role = document.getElementById("role").value;
+
+            socket.emit("identify", {identity, role});
+        }
+        
+        function loadConversas(data){
+            const peopleDiv = document.getElementById("people");
+
+            data.map(({data, mensagem, ...rest}) => {
+                let id;
+                let nome;
+                if(document.getElementById("role").value === "PROFESSOR"){
+                    id = rest.raAluno;
+                    nome = rest.aluno.nome;
+                }else{
+                    id = rest.rgProfessor;
+                    nome = rest.professor.nome;
+                }
+                const btn = document.createElement('button');
+                btn.innerHTML = `${nome}(${mensagem}) - ${data}`;
+                btn.addEventListener('click', () => open_conversation(id));
+                peopleDiv.appendChild(btn);
+            })
+        }
+
+        function open_conversation(id){
+            socket.emit("open_chat", {otherUser: id});
+            otherUser = id;
+        }
+
+        function loadMensagens(data){
+            const messagesDiv = document.getElementById("people");
+
+            data.map(({data, mensagem, origem}) => {
+                const paragraph = document.createElement('p');
+                paragraph.innerHTML = `<b>${mensagem}</b> - ${data}`;
+
+                if(document.getElementById("role").value === origem){
+                    paragraph.classList.add("mine");
+                }
+
+                messagesDiv.appendChild(paragraph);
+            })
+        }
+
+        function sendMessage(){
+            const message = document.getElementById("msg").value;
+            socket.emit("new_message", {message, otherUser});
+        }
+
+        // document.getElementById("join").addEventListener('click', function(){
+        //     if(!socket){
+        //         socket.emit("identify", {identity: "123", role: "PROFESSOR"});
+        //         socket.on("conversations", data => console.log("Conversas: ", data));
+        //         socket.on("previous_messages", data => console.log("Anteriores: ", data));
+        //         socket.on("new_message", data => console.log("Nova msg: ", data))
+        //     }
+        // })
+        
+        // document.getElementById("open").addEventListener('click', function(){
+        //     if(!socket){
+        //         return;
+        //     }
+            
+        //     socket.emit("open_chat", {otherUser: 1});
+        // })
+
+        // document.getElementById("send").addEventListener('click', function(){
+        //     if(!socket){
+        //         return;
+        //     }
+            
+        //     socket.emit('new_message', {message: 'Hello World', otherUser: 1});
+        // })
+
+        
+    </script>
+</body>
+</html>

@@ -20,6 +20,7 @@ model Alunos{
   email String @unique
   nome String
   foto String
+  socket String? @unique
   
   idSerie Int
   serie Series @relation(fields: [idSerie], references: [id])
@@ -112,6 +113,7 @@ model Professores {
   email String @unique
   nome String
   foto String
+  socket String? @unique
   
   conversas Conversas[]
 
