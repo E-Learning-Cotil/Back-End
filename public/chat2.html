@@ -37,7 +37,7 @@
         let otherUser;
 
         (() => {
-            socket = new io("http://ac046488203d.ngrok.io/");
+            socket = new io("http://8f8d37651986.ngrok.io");
             
             socket.on("conversations", data => loadConversas(data));
             socket.on("previous_messages", data => loadMensagens(data));
@@ -45,10 +45,7 @@
         })()
         
         function identify(){
-            const identity = document.getElementById("identity").value;
-            const role = document.getElementById("role").value;
-
-            socket.emit("identify", {identity, role});
+            socket.emit("identify", {credentials: getCredentials()});
         }
         
         function loadConversas(data){
@@ -72,12 +69,12 @@
         }
 
         function open_conversation(id){
-            socket.emit("open_chat", {otherUser: id});
+            socket.emit("open_chat", {otherUser: id, credentials: getCredentials()});
             otherUser = id;
         }
 
         function loadMensagens(data){
-            const messagesDiv = document.getElementById("people");
+            const messagesDiv = document.getElementById("messages");
 
             data.map(({data, mensagem, origem}) => {
                 const paragraph = document.createElement('p');
@@ -93,35 +90,15 @@
 
         function sendMessage(){
             const message = document.getElementById("msg").value;
-            socket.emit("new_message", {message, otherUser});
+            socket.emit("new_message", {message, otherUser, credentials: getCredentials()});
+        }  
+
+        function getCredentials(){
+            const identity = document.getElementById("identity").value;
+            const role = document.getElementById("role").value;
+
+            return {role, identity};
         }
-
-        // document.getElementById("join").addEventListener('click', function(){
-        //     if(!socket){
-        //         socket.emit("identify", {identity: "123", role: "PROFESSOR"});
-        //         socket.on("conversations", data => console.log("Conversas: ", data));
-        //         socket.on("previous_messages", data => console.log("Anteriores: ", data));
-        //         socket.on("new_message", data => console.log("Nova msg: ", data))
-        //     }
-        // })
-        
-        // document.getElementById("open").addEventListener('click', function(){
-        //     if(!socket){
-        //         return;
-        //     }
-            
-        //     socket.emit("open_chat", {otherUser: 1});
-        // })
-
-        // document.getElementById("send").addEventListener('click', function(){
-        //     if(!socket){
-        //         return;
-        //     }
-            
-        //     socket.emit('new_message', {message: 'Hello World', otherUser: 1});
-        // })
-
-        
     </script>
 </body>
 </html>
