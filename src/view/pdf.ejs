@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;700&family=Righteous&display=swap" rel="stylesheet">
+    <title>Boletim - <%=name %> <%=ra %></title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        header{
+            width: 100%;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo{
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+        }
+
+        .logo h2{
+            font-family: 'Righteous', sans-serif;
+            font-weight: normal;
+        }
+
+        .profile{
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+        }
+
+        .profile-info{
+            display: flex;
+            flex-direction: column;
+            text-align: right;
+        }
+
+        .profile-info p{
+            font-family: 'Quicksand', sans-serif;
+        }
+
+        .profile img{
+            height: 60px;
+            width: 60px;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+
+        .title{
+            margin-top: 40px;
+            font-family: 'Righteous', sans-serif;
+            font-weight: normal;
+        }
+
+        table{
+            width: 100%;
+            border-collapse: collapse;
+            border: 1px solid black;
+            margin-top: 20px;
+        }
+
+        tr{
+            text-align: left;
+            border: 1px solid black;
+        }
+
+        tr *{
+            padding: 10px;
+            border-right: 1px solid black;
+        }
+
+        th{
+            font-family: 'Righteous', sans-serif;
+            font-weight: normal;
+        }
+
+        td{
+            font-family: 'Quicksand', sans-serif;
+        }
+
+        footer{
+            margin-top: 30px;
+        }
+
+        footer h2{
+            font-family: 'Righteous', sans-serif;
+            font-weight: normal;
+        }
+
+        footer .sub-box{
+            margin-top: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+        }
+
+        footer .sub-box span{
+            font-family: 'Quicksand', sans-serif;
+            margin-left: 10px;
+        }
+
+        .square{
+            width: 16px;
+            height: 16px;
+        }
+
+        .red{
+            color: #f00;
+        }
+
+        .yellow{
+            color: #E5B300;
+        }
+
+        .green{
+            color: #35C311;
+        }
+        
+        .red-bg{
+            background: #f00;
+        }
+
+        .yellow-bg{
+            background: #E5B300;
+        }
+
+        .green-bg{
+            background: #35C311;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <img src="https://i.imgur.com/fWws2fz.png" alt="E-Learning">
+            <h2>E-Learning</h2>
+        </div>
+        <div class="profile">
+            <div class="profile-info">
+                <p><%=name %></p>
+                <p><%=ra %></p>
+            </div>
+            <img src="<%=img %>" alt="José Pereira">
+        </div>
+    </header>
+    <h1 class="title">Boletim</h1>
+    <main>
+        <% if(boletim.length > 0){ %>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nome da matéria</th>
+                        <th>Média dos testes</th>
+                        <th>Média das atividades</th>
+                        <th>Média final</th>    
+                    </tr>
+                </thead>
+                <tbody>
+                    <% boletim.forEach(materia => { %>
+                        <tr>
+                            <td><%=materia.nome %></td>
+                            <td><%=materia.mediaTestes %></td>
+                            <td><%=materia.mediaAtividades %></td>
+                            
+                            <% if(materia.mediaTurma < 3) { %>
+                                <td class="red">
+                            <% } else if(materia.mediaTurma < 6) { %>
+                                <td class="yellow">
+                            <% } else { %>
+                                <td class="green">
+                            <% } %>
+                            <%=materia.mediaTurma %></td>
+                        </tr>
+                    <% }) %>
+                </tbody>
+            </table>
+        <% } %>
+    </main>
+    <footer>
+        <h2>Legenda:</h2>
+        <div class="sub-box">
+            <div class="square red-bg"></div>
+            <span>Reprovado</span>
+        </div>
+        <div class="sub-box">
+            <div class="square yellow-bg"></div>
+            <span>Recuperação</span>
+        </div>
+        <div class="sub-box">
+            <div class="square green-bg"></div>
+            <span>Aprovado</span>
+        </div>
+    </footer>
+</body>
+</html>

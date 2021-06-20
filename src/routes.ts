@@ -97,6 +97,8 @@ router.get('/conversas/mensagens/:id', ConversasController.listMessages);
 
 //Boletim
 router.get('/boletim/:id', BoletimController.get);
+router.get('/boletim/render-pdf/:id', BoletimController.renderFile);
+router.get('/boletim/create-pdf/:id', BoletimController.createFile);
 
 //Home Page
 router.get('/homepage/:id', HomePageController.get);
