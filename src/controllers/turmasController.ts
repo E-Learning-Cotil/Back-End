@@ -82,10 +82,17 @@ class turmasController{
     }
 
     async create(req: Request, res: Response, next: NextFunction){
+        const { nome, icone, corPrim, corSec, idSerie, rgProfessor } = req.body;
+
         try {
             await prisma.turmas.create({
                 data: {
-                    ...req.body
+                    nome,
+                    icone,
+                    corPrim,
+                    corSec,
+                    idSerie,
+                    rgProfessor
                 }
             });
             

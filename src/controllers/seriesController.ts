@@ -24,7 +24,7 @@ class SeriesController{
     }
 
     async create(req: Request, res: Response, next: NextFunction){
-        const {curso, tipo, periodo} = req.body;
+        const {curso, tipo, periodo, ano} = req.body;
         
         let siglaCurso;
         switch (curso) {
@@ -67,7 +67,10 @@ class SeriesController{
         try {
             await prisma.series.create({
                 data: {
-                    ...req.body,
+                    ano,
+                    curso,
+                    periodo,
+                    tipo,
                     sigla
                 }
             });

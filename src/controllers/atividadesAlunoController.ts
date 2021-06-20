@@ -42,8 +42,9 @@ class atividadesAlunoController{
         }
     }
 
-    async create(req: Request, res: Response, next: NextFunction){
-        const {idAtividade, raAluno} = req.body;
+    async create(req: any, res: Response, next: NextFunction){
+        const { user: raAluno } = req;
+        const { link, nome, idAtividade, idTurma } = req.body;
 
 		try {
             const result = await prisma.atividadesAluno.findFirst({
@@ -57,7 +58,11 @@ class atividadesAlunoController{
 
 			await prisma.atividadesAluno.create({
 				data: {
-					...req.body
+					link,
+                    nome,
+                    raAluno,
+                    idAtividade,
+                    idTurma
 				}
 			});
             
@@ -69,14 +74,16 @@ class atividadesAlunoController{
 	}
 
     async update(req: Request, res: Response, next: NextFunction){
-        const {id} = req.params;
+        const { id } = req.params;
+        const { nota } = req.body;
+
         try {
 			await prisma.atividadesAluno.update({
                 where: {
                     id: Number(id)
                 },
                 data: {
-                    ...req.body
+                    nota
                 }
             });
             

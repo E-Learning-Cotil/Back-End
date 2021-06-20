@@ -40,14 +40,18 @@ class topicosController{
     }
 
     async create(req: Request, res: Response, next: NextFunction){
+        const {nome, descricao, idTurma} = req.body;
+
 		try {
 			await prisma.topicos.create({
 				data: {
-					...req.body
+					nome,
+                    descricao,
+                    idTurma
 				}
 			});
             
-            return res.status(201).json({message: "OK"});
+            return res.status(201).json({message: "Tópico criado com sucesso!"});
 		} catch (error) {
 			const err = new InternalError('Falha ao criar um tópico!', 400, error.message); 
             next(err);

@@ -23,14 +23,22 @@ class testesController{
     }
 
     async list(req: any, res: Response, next: NextFunction){
-		const {idTopico} = req.query;
-
-        if (idTopico) req.query.idTopico = Number(idTopico);
+		const { idTopico } = req.query;
 
         try {
-            const results = await prisma.testes.findMany({
-                where: req.query
-            });
+            let results = null;
+
+            if(idTopico){
+                results = await prisma.testes.findMany({
+                    where: {
+                        idTopico: parseInt(idTopico)
+                    }
+                });
+            }else{
+                results = await prisma.testes.findMany();
+            }
+
+            if(!results) return res.json("Nenhum teste encontrado!");
             
             return res.json(results);
         } catch (error) {
@@ -40,14 +48,19 @@ class testesController{
     }
 
     async create(req: Request, res: Response, next: NextFunction){
+        const {conteudo, dataInicio, dataFim, idTopico} = req.body;
+
 		try {
 			await prisma.testes.create({
 				data: {
-					...req.body
+					conteudo, 
+                    dataInicio, 
+                    dataFim, 
+                    idTopico
 				}
 			});
             
-            return res.status(201).json({message: "OK"});
+            return res.status(201).json({message: "Teste criado com sucesso!"});
 		} catch (error) {
 			const err = new InternalError('Falha ao criar um teste!', 400, error.message); 
             next(err);
@@ -55,18 +68,23 @@ class testesController{
 	}
 
     async update(req: Request, res: Response, next: NextFunction){
+        const {conteudo, dataInicio, dataFim } = req.body;
+
         const {id} = req.params;
+
         try {
 			await prisma.testes.update({
                 where: {
                     id: Number(id)
                 },
                 data: {
-                    ...req.body
+                    conteudo, 
+                    dataInicio, 
+                    dataFim
                 }
             });
             
-            return res.status(200).json({message: "OK"});
+            return res.status(200).json({message: "Teste atualizado com sucesso!"});
 		} catch (error) {
 			const err = new InternalError('Falha ao atualizar um teste!', 400, error.message); 
             next(err);

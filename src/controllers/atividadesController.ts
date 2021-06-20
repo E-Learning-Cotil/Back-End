@@ -23,15 +23,24 @@ class atividadesController{
     }
 
     async list(req: any, res: Response, next: NextFunction){
-		const {idTopico} = req.query;
+		const { idTopico } = req.query;
 
         try {
-            const results = await prisma.atividades.findMany({
-                where: {
-                    idTopico: parseInt(idTopico)
-                }
-            });
-            
+            let results = null;
+
+            if (idTopico) {
+                results = await prisma.atividades.findMany({
+                    where: {
+                        idTopico: parseInt(idTopico)
+                    }
+                });
+            }
+            else {
+                results = await prisma.atividades.findMany();
+            }
+
+            if(!results) return res.json("Nenhuma atividade encontrada!");
+
             return res.json(results);
         } catch (error) {
             const err = new InternalError('Falha ao listar todas as atividades!', 400, error.message);
@@ -40,14 +49,20 @@ class atividadesController{
     }
 
     async create(req: Request, res: Response, next: NextFunction){
+        const { nome, conteudo, dataInicio, dataFim, idTopico } = req.body;
+
 		try {
 			await prisma.atividades.create({
 				data: {
-					...req.body
+					nome, 
+                    conteudo,
+                    dataInicio,
+                    dataFim,
+                    idTopico
 				}
 			});
             
-            return res.status(201).json({message: "OK"});
+            return res.status(201).json({message: "Atividade criada com sucesso!"});
 		} catch (error) {
 			const err = new InternalError('Falha ao criar uma atividade!', 400, error.message);
             next(err);
@@ -55,6 +70,8 @@ class atividadesController{
 	}
 
     async update(req: Request, res: Response, next: NextFunction){
+        const { nome, conteudo, dataInicio, dataFim, idTopico } = req.body;
+
         const {id} = req.params;
         try {
 			await prisma.atividades.update({
@@ -62,11 +79,14 @@ class atividadesController{
                     id: Number(id)
                 },
                 data: {
-                    ...req.body
+                    nome, 
+                    conteudo,
+                    dataInicio,
+                    dataFim
                 }
             });
             
-            return res.status(200).json({message: "OK"});
+            return res.status(200).json({message: "Atividade atualizada com sucesso!"});
 		} catch (error) {
 			const err = new InternalError('Falha ao atualizar uma atividade!', 400, error.message);
             next(err);

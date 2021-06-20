@@ -57,17 +57,23 @@ class AlunosController{
     }
 
 	async create(req: Request, res: Response, next: NextFunction){
-        const senha = await encryptPassword("123456");
+        const { telefone, email, nome, foto, idSerie } = req.body;
+
+		const senha = await encryptPassword("123456");
 
 		try {
 			await prisma.alunos.create({
 				data: {
-					...req.body,
+					telefone,
+					email,
+					nome,
+					foto,
+					idSerie,
 					senha
 				}
 			});
             
-            return res.status(201).json({message: "OK"});
+            return res.status(201).json({message: "Aluno criado!"});
 		} catch (error) {
 			const err = new InternalError('Falha ao criar um aluno!', 400, error.message);
             next(err);
@@ -75,21 +81,29 @@ class AlunosController{
 	}
 
     async update(req: any, res: Response, next: NextFunction){
-        req.body.senha = await encryptPassword(req.body.senha);
+		const { telefone, email, nome, foto, idSerie } = req.body;
+		
+		let { senha } = req.body;
+        senha = await encryptPassword(senha);
         
-		const { user } = req;
+		const { user: id } = req;
 
         try {
 			await prisma.alunos.update({
                 where: {
-                    ra: Number(user)
+                    ra: Number(id)
                 },
                 data: {
-                    ...req.body
+                    telefone,
+					email,
+					nome,
+					foto,
+					idSerie,
+					senha
                 }
             });
             
-            return res.status(200).json({message: "OK"});
+            return res.status(200).json({message: "Aluno atualizado!"});
 		} catch (error) {
 			const err = new InternalError('Falha ao atualizar um aluno!', 400, error.message);
             next(err);

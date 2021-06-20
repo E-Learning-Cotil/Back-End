@@ -42,8 +42,9 @@ class testesAlunoController{
         }
     }
 
-    async create(req: Request, res: Response, next: NextFunction){
-        const {idTeste, raAluno} = req.body;
+    async create(req: any, res: Response, next: NextFunction){
+        const {idTeste, idTurma, nota} = req.body;
+        const {user: raAluno} = req;
 
 		try {
             const result = await prisma.testesAluno.findFirst({
@@ -57,11 +58,14 @@ class testesAlunoController{
 
 			await prisma.testesAluno.create({
 				data: {
-					...req.body
+					nota,
+                    idTeste,
+                    idTurma,
+                    raAluno
 				}
 			});
             
-            return res.status(201).json({message: "OK"});
+            return res.status(201).json({message: "Teste aluno criado com sucesso!"});
 		} catch (error) {
 			const err = new InternalError('Falha ao criar um teste feito por um aluno!', 400, error.message); 
             next(err);
@@ -69,18 +73,20 @@ class testesAlunoController{
 	}
 
     async update(req: Request, res: Response, next: NextFunction){
+        const {nota} = req.body;
         const {id} = req.params;
+
         try {
 			await prisma.testesAluno.update({
                 where: {
                     id: Number(id)
                 },
                 data: {
-                    ...req.body
+                    nota
                 }
             });
             
-            return res.status(200).json({message: "OK"});
+            return res.status(200).json({message: "Teste aluno atualizado com sucesso!"});
 		} catch (error) {
 			const err = new InternalError('Falha ao atualizar um teste feito por um aluno!', 400, error.message); 
             next(err);

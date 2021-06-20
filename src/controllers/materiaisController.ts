@@ -23,16 +23,25 @@ class materiaisController{
     }
 
     async list(req: any, res: Response, next: NextFunction){
-        const {idTopico} = req.query;
+        const { idTopico } = req.query;
 
         try {
 
-            const results = await prisma.materiais.findMany({
-                where: {
-                    idTopico: parseInt(idTopico)
-                }
-            });
-            
+            let results = null;
+
+            if (idTopico) {
+                results = await prisma.materiais.findMany({
+                    where: {
+                        idTopico: parseInt(idTopico)
+                    }
+                });
+            }
+            else {
+                results = await prisma.materiais.findMany();
+            }
+
+            if(!results) return res.json("Nenhum material encontrado!");
+
             return res.json(results);
         } catch (error) {
             const err = new InternalError('Falha ao listar todos os materiais!', 400, error.message);
@@ -41,10 +50,14 @@ class materiaisController{
     }
 
     async create(req: Request, res: Response, next: NextFunction){
+        const { conteudo, nome, idTopico } = req.body;
+
 		try {
 			await prisma.materiais.create({
 				data: {
-					...req.body
+					conteudo,
+                    nome,
+                    idTopico
 				}
 			});
             
@@ -57,13 +70,17 @@ class materiaisController{
 
     async update(req: Request, res: Response, next: NextFunction){
         const {id} = req.params;
+
+        const { conteudo, nome } = req.body;
+
         try {
 			await prisma.materiais.update({
                 where: {
                     id: Number(id)
                 },
                 data: {
-                    ...req.body
+                    conteudo,
+                    nome
                 }
             });
             
