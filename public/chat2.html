@@ -16,9 +16,8 @@
     <h1>UI Teste - CHAT</h1>
 
     <h2>Definição de usuário:</h2>
-    <span>Cargo: </span> <input type="text" id="role"><br>
-    <span>Identificador: </span> <input type="text" id="identity"><br>
-    <button onclick="identify()">Se identificar</button>
+    <span>Token: </span> <input type="text" id="token"><br>
+    <button onclick="identify()">Logar</button>
 
     <h2>Pessoas: </h2>
     <div id="people">
@@ -35,9 +34,10 @@
     <script type="text/javascript">
         let socket;
         let otherUser;
+        let myRole;
 
         (() => {
-            socket = new io("http://8f8d37651986.ngrok.io");
+            socket = new io("http://ffaf264bdabb.ngrok.io");
             
             socket.on("conversations", data => loadConversas(data));
             socket.on("previous_messages", data => loadMensagens(data));
@@ -45,22 +45,29 @@
         })()
         
         function identify(){
-            socket.emit("identify", {credentials: getCredentials()});
+            const token = document.getElementById("token").value;
+            if(token === "") token = null;
+            socket.emit("identify", {token});
         }
         
         function loadConversas(data){
             const peopleDiv = document.getElementById("people");
+            console.log(data);
 
             data.map(({data, mensagem, ...rest}) => {
                 let id;
                 let nome;
-                if(document.getElementById("role").value === "PROFESSOR"){
-                    id = rest.raAluno;
-                    nome = rest.aluno.nome;
-                }else{
+
+                if(!rest.raAluno){
                     id = rest.rgProfessor;
                     nome = rest.professor.nome;
+                    myRole = "ALUNO";
+                }else{
+                    id = rest.raAluno;
+                    nome = rest.aluno.nome;
+                    myRole = "PROFESSOR";
                 }
+
                 const btn = document.createElement('button');
                 btn.innerHTML = `${nome}(${mensagem}) - ${data}`;
                 btn.addEventListener('click', () => open_conversation(id));
@@ -69,7 +76,9 @@
         }
 
         function open_conversation(id){
-            socket.emit("open_chat", {otherUser: id, credentials: getCredentials()});
+            const token = document.getElementById("token").value;
+            if(token === "") token = null;
+            socket.emit("open_chat", {otherUser: id, token});
             otherUser = id;
         }
 
@@ -80,7 +89,7 @@
                 const paragraph = document.createElement('p');
                 paragraph.innerHTML = `<b>${mensagem}</b> - ${data}`;
 
-                if(document.getElementById("role").value === origem){
+                if(myRole === origem){
                     paragraph.classList.add("mine");
                 }
 
@@ -89,8 +98,10 @@
         }
 
         function sendMessage(){
+            const token = document.getElementById("token").value;
+            if(token === "") token = null;
             const message = document.getElementById("msg").value;
-            socket.emit("new_message", {message, otherUser, credentials: getCredentials()});
+            socket.emit("new_message", {message, otherUser, token});
         }  
 
         function getCredentials(){

@@ -10,8 +10,8 @@ const prisma = new PrismaClient();
 const b2 = new B2(process.env.B2_ACCOUNT_ID, process.env.B2_APP_KEY);
 
 class boletimController{
-    async get(req: Request, res: Response, next: NextFunction){
-        const {id} = req.params;
+    async get(req: any, res: Response, next: NextFunction){
+        const { user: id } = req;
 
 		try {
             const boletim = await boletimQuery(Number(id));
@@ -23,8 +23,8 @@ class boletimController{
 		}
     }
 
-    async createFile(req: Request, res: Response){
-        const {id} = req.params;
+    async createFile(req: any, res: Response){
+        const { user: id } = req;
         const browser = await puppeteer.launch();
         const page = await browser.newPage();
 
@@ -61,8 +61,8 @@ class boletimController{
         });
     }
 
-    async renderFile(req: Request, res: Response){
-        const {id} = req.params;
+    async renderFile(req: any, res: Response){
+        const { user: id } = req;
 
         const {nome: name, ra, foto: img} = await prisma.alunos.findFirst({
             where: {

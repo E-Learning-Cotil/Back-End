@@ -1,10 +1,21 @@
-import { PrismaClient } from '@prisma/client';
+import { PrismaClient, OrigemMensagem } from '@prisma/client';
+import jwt from 'jsonwebtoken';
+
 const prisma = new PrismaClient();
+
+interface TokenInterface{
+    user: string;
+    role: OrigemMensagem;
+}
 
 class SocketController{
     public connection = async (socket: any) => {
         //Identifica o usuário e lista suas conversas
-        socket.on("identify", async ({credentials: {identity, role}}) => {
+        socket.on("identify", async ({token}) => {
+            if(!token) return;
+
+            const { identity, role } = validateToken(token);
+
             if(!identity || !role) return;
 
             socket.role = role;
@@ -108,7 +119,11 @@ class SocketController{
         });
 			
 		//Abre a conversa com o outro usuário e lista as mensagens anteriores
-        socket.on("open_chat", async ({credentials: { identity, role }, otherUser}) => {
+        socket.on("open_chat", async ({token, otherUser}) => {
+            if(!token) return;
+
+            const { identity, role } = validateToken(token);
+
             if(!identity || !role) {
                 return;
             } 
@@ -137,8 +152,11 @@ class SocketController{
         });
     
         //Manda a mensagem
-        socket.on('new_message', async ({credentials: { identity, role }, message, otherUser}) => {
-    
+        socket.on('new_message', async ({token, message, otherUser}) => {
+            if(!token) return;
+
+            const { identity, role } = validateToken(token);
+
             if(!identity || !role) return;
     
             let otherUserId = null;
@@ -176,8 +194,10 @@ class SocketController{
             if(otherUserId) {
                 socket.broadcast.to(otherUserId).emit("new_message", [{origem: role, data: Date.now(), mensagem: message}]);
             }
+
+            const data = new Date();
     
-            socket.emit("new_message", [{origem: role, data: Date.now(), mensagem: message}]);
+            socket.emit("new_message", [{origem: role, data: data.toISOString(), mensagem: message}]);
     
             const rg = role === "PROFESSOR" ? String(identity) : String(otherUser);
             const ra = role !== "PROFESSOR" ? parseInt(identity) : parseInt(otherUser);
@@ -225,6 +245,14 @@ class SocketController{
 	}
 }
 
+function validateToken(token){
+    if(!token) return;
 
+    const decoded = <TokenInterface>jwt.verify(token, process.env.SECRET);
+
+    const { user, role } = decoded;
+
+    return ({ identity: user, role });
+}
 
 export default new SocketController();

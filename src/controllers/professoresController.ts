@@ -67,13 +67,13 @@ class professoresController{
 		}
 	}
 
-    async update(req: Request, res: Response, next: NextFunction){
+    async update(req: any, res: Response, next: NextFunction){
         req.body.senha = await encryptPassword(req.body.senha);
-        const {id} = req.params;
+        const { user: id } = req;
         try {
 			await prisma.professores.update({
                 where: {
-                    rg: id
+                    rg: String(id)
                 },
                 data: {
                     ...req.body

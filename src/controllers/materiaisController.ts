@@ -23,13 +23,14 @@ class materiaisController{
     }
 
     async list(req: any, res: Response, next: NextFunction){
-		const {idTopico} = req.query;
-
-        if (idTopico) req.query.idTopico = Number(idTopico);
+        const {idTopico} = req.query;
 
         try {
+
             const results = await prisma.materiais.findMany({
-                where: req.query
+                where: {
+                    idTopico: parseInt(idTopico)
+                }
             });
             
             return res.json(results);

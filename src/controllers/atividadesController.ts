@@ -25,11 +25,11 @@ class atividadesController{
     async list(req: any, res: Response, next: NextFunction){
 		const {idTopico} = req.query;
 
-        if (idTopico) req.query.idTopico = Number(idTopico);
-
         try {
             const results = await prisma.atividades.findMany({
-                where: req.query
+                where: {
+                    idTopico: parseInt(idTopico)
+                }
             });
             
             return res.json(results);

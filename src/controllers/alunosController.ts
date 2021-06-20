@@ -74,13 +74,15 @@ class AlunosController{
 		}
 	}
 
-    async update(req: Request, res: Response, next: NextFunction){
+    async update(req: any, res: Response, next: NextFunction){
         req.body.senha = await encryptPassword(req.body.senha);
-        const {id} = req.params;
+        
+		const { user } = req;
+
         try {
 			await prisma.alunos.update({
                 where: {
-                    ra: Number(id)
+                    ra: Number(user)
                 },
                 data: {
                     ...req.body

@@ -39,46 +39,45 @@ class turmasController{
         }
     }
 
-    async listByProfessor(req: Request, res: Response, next: NextFunction){
-        const {id} = req.params;
+    async listByRole(req: any, res: Response, next: NextFunction){
+        const { user: id, role } = req;
 
-        try {
-			const result = await prisma.turmas.findMany({
-                where: {
-                    rgProfessor: id
-                }
-            });
-            
-            return res.json(result);
-        } catch (error) {
-            const err = new InternalError('Falha ao listar as turmas filtrando por professor!', 400, error.message); 
-            next(err);
+        if (role === 'PROFESSOR') {
+            try {
+                const result = await prisma.turmas.findMany({
+                    where: {
+                        rgProfessor: String(id)
+                    }
+                });
+                
+                return res.json(result);
+            } catch (error) {
+                const err = new InternalError('Falha ao listar as turmas filtrando por professor!', 400, error.message); 
+                next(err);
+            }
         }
-    } 
-
-	async listByAluno(req: Request, res: Response, next: NextFunction){
-        const {id} = req.params;
-        
-        try {
-            const {idSerie} = await prisma.alunos.findFirst({
-				select: {
-                    idSerie: true
-				}, 
-				where: {
-                    ra: Number(id)
-				}
-			});
-            
-			const result = await prisma.turmas.findMany({
-                where: {
-                    idSerie: idSerie
-                }
-            });
-            
-            return res.json(result);
-        } catch (error) {
-            const err = new InternalError('Falha ao listar as turmas filtrando por aluno!', 400, error.message); 
-            next(err);
+        else if (role === 'ALUNO') {
+            try {
+                const {idSerie} = await prisma.alunos.findFirst({
+                    select: {
+                        idSerie: true
+                    }, 
+                    where: {
+                        ra: Number(id)
+                    }
+                });
+                
+                const result = await prisma.turmas.findMany({
+                    where: {
+                        idSerie: idSerie
+                    }
+                });
+                
+                return res.json(result);
+            } catch (error) {
+                const err = new InternalError('Falha ao listar as turmas filtrando por aluno!', 400, error.message); 
+                next(err);
+            }
         }
     }
 

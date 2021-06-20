@@ -5,8 +5,8 @@ import { InternalError } from '../errors/InternalError';
 const prisma = new PrismaClient();
 
 class homePageController{
-	async get(req: Request, res: Response, next: NextFunction){
-        const {id} = req.params;
+	async get(req: any, res: Response, next: NextFunction){
+        const { user: id } = req;
         const {amount = 6} = req.query;
 
         try {
