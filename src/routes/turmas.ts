@@ -5,7 +5,7 @@ import auth from '../middlewares/auth';
 import validateDto from '../middlewares/validate-dto';
 
 import turma from '../models/turmas';
-import TurmasController from '../controllers/TurmasController';
+import TurmasController from '../controllers/turmasController';
 
 const router = Router();
 
