@@ -16,8 +16,6 @@ import MateriaisController from './controllers/materiaisController';
 import AtividadesController from './controllers/atividadesController';
 import TestesController from './controllers/testesController';
 
-import ConversasController from './controllers/conversasController';
-
 import AtividadesAlunoController from './controllers/atividadesAlunoController';
 import TestesAlunoController from './controllers/testesAlunoController';
 
@@ -107,11 +105,6 @@ router.get('/testes-aluno/list-one/:id', auth, TestesAlunoController.listOne);
 router.get('/testes-aluno/list/', auth, TestesAlunoController.list);
 router.post('/testes-aluno/create/', auth, validateDto(testesAluno.create), TestesAlunoController.create); 
 router.put('/testes-aluno/update/:id', auth, validateDto(testesAluno.update),TestesAlunoController.update);
-
-//Conversas
-router.get('/conversas', ConversasController.list);
-router.post('/conversas', ConversasController.create);
-router.get('/conversas/mensagens/:id', ConversasController.listMessages);
 
 //Boletim
 router.get('/boletim', auth, BoletimController.get); 
