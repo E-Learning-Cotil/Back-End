@@ -50,7 +50,7 @@ class atividadesAlunoController{
             const result = await prisma.atividadesAluno.findFirst({
                 where:{
                     idAtividade,
-                    raAluno
+                    raAluno: parseInt(raAluno)
                 }
             })
 
@@ -60,7 +60,7 @@ class atividadesAlunoController{
 				data: {
 					link,
                     nome,
-                    raAluno,
+                    raAluno: parseInt(raAluno),
                     idAtividade,
                     idTurma
 				}

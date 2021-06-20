@@ -50,7 +50,7 @@ class testesAlunoController{
             const result = await prisma.testesAluno.findFirst({
                 where:{
                     idTeste,
-                    raAluno
+                    raAluno: parseInt(raAluno)
                 }
             })
 
@@ -61,7 +61,7 @@ class testesAlunoController{
 					nota,
                     idTeste,
                     idTurma,
-                    raAluno
+                    raAluno: parseInt(raAluno)
 				}
 			});
             

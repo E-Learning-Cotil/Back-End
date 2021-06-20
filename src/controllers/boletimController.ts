@@ -23,12 +23,16 @@ class boletimController{
 		}
     }
 
-    async createFile(req: any, res: Response){
+    async createFile(req: any, res: Response, next: NextFunction){
         const { user: id } = req;
         const browser = await puppeteer.launch();
         const page = await browser.newPage();
 
-        await page.goto(`${process.env.HOST}/boletim/render-pdf/${id}`, {
+        page.setExtraHTTPHeaders({
+            'Authorization': req.headers.authorization
+        });
+
+        await page.goto(`${process.env.HOST}/boletim/render-pdf/`, {
             waitUntil: 'networkidle0'
         });
 
@@ -56,7 +60,8 @@ class boletimController{
             try {
                 return res.status(200).json(file);
             } catch (error) {
-                return res.status(404).json("Erro ao fazer upload do arquivo")
+                const err = new InternalError("Erro ao fazer upload do arquivo", 400);
+                return next(err);
             }
         });
     }

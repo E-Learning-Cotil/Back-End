@@ -10,7 +10,7 @@ class Aluno {
     }); 
 
     public update = yup.object().shape({
-        telefone: yup.string().min(9),
+        telefone: yup.string().matches(/(^[0-9]{2})?(\s|-)?(9?[0-9]{4})-?([0-9]{4}$)/, "Telefone inválido!"),
         senha: yup.string(),
         email: yup.string().email(),
         nome: yup.string(),
