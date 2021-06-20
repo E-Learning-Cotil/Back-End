@@ -3,8 +3,6 @@ const prisma = new PrismaClient();
 
 class SocketController{
     public connection = async (socket: any) => {
-        console.log(socket.id);
-
         //Identifica o usuário e lista suas conversas
         socket.on("identify", async ({credentials: {identity, role}}) => {
             if(!identity || !role) return;
@@ -22,7 +20,7 @@ class SocketController{
                     where: {
                         rg: String(identity)
                     }
-                }).catch(err => console.log(err))
+                })
     
                 //Busca as conversas do professor
                 result = await prisma.conversas.findMany({
@@ -49,7 +47,7 @@ class SocketController{
                     where: {
                         ra: parseInt(identity)
                     }
-                }).catch(err => console.log(err))
+                })
                 
                 //Busca as conversas do aluno
                 const aluno = await prisma.alunos.findFirst({
@@ -112,7 +110,6 @@ class SocketController{
 		//Abre a conversa com o outro usuário e lista as mensagens anteriores
         socket.on("open_chat", async ({credentials: { identity, role }, otherUser}) => {
             if(!identity || !role) {
-                console.log("Cadastre-se primeiro");
                 return;
             } 
     
@@ -142,7 +139,7 @@ class SocketController{
         //Manda a mensagem
         socket.on('new_message', async ({credentials: { identity, role }, message, otherUser}) => {
     
-            if(!identity || !role) console.log("Cadastre-se primeiro");
+            if(!identity || !role) return;
     
             let otherUserId = null;
 
@@ -193,8 +190,7 @@ class SocketController{
                     raAluno: ra
                 }
             })
-    
-            console.log("mensagem criada");
+            
             return;
         });
     
@@ -223,8 +219,6 @@ class SocketController{
                     }
                 })
             }
-
-            console.log(`${socket.role} ${socket.identity} desconectou`);
     
             return;
         });
