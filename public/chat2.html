@@ -41,7 +41,7 @@
             width: 900px;
             height: 70vh;
             border: 1px solid ;
-            margin: 0 15%;
+            margin: 0 auto;
             display: grid;
             grid-template-columns: 300px 600px;
         }
@@ -67,6 +67,7 @@
             height: 80%;
             overflow-y: auto;
             max-height: 60vh;
+			padding: 8px;
         }
 
         #messages span{
@@ -145,7 +146,9 @@
         let myRole;
 
         (() => {
-            socket = new io("https://elearning-tcc.herokuapp.com");
+            socket = new io(window.location.origin);
+
+			document.getElementById("msg").addEventListener('keypress', (e) => {if(e.key === 'Enter') sendMessage()});
             
             socket.on("conversations", data => loadConversas(data));
             socket.on("previous_messages", data => loadMensagens(data));
