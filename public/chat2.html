@@ -7,29 +7,137 @@
     <title>Document</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/3.1.3/socket.io.min.js"></script>
     <style>
-        .mine{
-            margin-left: 50px;
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: sans-serif;
         }
+
+        h1{
+            width: 100%;
+            height: 60px;
+            background: #111;
+            color: #fff;
+            display: grid;
+            place-items: center;
+        }
+
+        
+
+        .login{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            margin: 10px 0;
+        }
+
+        .token_log{
+            display: flex;
+        }
+
+        main{
+            width: 900px;
+            height: 70vh;
+            border: 1px solid ;
+            margin: 0 15%;
+            display: grid;
+            grid-template-columns: 300px 600px;
+        }
+
+        .pessoas{
+            border-right: 1px solid black;
+            max-width: 300px;
+        }
+
+        .mensagens{
+            position: relative;
+        }
+
+        .mensagens h2, .pessoas h2{
+            width: 600px;
+            height: 8%;
+            background: black;
+            color: white;
+        }
+
+        #messages{
+            width: 600px;
+            height: 80%;
+            overflow-y: auto;
+            max-height: 60vh;
+        }
+
+        #messages span{
+            font-size: 12px;
+        }
+
+        .frase{
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 10px;
+            max-width: 70%;
+            word-wrap: break-word;
+        }
+
+        .mine{
+            margin-left: 30%;
+            text-align: right;
+            word-wrap: break-word;
+        }
+
+        .send-box{
+            height: 12%;
+        }
+
+        .send-box input{
+            width: 88%;
+            height: 100%;
+        }
+
+        .send-box button{
+            height: 100%;
+            width: 10%;
+        }
+
+        .pessoas button{
+            width: 300px;
+            word-wrap: break-word;
+            text-align: left;
+        }
+
     </style>
 </head>
 <body>
     <h1>UI Teste - CHAT</h1>
 
-    <h2>Definição de usuário:</h2>
-    <span>Token: </span> <input type="text" id="token"><br>
-    <button onclick="identify()">Logar</button>
-
-    <h2>Pessoas: </h2>
-    <div id="people">
+    <div class="login">
+        <h2>Definição de usuário:</h2>
+        <div class="token_log">
+            <span>Token: </span> <input type="text" id="token" value="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoxLCJyb2xlIjoiQUxVTk8iLCJpYXQiOjE2MjQyMzYwMjAsImV4cCI6MTYyNDMyMjQyMH0.eVLoif2hbk3uHzfJko9yszURhl3QYqiDTyDy6xy8jik"><br>
+            <button onclick="identify()">Logar</button>
+        </div>
     </div>
 
-    <h2>Mandar mensagem:</h2>
-    <div id="messages">
-    </div>
-    <input type="text" id="msg">
-    <button onclick="sendMessage()">
-        Enviar
-    </button>
+    <main>
+        <div class="pessoas">
+            <h2>Pessoas: </h2>
+            <div id="people">
+            </div>
+        </div>
+
+        <div class="mensagens">
+            <h2>Mensagens:</h2>
+            <div id="messages"> <!-- Listagen de mensagens --> </div> 
+            <div class="send-box">
+                <input type="text" id="msg">
+                <button onclick="sendMessage()">Enviar</button>
+            </div>
+        </div>
+    </main>
+
+    
 
     <script type="text/javascript">
         let socket;
@@ -37,7 +145,7 @@
         let myRole;
 
         (() => {
-            socket = new io("https://elearning-tcc.herokuapp.com");
+            socket = new io("http://localhost:3334");
             
             socket.on("conversations", data => loadConversas(data));
             socket.on("previous_messages", data => loadMensagens(data));
@@ -76,10 +184,15 @@
         }
 
         function open_conversation(id){
+            const messagesDiv = document.getElementById("messages");
+            messagesDiv.innerHTML = "";
+
             const token = document.getElementById("token").value;
             if(token === "") token = null;
             socket.emit("open_chat", {otherUser: id, token});
             otherUser = id;
+
+            goToBottom()
         }
 
         function loadMensagens(data){
@@ -87,14 +200,18 @@
 
             data.map(({data, mensagem, origem}) => {
                 const paragraph = document.createElement('p');
-                paragraph.innerHTML = `<b>${mensagem}</b> - ${data}`;
+                paragraph.innerHTML = `<span>${data}</span><b>${mensagem}</b>`;
 
                 if(myRole === origem){
                     paragraph.classList.add("mine");
                 }
 
+                paragraph.classList.add("frase")
+
                 messagesDiv.appendChild(paragraph);
             })
+
+            goToBottom()
         }
 
         function sendMessage(){
@@ -102,6 +219,9 @@
             if(token === "") token = null;
             const message = document.getElementById("msg").value;
             socket.emit("new_message", {message, otherUser, token});
+
+            goToBottom();
+            document.getElementById("msg").value = "";
         }  
 
         function getCredentials(){
@@ -109,6 +229,11 @@
             const role = document.getElementById("role").value;
 
             return {role, identity};
+        }
+    
+        function goToBottom(){
+            const messages = document.getElementById('messages');
+            messages.scrollTop = messages.scrollHeight;
         }
     </script>
 </body>

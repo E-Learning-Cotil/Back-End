@@ -190,14 +190,15 @@ class SocketController{
                     otherUserId = professor.socket;
                 }
             }
-                
-            if(otherUserId) {
-                socket.broadcast.to(otherUserId).emit("new_message", [{origem: role, data: Date.now(), mensagem: message}]);
-            }
 
             const data = new Date();
+            const formattedDate = data.toISOString();
+                
+            if(otherUserId) {
+                socket.broadcast.to(otherUserId).emit("new_message", [{origem: role, data: formattedDate, mensagem: message}]);
+            }
     
-            socket.emit("new_message", [{origem: role, data: data.toISOString(), mensagem: message}]);
+            socket.emit("new_message", [{origem: role, data: formattedDate, mensagem: message}]);
     
             const rg = role === "PROFESSOR" ? String(identity) : String(otherUser);
             const ra = role !== "PROFESSOR" ? parseInt(identity) : parseInt(otherUser);
