@@ -37,7 +37,7 @@
         let myRole;
 
         (() => {
-            socket = new io("http://ffaf264bdabb.ngrok.io");
+            socket = new io("https://elearning-tcc.herokuapp.com");
             
             socket.on("conversations", data => loadConversas(data));
             socket.on("previous_messages", data => loadMensagens(data));
