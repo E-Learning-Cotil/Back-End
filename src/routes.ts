@@ -1,6 +1,5 @@
 import express from 'express';
-
-import renderDocs from './docs';
+import swaggerUi from 'swagger-ui-express';
 
 import authController from './controllers/authController';
 
@@ -21,10 +20,12 @@ import boletimRouter from './routes/boletim';
 import homePageRouter from './routes/homepage';
 import imagensRouter from './routes/imagens';
 
+//DOCS
+import apiSchema from './schema/api-schema.json';
+
 const router = express.Router();
 
 //Docs
-router.get('/', renderDocs);
 
 //Authentication
 router.post('/authenticate', authController.authenticate);
@@ -67,5 +68,7 @@ router.use('/pagina-inicial', homePageRouter);
 
 //Imagens
 router.use('/imagens', imagensRouter)
+
+router.use('/docs', swaggerUi.serve, swaggerUi.setup(apiSchema));
 
 export default router;

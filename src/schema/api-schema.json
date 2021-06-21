@@ -1,0 +1,503 @@
+{
+    "openapi": "3.0.1",
+    "info": {
+        "version": "1.3.0",
+        "title": "E-Learning Back-end",
+        "description": "API made to feed our front-end applications, using Typescript. This project's only purpose is to practice and learn.",
+        "license": {
+            "name": "MIT License",
+            "url": "https://github.com/E-Learning-Cotil/Back-End/blob/main/LICENSE"   
+        }
+    },
+    "servers": [
+        {
+            "url": "https://elearning-tcc.herokuapp.com",
+            "description": "Production server"
+        },
+        {
+            "url": "http://localhost:3334",
+            "description": "Development server"
+        },
+        {
+            "url": "http://985878d8694d.ngrok.io/",
+            "description": "Remote development server"
+        }
+    ],
+    "paths": {
+        "/series": {
+            "get": {
+                "description": "Listar as séries",
+                "tags": ["Series"],
+                "parameters": [
+                    {
+                        "name": "curso",
+                        "in": "query",
+                        "required": false,
+                        "description": "Curso da série [ENFERMAGEM | EDIFICACOES | GEODESIA | INFORMATICA | MECANICA | QUALIDADE]",
+                        "schema": {
+                            "$ref": "#components/properties/curso"
+                        }
+                    },
+                    {
+                        "name": "tipo",
+                        "in": "query",
+                        "required": false,
+                        "description": "Tipo da série [MEDIOTECNICO | TECNICO]",
+                        "schema": {
+                            "$ref": "#components/properties/tipo"
+                        }
+                    },
+                    {
+                        "name": "ano",
+                        "in": "query",
+                        "required": false,
+                        "description": "Ano da série",
+                        "schema": {
+                            "$ref": "#components/properties/ano"
+                        }
+                    },
+                    {
+                        "name": "periodo",
+                        "in": "query",
+                        "required": false,
+                        "description": "Período da série [DIURNO | NOTURNO]",
+                        "schema": {
+                            "$ref": "#components/properties/periodo"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Séries listadas",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "id": {
+                                            "$ref": "#components/properties/id"
+                                        },
+                                        "curso": {
+                                            "$ref": "#components/properties/curso"
+                                        },
+                                        "tipo": {
+                                            "$ref": "#components/properties/tipo"
+                                        },
+                                        "ano": {
+                                            "$ref": "#components/properties/ano"
+                                        },
+                                        "periodo": {
+                                            "$ref": "#components/properties/periodo"
+                                        },
+                                        "sigla": {
+                                            "$ref": "#components/properties/sigla"
+                                        },
+                                        "_count": {
+                                            "type": "object",
+                                            "example": "{\"turmas\": 3}"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Falha ao listar todas as séries!",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Error"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            
+            "post": {
+                "description": "Listar as séries",
+                "tags": ["Series"],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "curso": {
+                                        "$ref": "#components/properties/curso"
+                                    },
+                                    "tipo": {
+                                        "$ref": "#components/properties/tipo"
+                                    },
+                                    "ano": {
+                                        "$ref": "#components/properties/ano"
+                                    },
+                                    "periodo": {
+                                        "$ref": "#components/properties/periodo"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Séries listadas",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "id": {
+                                            "$ref": "#components/properties/id"
+                                        },
+                                        "curso": {
+                                            "$ref": "#components/properties/curso"
+                                        },
+                                        "tipo": {
+                                            "$ref": "#components/properties/tipo"
+                                        },
+                                        "ano": {
+                                            "$ref": "#components/properties/ano"
+                                        },
+                                        "periodo": {
+                                            "$ref": "#components/properties/periodo"
+                                        },
+                                        "sigla": {
+                                            "$ref": "#components/properties/sigla"
+                                        },
+                                        "_count": {
+                                            "type": "object",
+                                            "example": "{\"turmas\": 3}"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Falha ao listar todas as séries!",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Error"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+
+        "/alunos": {
+            "get": {
+                "description": "Listar os alunos",
+                "tags": ["Alunos"],
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "Alunos listados com sucesso!",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ListAlunosResponse"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Falha ao listar os alunos",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Error"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "Cria um aluno novo",
+                "tags": ["Alunos"],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CreateAlunoRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Aluno criado com sucesso!",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/properties/criadoSucesso"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Falha ao criar um aluno",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Error"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "description": "Atualiza os dados de uma aluno",
+                "tags": ["Alunos"],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UpdateAlunoRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Aluno atualizado com sucesso!",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/properties/atualizadoSucesso"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Falha ao atualizar um aluno",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Error"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "properties": {
+            "id": {
+                "type": "number",
+                "example": 1
+            },
+            "nomePessoa": {
+                "type": "string",
+                "example": "John Doe"
+            },
+            "ra": {
+                "type": "number",
+                "example": 1
+            },
+            "telefone": {
+                "type": "string",
+                "example": "19 987654321"
+            },
+            "email": {
+                "type": "string",
+                "example": "johndoe@email.com"
+            },
+            "foto": {
+                "type": "string",
+                "example": "http://afernandes.adv.br/wp-content/uploads/Team-Member-3.jpg"
+            },
+            "senha": {
+                "type": "string",
+                "example": "123456"
+            },
+            "ano": {
+                "type": "string",
+                "example": "1"
+            },
+            "curso": {
+                "type": "string",
+                "example": "ENFERMAGEM"
+            },
+            "periodo": {
+                "type": "string",
+                "example": "DIURNO"
+            },
+            "tipo": {
+                "type": "string",
+                "example": "TECNICO"
+            },
+            "sigla": {
+                "type": "string",
+                "example": "CT-ENFD"
+            },
+            "nomeTurma": {
+                "type": "string",
+                "example": "Química"
+            },
+            "icone": {
+                "type": "string",
+                "example": "globe-alt"
+            },
+            "corPrim": {
+                "type": "string",
+                "example": "#ff0000"
+            },
+            "corSec": {
+                "type": "string",
+                "example": "#ee3333"
+            },
+            "rg": {
+                "type": "string",
+                "example": "54.123.123-9"
+            },
+            "linkArquivo": {
+                "type": "string",
+                "example": "https://f000.backblazeb2.com/file/e-learning-storage/dklawmnkl2.pdf"
+            },
+            "nomeArquivo": {
+                "type": "string",
+                "example": "dklawmnkl2.pdf"
+            },
+            "nomeTopico": {
+                "type": "string",
+                "example": "Genética"
+            },
+            "descricaoTopico": {
+                "type": "string",
+                "example": "DNA e RNA são ácidos nucleicos que possuem diferentes estruturas e funções. Enquanto o DNA é responsável por armazenar as DNA e RNA são ácidos nucleicos que possuem diferentes estruturas e funções. Enquanto o DNA é responsável por armazenar as DNA e RNA são ácidos nucleicos que possuem diferentes estruturas e funções."
+            },
+            "data": {
+                "type": "string",
+                "example": "2021-05-27T19:12:04.843Z"
+            },
+            "conteudo": {
+                "type": "string",
+                "example": "DNA e RNA são ácidos nucleicos que possuem diferentes estruturas e funções. Enquanto o DNA é responsável por armazenar as DNA e RNA são ácidos nucleicos que possuem diferentes estruturas e funções. Enquanto o DNA é responsável por armazenar as DNA e RNA são ácidos nucleicos que possuem diferentes estruturas e funções."
+            },
+            "nomeAtividade": {
+                "type": "string",
+                "example": "Atividade extra sobre genética."
+            },
+            "nota": {
+                "type": "number",
+                "example": 8.5
+            },
+            "errorMessage": {
+                "type": "string",
+                "example": "Algo deu errado"
+            },
+            "errorDescription": {
+                "type": "string",
+                "example": "Alguma falha ocorreu. Tente novamente mais tarde."
+            },
+            "criadoSucesso": {
+                "type": "string",
+                "example": "Criado com sucesso!"
+            },
+            "atualizadoSucesso": {
+                "type": "string",
+                "example": "Atualizado com sucesso!"
+            }  
+        },
+        "schemas": {
+            "Aluno": {
+                "type": "object",
+                "properties": {
+                    "ra": {
+                        "$ref": "#/components/properties/ra"
+                    },
+                    "nome": {
+                        "$ref": "#/components/properties/nomePessoa"
+                    },
+                    "telefone": {
+                        "$ref": "#/components/properties/telefone"
+                    },
+                    "email": {
+                        "$ref": "#/components/properties/email"
+                    },
+                    "foto": {
+                        "$ref": "#/components/properties/foto"
+                    },
+                    "idSerie": {
+                        "$ref": "#/components/properties/id"
+                    }
+                }
+            },
+            "CreateAlunoRequest": {
+                "type": "object",
+                "properties": {
+                    "nome": {
+                        "$ref": "#/components/properties/nome"
+                    },
+                    "telefone": {
+                        "$ref": "#/components/properties/telefone"
+                    },
+                    "email": {
+                        "$ref": "#/components/properties/email"
+                    },
+                    "foto": {
+                        "$ref": "#/components/properties/foto"
+                    },
+                    "idSerie": {
+                        "$ref": "#/components/properties/id"
+                    }
+                }
+            },
+            "UpdateAlunoRequest": {
+                "type": "object",
+                "properties": {
+                    "nome": {
+                        "$ref": "#/components/properties/nome"
+                    },
+                    "telefone": {
+                        "$ref": "#/components/properties/telefone"
+                    },
+                    "email": {
+                        "$ref": "#/components/properties/email"
+                    },
+                    "foto": {
+                        "$ref": "#/components/properties/foto"
+                    },
+                    "senha": {
+                        "$ref": "#/components/properties/senha"
+                    },
+                    "idSerie": {
+                        "$ref": "#/components/properties/id"
+                    }
+                }
+            },
+            "ListAlunosResponse": {
+                "type": "array",
+                "items": {
+                    "$ref": "#/components/schemas/Aluno"
+                }
+            },
+            "Error": {
+                "type": "object",
+                "properties": {
+                    "error": {
+                        "$ref": "#/components/properties/errorMessage"
+                    },
+                    "description": {
+                        "$ref": "#/components/properties/errorDescription"
+                    }
+                }
+            }
+        },
+        "security": {
+            "BearerAuth": {
+                
+            }
+        }
+    }
+}

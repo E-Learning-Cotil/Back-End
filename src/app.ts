@@ -1,9 +1,9 @@
 import express, { Application } from 'express';
 import cors from 'cors';
+import path from 'path';
 
 import Errors from './errors/errors';
 import routes from './routes';
-import path from 'path';
 
 class App{
     public express: Application
@@ -32,3 +32,26 @@ class App{
 }
 
 export default new App().express;
+
+
+/*
+"Book": {
+    "type": "object",
+    "properties": {
+        "name": {
+            "$ref": "#/components/schemas/name"
+        }
+    }
+},
+"Error": {
+    "type": "object",
+    "properties": {
+        "error": {
+            "$ref": "#/components/schemas/error"
+        },
+        "description": {
+            "$ref": "#/components/schemas/description"
+        }
+    }
+}
+*/
