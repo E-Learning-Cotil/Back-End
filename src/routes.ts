@@ -21,7 +21,7 @@ import homePageRouter from './routes/homepage';
 import imagensRouter from './routes/imagens';
 
 //DOCS
-import apiSchema from './schema/api-schema.json';
+import apiSchema from '../public/api-schema.json';
 
 const router = express.Router();
 
