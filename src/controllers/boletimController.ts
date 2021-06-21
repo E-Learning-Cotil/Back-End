@@ -89,7 +89,7 @@ class boletimController{
             boletim
         };
 
-        const viewPath = path.join(__dirname, "..", "view", "pdf.ejs");
+        const viewPath = path.join(__dirname, "..", "..", "public", "pdf.ejs");
         ejs.renderFile(viewPath, dados, (err, html) => {
             if(err) {
                 return res.send(err);
