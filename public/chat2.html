@@ -115,7 +115,7 @@
     <div class="login">
         <h2>Definição de usuário:</h2>
         <div class="token_log">
-            <span>Token: </span> <input type="text" id="token" value="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoxLCJyb2xlIjoiQUxVTk8iLCJpYXQiOjE2MjQyMzYwMjAsImV4cCI6MTYyNDMyMjQyMH0.eVLoif2hbk3uHzfJko9yszURhl3QYqiDTyDy6xy8jik"><br>
+            <span>Token: </span> <input type="text" id="token"><br>
             <button onclick="identify()">Logar</button>
         </div>
     </div>
@@ -145,7 +145,7 @@
         let myRole;
 
         (() => {
-            socket = new io("http://localhost:3334");
+            socket = new io("https://elearning-tcc.herokuapp.com");
             
             socket.on("conversations", data => loadConversas(data));
             socket.on("previous_messages", data => loadMensagens(data));
