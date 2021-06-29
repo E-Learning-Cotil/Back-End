@@ -9,8 +9,8 @@ import AlunosController from '../controllers/alunosController';
 
 const router = Router();
 
-router.get('/:id', AlunosController.listOne);
-router.get('/', AlunosController.list);
+router.get('/:id', basicAuth, AlunosController.listOne);
+router.get('/', basicAuth, AlunosController.list);
 router.post('/', basicAuth, validateDto(aluno.create), AlunosController.create);
 router.put('/', auth, validateDto(aluno.update), AlunosController.update);
 

@@ -9,9 +9,6 @@
             "url": "https://github.com/E-Learning-Cotil/Back-End/blob/main/LICENSE"   
         }
     },
-    "produces": {
-        "application/json": {}
-    },
     "servers": [
         {
             "url": "https://elearning-tcc.herokuapp.com",
@@ -105,6 +102,15 @@
                         "schema": {
                             "$ref": "#/components/properties/periodo"
                         }
+                    },
+                    {
+                        "name": "basic_token",
+                        "in": "header",
+                        "description": "Autenticação básica",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true
                     }
                 ],
                 "responses": {
@@ -188,6 +194,15 @@
                         "in": "path",
                         "description": "RA do aluno",
                         "required": true
+                    },
+                    {
+                        "name": "basic_token",
+                        "in": "header",
+                        "description": "Autenticação básica",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true
                     }
                 ],
                 "responses": {
@@ -218,6 +233,17 @@
             "get": {
                 "description": "Listar os alunos",
                 "tags": ["Alunos"],
+                "parameters": [
+                    {
+                        "name": "basic_token",
+                        "in": "header",
+                        "description": "Autenticação básica",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "Alunos listados com sucesso!",
@@ -335,6 +361,15 @@
                         "in": "path",
                         "description": "RG do professor",
                         "required": true
+                    },
+                    {
+                        "name": "basic_token",
+                        "in": "header",
+                        "description": "Autenticação básica",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true
                     }
                 ],
                 "responses": {
@@ -365,6 +400,17 @@
             "get": {
                 "description": "Listar os professores",
                 "tags": ["Professores"],
+                "parameters": [
+                    {
+                        "name": "basic_token",
+                        "in": "header",
+                        "description": "Autenticação básica",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "Professores listados com sucesso!",
@@ -482,6 +528,15 @@
                         "in": "path",
                         "description": "ID da Turma",
                         "required": true
+                    },
+                    {
+                        "name": "basic_token",
+                        "in": "header",
+                        "description": "Autenticação básica",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true
                     }
                 ],
                 "responses": {
@@ -541,6 +596,17 @@
             "get": {
                 "description": "Listar as turmas",
                 "tags": ["Turmas"],
+                "parameters": [
+                    {
+                        "name": "basic_token",
+                        "in": "header",
+                        "description": "Autenticação básica",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "Turmas listadas com sucesso!",

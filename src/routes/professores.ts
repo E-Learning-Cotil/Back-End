@@ -9,8 +9,8 @@ import ProfessoresController from '../controllers/professoresController';
 
 const router = Router();
 
-router.get('/:id', ProfessoresController.listOne);
-router.get('/', ProfessoresController.list);
+router.get('/:id', basicAuth, ProfessoresController.listOne);
+router.get('/', basicAuth, ProfessoresController.list);
 router.post('/', basicAuth, validateDto(professor.create), ProfessoresController.create);
 router.put('/', auth, validateDto(professor.update), ProfessoresController.update); 
 
