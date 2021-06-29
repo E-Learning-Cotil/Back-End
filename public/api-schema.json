@@ -518,6 +518,176 @@
                 }
             }
         },
+        "/icones": {
+            "get": {
+                "description": "Lista os ícones",
+                "tags": ["Ícones"],
+                "parameters": [
+                    {
+                        "name": "basic_token",
+                        "in": "header",
+                        "description": "Autenticação básica",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Ícones listados com sucesso!",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/IconesListResponse"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Falha ao listar os ícones",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Error"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "Cadastra um ícone novo",
+                "tags": ["Ícones"],
+                "parameters": [
+                    {
+                        "name": "basic_token",
+                        "in": "header",
+                        "description": "Autenticação básica",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CreateIconeRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Ícone criado com sucesso!",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/properties/criadoSucesso"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Falha ao criar um ícone",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Error"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/cores": {
+            "get": {
+                "description": "Lista as paletas de cor",
+                "tags": ["Cores"],
+                "parameters": [
+                    {
+                        "name": "basic_token",
+                        "in": "header",
+                        "description": "Autenticação básica",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Paletas de cor listadas com sucesso!",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/CoresListResponse"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Falha ao listar as paletas de cor.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Error"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "Cadastra uma paleta de cores",
+                "tags": ["Cores"],
+                "parameters": [
+                    {
+                        "name": "basic_token",
+                        "in": "header",
+                        "description": "Autenticação básica",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CreateCoresRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Paleta de cores criada com sucesso!",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/properties/criadoSucesso"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Falha ao criar uma paleta de cores",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Error"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/turmas/{id}": {
             "get": {
                 "description": "Listar uma turma específica pelo ID",
@@ -2139,6 +2309,37 @@
             },
             "CreateProfessorRequest": {
                 "$ref": "#/components/schemas/Professor"
+            },
+            "IconesListResponse": {
+                "type": "array",
+                "items": {
+                    "$ref": "#/components/schemas/Icone"
+                }
+            },
+            "CreateIconeRequest": {
+                "type": "object",
+                "properties": {
+                    "link": {
+                        "$ref": "#/components/properties/foto"
+                    }
+                }
+            },
+            "CoresListResponse": {
+                "type": "array",
+                "items": {
+                    "$ref": "#/components/schemas/Cores"
+                }
+            },
+            "CreateCoresRequest": {
+                "type": "object",
+                "properties": {
+                    "corPrim": {
+                        "$ref": "#/components/properties/corPrim"
+                    },
+                    "corSec": {
+                        "$ref": "#/components/properties/corSec"
+                    }
+                }
             },
             "UpdateProfessorRequest": {
                 "type": "object",
