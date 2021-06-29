@@ -66,7 +66,7 @@ class atividadesAlunoController{
 				}
 			});
             
-            return res.status(201).json({message: "OK"});
+            return res.status(201).json({message: "Atividade-Aluno criada com sucesso!"});
 		} catch (error) {
 			const err = new InternalError('Falha ao criar uma atividade feita por um aluno!', 400, error.message);
             next(err);
@@ -87,7 +87,7 @@ class atividadesAlunoController{
                 }
             });
             
-            return res.status(200).json({message: "OK"});
+            return res.status(200).json({message: "Atividade-Aluno atualizada com sucesso!"});
 		} catch (error) {
 			const err = new InternalError('Falha ao atualizar uma atividade feita por um aluno!', 400, error.message);
             next(err);

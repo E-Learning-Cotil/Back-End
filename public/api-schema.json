@@ -1,5 +1,5 @@
 {
-    "openapi": "3.0.1",
+    "openapi": "3.0.0",
     "info": {
         "version": "1.3.0",
         "title": "E-Learning Back-end",
@@ -8,6 +8,9 @@
             "name": "MIT License",
             "url": "https://github.com/E-Learning-Cotil/Back-End/blob/main/LICENSE"   
         }
+    },
+    "produces": {
+        "application/json": {}
     },
     "servers": [
         {
@@ -24,160 +27,33 @@
         }
     ],
     "paths": {
-        "/series": {
-            "get": {
-                "description": "Listar as séries",
-                "tags": ["Series"],
-                "parameters": [
-                    {
-                        "name": "curso",
-                        "in": "query",
-                        "required": false,
-                        "description": "Curso da série [ENFERMAGEM | EDIFICACOES | GEODESIA | INFORMATICA | MECANICA | QUALIDADE]",
-                        "schema": {
-                            "$ref": "#components/properties/curso"
-                        }
-                    },
-                    {
-                        "name": "tipo",
-                        "in": "query",
-                        "required": false,
-                        "description": "Tipo da série [MEDIOTECNICO | TECNICO]",
-                        "schema": {
-                            "$ref": "#components/properties/tipo"
-                        }
-                    },
-                    {
-                        "name": "ano",
-                        "in": "query",
-                        "required": false,
-                        "description": "Ano da série",
-                        "schema": {
-                            "$ref": "#components/properties/ano"
-                        }
-                    },
-                    {
-                        "name": "periodo",
-                        "in": "query",
-                        "required": false,
-                        "description": "Período da série [DIURNO | NOTURNO]",
-                        "schema": {
-                            "$ref": "#components/properties/periodo"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Séries listadas",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "properties": {
-                                        "id": {
-                                            "$ref": "#components/properties/id"
-                                        },
-                                        "curso": {
-                                            "$ref": "#components/properties/curso"
-                                        },
-                                        "tipo": {
-                                            "$ref": "#components/properties/tipo"
-                                        },
-                                        "ano": {
-                                            "$ref": "#components/properties/ano"
-                                        },
-                                        "periodo": {
-                                            "$ref": "#components/properties/periodo"
-                                        },
-                                        "sigla": {
-                                            "$ref": "#components/properties/sigla"
-                                        },
-                                        "_count": {
-                                            "type": "object",
-                                            "example": "{\"turmas\": 3}"
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    },
-                    "400": {
-                        "description": "Falha ao listar todas as séries!",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/Error"
-                                }
-                            }
-                        }
-                    }
-                }
-            },
-            
-            "post": {
-                "description": "Listar as séries",
-                "tags": ["Series"],
+        "/authenticate": {
+            "post":{
+                "description": "Autenticar o usuário",
+                "tags": ["Autenticação"],
                 "requestBody": {
                     "required": true,
                     "content": {
                         "application/json": {
                             "schema": {
-                                "type": "object",
-                                "properties": {
-                                    "curso": {
-                                        "$ref": "#components/properties/curso"
-                                    },
-                                    "tipo": {
-                                        "$ref": "#components/properties/tipo"
-                                    },
-                                    "ano": {
-                                        "$ref": "#components/properties/ano"
-                                    },
-                                    "periodo": {
-                                        "$ref": "#components/properties/periodo"
-                                    }
-                                }
+                                "$ref": "#/components/schemas/AuthenticateRequest"
                             }
                         }
                     }
                 },
                 "responses": {
                     "200": {
-                        "description": "Séries listadas",
+                        "description": "Autenticado com sucesso!",
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "type": "object",
-                                    "properties": {
-                                        "id": {
-                                            "$ref": "#components/properties/id"
-                                        },
-                                        "curso": {
-                                            "$ref": "#components/properties/curso"
-                                        },
-                                        "tipo": {
-                                            "$ref": "#components/properties/tipo"
-                                        },
-                                        "ano": {
-                                            "$ref": "#components/properties/ano"
-                                        },
-                                        "periodo": {
-                                            "$ref": "#components/properties/periodo"
-                                        },
-                                        "sigla": {
-                                            "$ref": "#components/properties/sigla"
-                                        },
-                                        "_count": {
-                                            "type": "object",
-                                            "example": "{\"turmas\": 3}"
-                                        }
-                                    }
+                                    "$ref": "#/components/properties/autenticadoSucesso"
                                 }
                             }
                         }
                     },
                     "400": {
-                        "description": "Falha ao listar todas as séries!",
+                        "description": "Falha ao se autenticar!",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -189,12 +65,159 @@
                 }
             }
         },
-
+        "/series": {
+            "get": {
+                "description": "Listar as séries",
+                "tags": ["Series"],
+                "parameters": [
+                    {
+                        "name": "curso",
+                        "in": "query",
+                        "required": false,
+                        "description": "Curso da série",
+                        "schema": {
+                            "$ref": "#/components/properties/curso"
+                        }
+                    },
+                    {
+                        "name": "tipo",
+                        "in": "query",
+                        "required": false,
+                        "description": "Tipo da série",
+                        "schema": {
+                            "$ref": "#/components/properties/tipo"
+                        }
+                    },
+                    {
+                        "name": "ano",
+                        "in": "query",
+                        "required": false,
+                        "description": "Ano da série",
+                        "schema": {
+                            "$ref": "#/components/properties/ano"
+                        }
+                    },
+                    {
+                        "name": "periodo",
+                        "in": "query",
+                        "required": false,
+                        "description": "Período da série",
+                        "schema": {
+                            "$ref": "#/components/properties/periodo"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Séries listadascom sucesso!",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/SeriesListResponse"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Falha ao listar todas as séries!",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Error"
+                                }
+                            }
+                        }
+                    }
+                }
+            },           
+            "post": {
+                "description": "Criar uma série",
+                "tags": ["Series"],
+                "parameters": [
+                    {
+                        "name": "basic_token",
+                        "in": "header",
+                        "description": "Autenticação básica",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CreateSerieRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Série criada com sucesso!",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/properties/criadoSucesso"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Falha ao criar série!",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Error"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/alunos/{ra}": {
+            "get": {
+                "description": "Listar um aluno específico por RA",
+                "tags": ["Alunos"],
+                "parameters": [
+                    {
+                        "name": "ra",
+                        "in": "path",
+                        "description": "RA do aluno",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Aluno listado com sucesso!",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Aluno"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Falha ao listar aluno!",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Error"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/alunos": {
             "get": {
                 "description": "Listar os alunos",
                 "tags": ["Alunos"],
-                "parameters": [],
                 "responses": {
                     "200": {
                         "description": "Alunos listados com sucesso!",
@@ -221,6 +244,17 @@
             "post": {
                 "description": "Cria um aluno novo",
                 "tags": ["Alunos"],
+                "parameters": [
+                    {
+                        "name": "basic_token",
+                        "in": "header",
+                        "description": "Autenticação básica",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true
+                    }
+                ],
                 "requestBody": {
                     "content": {
                         "application/json": {
@@ -254,8 +288,10 @@
                 }
             },
             "put": {
-                "description": "Atualiza os dados de uma aluno",
+                "description": "Atualiza os dados de um aluno",
                 "tags": ["Alunos"],
+                "security": [{"bearerAuth": []}],
+                "deprecated": false,
                 "requestBody": {
                     "content": {
                         "application/json": {
@@ -266,7 +302,7 @@
                     }
                 },
                 "responses": {
-                    "201": {
+                    "200": {
                         "description": "Aluno atualizado com sucesso!",
                         "content": {
                             "application/json": {
@@ -278,6 +314,1217 @@
                     },
                     "400": {
                         "description": "Falha ao atualizar um aluno",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Error"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },   
+        "/professores/{rg}": {
+            "get": {
+                "description": "Listar um professor específico por RG",
+                "tags": ["Professores"],
+                "parameters": [
+                    {
+                        "name": "rg",
+                        "in": "path",
+                        "description": "RG do professor",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Professor listado com sucesso!",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Professor"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Falha ao listar professor!",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Error"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/professores": {
+            "get": {
+                "description": "Listar os professores",
+                "tags": ["Professores"],
+                "responses": {
+                    "200": {
+                        "description": "Professores listados com sucesso!",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ProfessoresListResponse"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Falha ao listar os professores",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Error"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "Cria um professor novo",
+                "tags": ["Professores"],
+                "parameters": [
+                    {
+                        "name": "basic_token",
+                        "in": "header",
+                        "description": "Autenticação básica",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CreateProfessorRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Professor criado com sucesso!",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/properties/criadoSucesso"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Falha ao criar um professor",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Error"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "description": "Atualiza os dados de um professor",
+                "tags": ["Professores"],
+                "security": [{"bearerAuth": []}],
+                "deprecated": false,
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UpdateProfessorRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Aluno atualizado com sucesso!",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/properties/atualizadoSucesso"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Falha ao atualizar um aluno",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Error"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/turmas/{id}": {
+            "get": {
+                "description": "Listar uma turma específica pelo ID",
+                "tags": ["Turmas"],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID da Turma",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Turma listada com sucesso!",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Turma"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Falha ao listar turmas",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Error"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/turmas/list-by-role": {
+            "get": {
+                "description": "Listar as turmas baseado no usuário e seu cargo",
+                "tags": ["Turmas"],
+                "security": [{"bearerAuth": []}],
+                "responses": {
+                    "200": {
+                        "description": "Turmas listadas com sucesso!",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/TurmasListResponse"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Falha ao listar turmas",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Error"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/turmas": {
+            "get": {
+                "description": "Listar as turmas",
+                "tags": ["Turmas"],
+                "responses": {
+                    "200": {
+                        "description": "Turmas listadas com sucesso!",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/TurmasListResponse"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Falha ao listar turmas",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Error"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "Cria uma turma nova",
+                "tags": ["Turmas"],
+                "parameters": [
+                    {
+                        "name": "basic_token",
+                        "in": "header",
+                        "description": "Autenticação básica",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CreateTurmaRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Turma criada com sucesso!",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/properties/criadoSucesso"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Falha ao criar uma turma",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Error"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/topicos/{id}": {
+            "get": {
+                "description": "Listar um tópico específico pelo ID",
+                "tags": ["Tópicos"],
+                "security": [{"bearerAuth": []}],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID do Tópico",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Tópico listado com sucesso!",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Topico"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Falha ao listar tópico",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Error"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/topicos": {
+            "get": {
+                "description": "Lista os tópicos",
+                "tags": ["Tópicos"],
+                "security": [{"bearerAuth": []}],
+                "responses": {
+                    "200": {
+                        "description": "Tópicos listados com sucesso!",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/TopicosListResponse"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Falha ao listar turmas",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Error"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "Cria um tópico novo",
+                "tags": ["Tópicos"],
+                "security": [{"bearerAuth": []}],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CreateTopicosRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Tópico criado com sucesso!",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/properties/criadoSucesso"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Falha ao criar um tópico",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Error"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/materiais/{id}": {
+            "get": {
+                "description": "Listar um material específico pelo ID",
+                "tags": ["Materiais"],
+                "security": [{"bearerAuth": []}],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID do Material",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Material listado com sucesso!",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Material"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Falha ao listar material",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Error"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "description": "Atualiza os dados de um material",
+                "tags": ["Materiais"],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID do material",
+                        "required": true
+                    }
+                ],
+                "security": [{"bearerAuth": []}],
+                "deprecated": false,
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UpdateMaterialRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Material atualizado com sucesso!",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/properties/atualizadoSucesso"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Falha ao atualizar um material",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Error"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/materiais": {
+            "get": {
+                "description": "Lista os materiais",
+                "tags": ["Materiais"],
+                "security": [{"bearerAuth": []}],
+                "responses": {
+                    "200": {
+                        "description": "Materiais listados com sucesso!",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/TopicosListResponse"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Falha ao listar materiais",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Error"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "Cria um material novo",
+                "tags": ["Materiais"],
+                "security": [{"bearerAuth": []}],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CreateMaterialRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Material criado com sucesso!",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/properties/criadoSucesso"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Falha ao criar um material",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Error"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/atividades/{id}": {
+            "get": {
+                "description": "Listar uma atividade específica pelo ID",
+                "tags": ["Atividades"],
+                "security": [{"bearerAuth": []}],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID da Atividade",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Atividade listada com sucesso!",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Atividade"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Falha ao listar atividade",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Error"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "description": "Atualiza os dados de uma atividade",
+                "tags": ["Atividades"],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID da Atividade",
+                        "required": true
+                    }
+                ],
+                "security": [{"bearerAuth": []}],
+                "deprecated": false,
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UpdateAtividadeRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Atividade atualizada com sucesso!",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/properties/atualizadoSucesso"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Falha ao atualizar uma atividade!",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Error"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/atividades": {
+            "get": {
+                "description": "Lista as atividades",
+                "tags": ["Atividades"],
+                "security": [{"bearerAuth": []}],
+                "responses": {
+                    "200": {
+                        "description": "Atividades listadas com sucesso!",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/AtividadesListResponse"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Falha ao listar as atividades",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Error"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "Cria um atividade nova",
+                "tags": ["Atividades"],
+                "security": [{"bearerAuth": []}],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CreateAtividadeRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Atividade criada com sucesso!",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/properties/criadoSucesso"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Falha ao criar uma atividade",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Error"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/testes/{id}": {
+            "get": {
+                "description": "Listar um teste específico pelo ID",
+                "tags": ["Testes"],
+                "security": [{"bearerAuth": []}],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID do Teste",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Teste listado com sucesso!",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Teste"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Falha ao listar teste!",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Error"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "description": "Atualiza os dados de um teste",
+                "tags": ["Testes"],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID do Teste",
+                        "required": true
+                    }
+                ],
+                "security": [{"bearerAuth": []}],
+                "deprecated": false,
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UpdateTesteRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Teste atualizado com sucesso!",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/properties/atualizadoSucesso"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Falha ao atualizar um teste!",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Error"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/testes": {
+            "get": {
+                "description": "Lista os testes",
+                "tags": ["Testes"],
+                "security": [{"bearerAuth": []}],
+                "responses": {
+                    "200": {
+                        "description": "Testes listados com sucesso!",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/TestesListResponse"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Falha ao listar os testes",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Error"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "Cria um teste novo",
+                "tags": ["Testes"],
+                "security": [{"bearerAuth": []}],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CreateTesteRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Teste criado com sucesso!",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/properties/criadoSucesso"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Falha ao criar um teste!",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Error"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/atividades-aluno/{id}": {
+            "get": {
+                "description": "Lista uma atividade específica pelo ID feita por um aluno!",
+                "tags": ["Atividades-Aluno"],
+                "security": [{"bearerAuth": []}],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID da Atividade-Aluno",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Atividade-aluno listada com sucesso!",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Atividade-Aluno"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Falha ao listar atividade-aluno!",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Error"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "description": "Atualiza os dados de uma atividade feita por um aluno!",
+                "tags": ["Atividades-Aluno"],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID da Atividade-Aluno",
+                        "required": true
+                    }
+                ],
+                "security": [{"bearerAuth": []}],
+                "deprecated": false,
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UpdateAtividadeAlunoRequest" 
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Teste atualizado com sucesso!",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/properties/atualizadoSucesso"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Falha ao atualizar um teste!",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Error"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/atividades-aluno": {
+            "get": {
+                "description": "Lista as atividades feitas por alunos",
+                "tags": ["Atividades-Aluno"],
+                "security": [{"bearerAuth": []}],
+                "responses": {
+                    "200": {
+                        "description": "Atividades-aluno listadas com sucesso!",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/AtividadesAlunoListResponse"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Falha ao listar as atividades-aluno",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Error"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "Cria uma atividade feita por um aluno!",
+                "tags": ["Atividades-Aluno"],
+                "security": [{"bearerAuth": []}],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CreateAtividadesAlunoRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Atividade-aluno criada com sucesso!",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/properties/criadoSucesso"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Falha ao criar uma Atividade-Aluno!",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Error"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/testes-aluno/{id}": {
+            "get": {
+                "description": "Lista um teste específico pelo ID feita por um aluno!",
+                "tags": ["Testes-Aluno"],
+                "security": [{"bearerAuth": []}],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID do Teste-Aluno",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Teste-aluno listado com sucesso!",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Teste-Aluno"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Falha ao listar teste-aluno!",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Error"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "description": "Atualiza os dados de um teste feito por um aluno!",
+                "tags": ["Testes-Aluno"],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID do Teste-Aluno",
+                        "required": true
+                    }
+                ],
+                "security": [{"bearerAuth": []}],
+                "deprecated": false,
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UpdateTesteAlunoRequest" 
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Teste atualizado com sucesso!",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/properties/atualizadoSucesso"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Falha ao atualizar um teste!",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Error"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/testes-aluno": {
+            "get": {
+                "description": "Lista os testes feitos por alunos",
+                "tags": ["Testes-Aluno"],
+                "security": [{"bearerAuth": []}],
+                "responses": {
+                    "200": {
+                        "description": "Testes-aluno listados com sucesso!",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/TestesAlunoListResponse"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Falha ao listar os testes-aluno",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Error"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "Cria um teste feito por um aluno!",
+                "tags": ["Testes-Aluno"],
+                "security": [{"bearerAuth": []}],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CreateTestesAlunoRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Teste-aluno criado com sucesso!",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/properties/criadoSucesso"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Falha ao criar um Teste-Aluno!",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Error"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/boletim": {
+            "get": {
+                "description": "Lista as notas divididas por matéria de uma aluno.",
+                "tags": ["Boletim"],
+                "security": [{"bearerAuth": []}],
+                "responses": {
+                    "200": {
+                        "description": "Boletim listado com sucesso!",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/NotaListResponse"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Falha ao listar o boletim!",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Error"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/boletim/create-pdf": {
+            "get": {
+                "description": "Devolve a URL do PDF do boletim.",
+                "tags": ["Boletim"],
+                "security": [{"bearerAuth": []}],
+                "responses": {
+                    "200": {
+                        "description": "PDF do Boletim criado com sucesso!",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string",
+                                    "example": "https://f000.backblazeb2.com/file/e-learning-storage/1-Boletim.pdf"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Falha ao criar PDF do boletim!",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Error"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/pagina-inicial": {
+            "get": {
+                "description": "Lista as turmas e atividades de um aluno ou professor.",
+                "tags": ["Página Inicial"],
+                "security": [{"bearerAuth": []}],
+                "responses": {
+                    "200": {
+                        "description": "Itens da página inicial listados com sucesso!",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PaginaInicialResponse"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Falha ao listar o boletim!",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -326,15 +1573,18 @@
             },
             "curso": {
                 "type": "string",
-                "example": "ENFERMAGEM"
+                "example": "ENFERMAGEM",
+                "enum": ["ENFERMAGEM", "EDIFICACOES", "GEODESIA" ,"INFORMATICA" ,"MECANICA" ,"QUALIDADE"]
             },
             "periodo": {
                 "type": "string",
-                "example": "DIURNO"
+                "example": "DIURNO",
+                "enum": ["NOTURNO", "DIURNO"]
             },
             "tipo": {
                 "type": "string",
-                "example": "TECNICO"
+                "example": "TECNICO",
+                "enum": ["TECNICO", "MEDIOTECNICO"]
             },
             "sigla": {
                 "type": "string",
@@ -374,7 +1624,7 @@
             },
             "descricaoTopico": {
                 "type": "string",
-                "example": "DNA e RNA são ácidos nucleicos que possuem diferentes estruturas e funções. Enquanto o DNA é responsável por armazenar as DNA e RNA são ácidos nucleicos que possuem diferentes estruturas e funções. Enquanto o DNA é responsável por armazenar as DNA e RNA são ácidos nucleicos que possuem diferentes estruturas e funções."
+                "example": "DNA e RNA são ácidos nucleicos que possuem diferentes estruturas e funções."
             },
             "data": {
                 "type": "string",
@@ -382,7 +1632,7 @@
             },
             "conteudo": {
                 "type": "string",
-                "example": "DNA e RNA são ácidos nucleicos que possuem diferentes estruturas e funções. Enquanto o DNA é responsável por armazenar as DNA e RNA são ácidos nucleicos que possuem diferentes estruturas e funções. Enquanto o DNA é responsável por armazenar as DNA e RNA são ácidos nucleicos que possuem diferentes estruturas e funções."
+                "example": "DNA e RNA são ácidos nucleicos que possuem diferentes estruturas e funções."
             },
             "nomeAtividade": {
                 "type": "string",
@@ -401,13 +1651,49 @@
                 "example": "Alguma falha ocorreu. Tente novamente mais tarde."
             },
             "criadoSucesso": {
-                "type": "string",
-                "example": "Criado com sucesso!"
+                "type": "object",
+                "properties": {
+                    "message": {
+                        "type": "string",
+                        "example": "Criado com sucesso!"
+                    }
+                }
             },
             "atualizadoSucesso": {
+                "type": "object",
+                "properties": {
+                    "message": {
+                        "type": "string",
+                        "example": "Atualizado com sucesso!"
+                    }
+                }
+            },
+            "cargo": {
                 "type": "string",
-                "example": "Atualizado com sucesso!"
-            }  
+                "example": "PROFESSOR",
+                "enum": ["PROFESSOR", "ALUNO"]
+            },
+            "token": {
+                "type": "string",
+                "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiMTIuMzQ1LjY3OC0xIiwicm9sZSI6IlBST0ZFU1NPUiIsImlhdCI6MTYyNDkwMDI0MCwiZXhwIjoxNjI0OTg2NjQwfQ.4RMjedX-AaH8qOC-wxYEeyQEfAIw2LLRwsjyNsbCiJw"
+            },
+            "autenticadoSucesso": {
+                "type": "object",
+                "properties": {
+                    "token": {
+                        "$ref": "#/components/properties/token"
+                    }
+                }
+            },
+            "_count": {
+                "type": "object",
+                "properties": {
+                    "turmas": {
+                        "type": "number",
+                        "example": 3
+                    }
+                }
+            }
         },
         "schemas": {
             "Aluno": {
@@ -433,11 +1719,232 @@
                     }
                 }
             },
+            "Serie": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "$ref": "#/components/properties/id"
+                    },
+                    "curso": {
+                        "$ref": "#/components/properties/curso"
+                    },
+                    "tipo": {
+                        "$ref": "#/components/properties/tipo"
+                    },
+                    "ano": {
+                        "$ref": "#/components/properties/ano"
+                    },
+                    "periodo": {
+                        "$ref": "#/components/properties/periodo"
+                    },
+                    "sigla": {
+                        "$ref": "#/components/properties/sigla"
+                    },
+                    "_count": {
+                        "$ref": "#/components/properties/_count"
+                    }
+                }
+            },
+            "Professor": {
+                "type": "object",
+                "properties": {
+                    "rg": {
+                        "$ref": "#/components/properties/rg"
+                    },
+                    "telefone": {
+                        "$ref": "#/components/properties/telefone"
+                    },
+                    "nome": {
+                        "$ref": "#/components/properties/nomePessoa"
+                    },
+                    "email": {
+                        "$ref": "#/components/properties/email"
+                    },
+                    "foto": {
+                        "$ref": "#/components/properties/foto"
+                    }
+                }
+            },
+            "Turma": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "$ref": "#/components/properties/id"
+                    },
+                    "nome": {
+                        "$ref": "#/components/properties/nomeTurma"
+                    },
+                    "icone": {
+                        "$ref": "#/components/properties/icone"
+                    },
+                    "corPrim": {
+                        "$ref": "#/components/properties/corPrim"
+                    },
+                    "corSec": {
+                        "$ref": "#/components/properties/corSec"
+                    },
+                    "idSerie": {
+                        "$ref": "#/components/properties/id"
+                    },
+                    "rgProfessor": {
+                        "$ref": "#/components/properties/rg"
+                    }
+                }
+            },
+            "Topico": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "$ref": "#/components/properties/id"
+                    },
+                    "nome": {
+                        "$ref": "#/components/properties/nomeTopico"
+                    },
+                    "descricao": {
+                        "$ref": "#/components/properties/descricaoTopico"
+                    },
+                    "idTurma": {
+                        "$ref": "#/components/properties/id"
+                    }
+                }
+            },
+            "Material": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "$ref": "#/components/properties/id"
+                    },
+                    "data": {
+                        "$ref": "#/components/properties/data"
+                    },
+                    "conteudo": {
+                        "$ref": "#/components/properties/conteudo"
+                    },
+                    "nome": {
+                        "$ref": "#/components/properties/nomeAtividade"
+                    },
+                    "idTopico": {
+                        "$ref": "#/components/properties/id"
+                    }
+                }
+            },
+            "Atividade": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "$ref": "#/components/properties/id"
+                    },
+                    "dataInicio": {
+                        "$ref": "#/components/properties/data"
+                    },
+                    "dataFim": {
+                        "$ref": "#/components/properties/data"
+                    },
+                    "conteudo": {
+                        "$ref": "#/components/properties/conteudo"
+                    },
+                    "nome": {
+                        "$ref": "#/components/properties/nomeAtividade"
+                    },
+                    "idTopico": {
+                        "$ref": "#/components/properties/id"
+                    }
+                }
+            },
+            "Teste": {
+                "type": "object",
+                "properties": {
+                    "id":{
+                        "$ref": "#/components/properties/id"
+                    },
+                    "conteudo": {
+                        "$ref": "#/components/properties/conteudo"
+                    },
+                    "dataInicio": {
+                        "$ref": "#/components/properties/data"
+                    },
+                    "dataFim": {
+                        "$ref": "#/components/properties/data"
+                    },
+                    "idTopico": {
+                        "$ref": "#/components/properties/id"
+                    }
+                }
+            },
+            "Atividade-Aluno": {
+                "type": "object",
+                "properties": {
+                    "id":{
+                        "$ref": "#/components/properties/id"
+                    },
+                    "dataEnvio": {
+                        "$ref": "#/components/properties/data"
+                    },
+                    "link": {
+                        "$ref": "#/components/properties/linkArquivo"
+                    },
+                    "nome": {
+                        "$ref": "#/components/properties/nomeArquivo"
+                    },
+                    "nota": {
+                        "$ref": "#/components/properties/nota"
+                    },
+                    "raAluno": {
+                        "$ref": "#/components/properties/ra"
+                    },
+                    "idAtividade": {
+                        "$ref": "#/components/properties/id"
+                    },
+                    "idTurma": {
+                        "$ref": "#/components/properties/id"
+                    }
+                }
+            },
+            "Teste-Aluno": {
+                "type": "object",
+                "properties": {
+                    "id":{
+                        "$ref": "#/components/properties/id"
+                    },
+                    "dataEnvio": {
+                        "$ref": "#/components/properties/data"
+                    },
+                    "nota": {
+                        "$ref": "#/components/properties/nota"
+                    },
+                    "raAluno": {
+                        "$ref": "#/components/properties/ra"
+                    },
+                    "idTeste": {
+                        "$ref": "#/components/properties/id"
+                    },
+                    "idTurma": {
+                        "$ref": "#/components/properties/id"
+                    }
+                }
+            },
+            "Nota": {
+                "type": "object",
+                "properties": {
+                    "nome": {
+                        "$ref": "#/components/properties/nomeTurma"
+                    },
+                    "mediaAtividades":{
+                        "$ref": "#/components/properties/nota"
+                    },
+                    "mediaTestes":{
+                        "$ref": "#/components/properties/nota"
+                    },
+                    "mediaTurma":{
+                        "$ref": "#/components/properties/nota"
+                    }
+                }
+            },
             "CreateAlunoRequest": {
                 "type": "object",
                 "properties": {
                     "nome": {
-                        "$ref": "#/components/properties/nome"
+                        "$ref": "#/components/properties/nomePessoa"
                     },
                     "telefone": {
                         "$ref": "#/components/properties/telefone"
@@ -457,7 +1964,7 @@
                 "type": "object",
                 "properties": {
                     "nome": {
-                        "$ref": "#/components/properties/nome"
+                        "$ref": "#/components/properties/nomePessoa"
                     },
                     "telefone": {
                         "$ref": "#/components/properties/telefone"
@@ -492,11 +1999,318 @@
                         "$ref": "#/components/properties/errorDescription"
                     }
                 }
+            },
+            "AuthenticateRequest": {
+                "type": "object",
+                "properties": {
+                    "user": {
+                        "$ref": "#/components/properties/rg"
+                    },
+                    "password": {
+                        "$ref": "#/components/properties/senha"
+                    },
+                    "role": {
+                        "$ref": "#/components/properties/cargo"
+                    }
+                }
+            },
+            "SeriesListResponse": {
+                "type": "array",
+                "items": {
+                    "$ref": "#/components/schemas/Serie"
+                }
+            },
+            "CreateSerieRequest": {
+                "type": "object",
+                "properties": {
+                    "curso": {
+                        "$ref": "#/components/properties/curso"
+                    },
+                    "tipo": {
+                        "$ref": "#/components/properties/tipo"
+                    },
+                    "ano": {
+                        "$ref": "#/components/properties/ano"
+                    },
+                    "periodo": {
+                        "$ref": "#/components/properties/periodo"
+                    }
+                }
+            },
+            "ProfessoresListResponse": {
+                "type": "array",
+                "items": {
+                    "$ref": "#/components/schemas/Professor"
+                }
+            },
+            "CreateProfessorRequest": {
+                "$ref": "#/components/schemas/Professor"
+            },
+            "UpdateProfessorRequest": {
+                "type": "object",
+                "properties": {
+                    "telefone": {
+                        "$ref": "#/components/properties/telefone"
+                    },
+                    "nome": {
+                        "$ref": "#/components/properties/nomePessoa"
+                    },
+                    "email": {
+                        "$ref": "#/components/properties/email"
+                    },
+                    "senha": {
+                        "$ref": "#/components/properties/senha"
+                    },
+                    "foto": {
+                        "$ref": "#/components/properties/foto"
+                    }
+                }
+            },
+            "TurmasListResponse": {
+                "type": "array",
+                "items": {
+                    "$ref": "#/components/schemas/Turma"
+                }
+            },
+            "CreateTurmaRequest": {
+                "type": "object",
+                "properties": {
+                    "nome": {
+                        "$ref": "#/components/properties/nomeTurma"
+                    },
+                    "icone": {
+                        "$ref": "#/components/properties/icone"
+                    },
+                    "corPrim": {
+                        "$ref": "#/components/properties/corPrim"
+                    },
+                    "corSec": {
+                        "$ref": "#/components/properties/corSec"
+                    },
+                    "idSerie": {
+                        "$ref": "#/components/properties/id"
+                    },
+                    "rgProfessor": {
+                        "$ref": "#/components/properties/rg"
+                    }
+                }
+            },
+            "TopicosListResponse": {
+                "type": "array",
+                "items": {
+                    "$ref": "#/components/schemas/Topico"
+                }
+            },
+            "CreateTopicosRequest": {
+                "type": "object",
+                "properties": {
+                    "nome": {
+                        "$ref": "#/components/properties/nomeTopico"
+                    },
+                    "descricao": {
+                        "$ref": "#/components/properties/descricaoTopico"
+                    },
+                    "idTurma": {
+                        "$ref": "#/components/properties/id"
+                    }
+                }
+            },
+            "MaterialsListResponse": {
+                "type": "array",
+                "items": {
+                    "$ref": "#/components/schemas/Material"
+                }
+            },
+            "CreateMaterialRequest": {
+                "type": "object",
+                "properties": {
+                    "data": {
+                        "$ref": "#/components/properties/data"
+                    },
+                    "conteudo": {
+                        "$ref": "#/components/properties/conteudo"
+                    },
+                    "nome": {
+                        "$ref": "#/components/properties/nomeAtividade"
+                    },
+                    "idTopico": {
+                        "$ref": "#/components/properties/id"
+                    }
+                }
+            },
+            "UpdateMaterialRequest": {
+                "type": "object",
+                "properties": {
+                    "conteudo": {
+                        "$ref": "#/components/properties/conteudo"
+                    },
+                    "nome": {
+                        "$ref": "#/components/properties/nomeAtividade"
+                    }
+                }
+            },
+            "AtividadesListResponse": {
+                "type": "array",
+                "items": {
+                    "$ref": "#/components/schemas/Atividade"
+                }
+            },
+            "CreateAtividadeRequest": {
+                "type": "object",
+                "properties": {
+                    "dataInicio": {
+                        "$ref": "#/components/properties/data"
+                    },
+                    "dataFim": {
+                        "$ref": "#/components/properties/data"
+                    },
+                    "conteudo": {
+                        "$ref": "#/components/properties/conteudo"
+                    },
+                    "nome": {
+                        "$ref": "#/components/properties/nomeAtividade"
+                    },
+                    "idTopico": {
+                        "$ref": "#/components/properties/id"
+                    }
+                }
+            },
+            "UpdateAtividadeRequest": {
+                "type": "object",
+                "properties": {
+                    "dataInicio": {
+                        "$ref": "#/components/properties/data"
+                    },
+                    "dataFim": {
+                        "$ref": "#/components/properties/data"
+                    },
+                    "conteudo": {
+                        "$ref": "#/components/properties/conteudo"
+                    },
+                    "nome": {
+                        "$ref": "#/components/properties/nomeAtividade"
+                    }
+                }
+            },
+            "TestesListResponse": {
+                "type": "array",
+                "items": {
+                    "$ref": "#/components/schemas/Teste"
+                }
+            },
+            "CreateTesteRequest": {
+                "type": "object",
+                "properties": {
+                    "dataInicio": {
+                        "$ref": "#/components/properties/data"
+                    },
+                    "dataFim": {
+                        "$ref": "#/components/properties/data"
+                    },
+                    "conteudo": {
+                        "$ref": "#/components/properties/conteudo"
+                    },
+                    "idTopico": {
+                        "$ref": "#/components/properties/id"
+                    }
+                }
+            },
+            "UpdateTesteRequest": {
+                "type": "object",
+                "properties": {
+                    "dataInicio": {
+                        "$ref": "#/components/properties/data"
+                    },
+                    "dataFim": {
+                        "$ref": "#/components/properties/data"
+                    },
+                    "conteudo": {
+                        "$ref": "#/components/properties/conteudo"
+                    }
+                }
+            },
+            "AtividadesAlunoListResponse": {
+                "type": "array",
+                "items": {
+                    "$ref": "#/components/schemas/Atividade-Aluno"
+                }
+            },
+            "CreateAtividadesAlunoRequest": {
+                "type": "object",
+                "properties": {
+                    "link": {
+                        "$ref": "#/components/properties/linkArquivo"
+                    },
+                    "nome": {
+                        "$ref": "#/components/properties/nomeArquivo"
+                    },
+                    "idAtividade": {
+                        "$ref": "#/components/properties/id"
+                    },
+                    "idTurma": {
+                        "$ref": "#/components/properties/id"
+                    }
+                }
+            },
+            "UpdateAtividadeAlunoRequest": {
+                "type":"object",
+                "properties": {
+                    "nota": {
+                        "$ref": "#/components/properties/nota"
+                    }
+                } 
+            },
+            "TestesAlunoListResponse": {
+                "type": "array",
+                "items": {
+                    "$ref": "#/components/schemas/Teste-Aluno"
+                }
+            },
+            "CreateTestesAlunoRequest": {
+                "type": "object",
+                "properties": {
+                    "nota": {
+                        "$ref": "#/components/properties/nota"
+                    },
+                    "idTeste": {
+                        "$ref": "#/components/properties/id"
+                    },
+                    "idTurma": {
+                        "$ref": "#/components/properties/id"
+                    }
+                }
+            },
+            "UpdateTesteAlunoRequest": {
+                "type":"object",
+                "properties": {
+                    "nota": {
+                        "$ref": "#/components/properties/nota"
+                    }
+                } 
+            },
+            "NotaListResponse": {
+                "type": "array",
+                "items": {
+                    "$ref": "#/components/schemas/Nota"
+                }
+            },
+            "PaginaInicialResponse": {
+                "type": "object",
+                "properties": {
+                    "turmas":{
+                        "$ref": "#/components/schemas/TurmasListResponse"
+                    },
+                    "atividades": {
+                        "$ref": "#/components/schemas/AtividadesListResponse"
+                    }
+                }
             }
-        },
-        "security": {
-            "BearerAuth": {
-                
+        },   
+        "securitySchemes": {
+            "bearerAuth": {
+                "type": "http",
+                "scheme": "bearer",
+                "bearerFormat": "JWT"
             }
         }
     }

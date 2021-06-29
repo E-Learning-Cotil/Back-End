@@ -61,7 +61,7 @@ class materiaisController{
 				}
 			});
             
-            return res.status(201).json({message: "OK"});
+            return res.status(201).json({message: "Material criado com sucesso!"});
 		} catch (error) {
 			const err = new InternalError('Falha ao criar um material!', 400, error.message);
             next(err);
@@ -84,7 +84,7 @@ class materiaisController{
                 }
             });
             
-            return res.status(200).json({message: "OK"});
+            return res.status(200).json({message: "Material atualizado com sucesso!"});
 		} catch (error) {
 			const err = new InternalError('Falha ao atualizar um material!', 400, error.message);
             next(err);

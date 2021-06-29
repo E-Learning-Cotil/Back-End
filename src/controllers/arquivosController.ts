@@ -4,7 +4,7 @@ import { InternalError } from '../errors/InternalError';
 
 const b2 = new B2(process.env.B2_ACCOUNT_ID, process.env.B2_APP_KEY);
 
-class ImagesController{
+class ArquivosController{
     async upload(req: Request, res: Response, next: NextFunction){
         try {
 			await b2.uploadFile(req.file.path, {
@@ -20,4 +20,4 @@ class ImagesController{
     }
 }
 
-export default new ImagesController();
+export default new ArquivosController();

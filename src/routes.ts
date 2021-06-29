@@ -18,7 +18,7 @@ import atividadesAlunoRouter from './routes/atividadesAluno';
 import testesAlunoRouter from './routes/testesAluno';
 import boletimRouter from './routes/boletim';
 import homePageRouter from './routes/homepage';
-import imagensRouter from './routes/imagens';
+import arquivosRouter from './routes/arquivos';
 
 //DOCS
 import apiSchema from '../public/api-schema.json';
@@ -67,7 +67,7 @@ router.use('/boletim', boletimRouter);
 router.use('/pagina-inicial', homePageRouter);
 
 //Imagens
-router.use('/imagens', imagensRouter)
+router.use('/arquivos', arquivosRouter)
 
 router.use('/docs', swaggerUi.serve, swaggerUi.setup(apiSchema));
 

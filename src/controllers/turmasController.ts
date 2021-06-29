@@ -96,7 +96,7 @@ class turmasController{
                 }
             });
             
-            return res.status(201).json({message: "OK"});
+            return res.status(201).json({message: "Turma criada com sucesso!"});
         } catch (error) {
             const err = new InternalError('Falha ao criar uma turma!', 400, error.message); 
             next(err);
