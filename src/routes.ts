@@ -8,6 +8,7 @@ import seriesRouter from './routes/series';
 import alunosRouter from './routes/alunos';
 import professoresRouter from './routes/professores';
 import turmasRouter from './routes/turmas';
+import iconesRouter from './routes/icones';
 
 //WEB & MOBILE
 import topicosRouter from './routes/topicos';
@@ -38,6 +39,9 @@ router.use('/alunos', alunosRouter);
 
 //Professores
 router.use('/professores', professoresRouter);
+
+//Icones
+router.use('/icones', iconesRouter);
 
 //Turmas 
 router.use('/turmas', turmasRouter);
