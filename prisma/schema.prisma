@@ -88,9 +88,12 @@ enum OrigemMensagem {
 model Turmas{
   id Int @id @default(autoincrement())
   nome String
-  icone String
-  corPrim String
-  corSec String
+
+  idCores Int
+  cores Cores @relation(fields: [idCores], references: [id])
+
+  idIcone Int
+  icone Icones @relation(fields: [idIcone], references: [id])
 
   idSerie Int
   serie Series @relation(fields: [idSerie], references: [id])
@@ -248,4 +251,21 @@ model ArquivosAtividades{
 
   idAtividade Int
   atividades Atividades @relation(fields: [idAtividade], references: [id])
+}
+
+//Ícones
+model Icones{
+  id Int @id @default(autoincrement())
+  link String
+
+  turmas Turmas[]
+}
+
+//Cores
+model Cores{
+  id Int @id @default(autoincrement())
+  corPrim String
+  corSec String
+
+  turmas Turmas[]
 }

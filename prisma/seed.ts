@@ -119,69 +119,109 @@ async function main() {
 		skipDuplicates: true,
 	});
 
+	const createManyCores = await prisma.cores.createMany({
+		data: [
+			{
+				corPrim: "#9F18DF",
+				corSec: "#6C1795"
+			},
+			{
+				corPrim: "#3D84C4",
+				corSec: "#041958"
+			},
+			{
+				corPrim: "#0CBE29",
+				corSec: "#009418"
+			},
+			{
+				corPrim: "#DE8114",
+				corSec: "#A43B00"
+			},
+			{
+				corPrim: "#E03131",
+				corSec: "#820000"
+			}
+		]
+	})
+
+	const createManyIcones = await prisma.icones.createMany({
+		data: [
+			{
+				link: "https://i.imgur.com/yD06uw2.png"
+			},
+			{
+				link: "https://imgur.com/NpzPrQ4.png"
+			},
+			{
+				link: "https://imgur.com/XORThTC.png"
+			},
+			{
+				link: "https://imgur.com/LfUQhIV.png"
+			},
+			{
+				link: "https://imgur.com/FL9s1uY.png"
+			},
+			{
+				link: "https://imgur.com/IxuH2zj.png"
+			}
+		]
+	})
+
 	const createManyTurmas = await prisma.turmas.createMany({
 		data: [
 			{
 				nome: 'Química',
-				icone: 'quimica',
-				corPrim: 'cor1',
-				corSec: 'cor2',
+				idIcone: 1,
+				idCores: 1,
 				idSerie: 1,
 				rgProfessor: '12.345.678-1'
 			},
 			{
 				nome: 'Física',
-				icone: 'fisica',
-				corPrim: 'cor1',
-				corSec: 'cor2',
+				idIcone: 2,
+				idCores: 2,
 				idSerie: 1,
 				rgProfessor: '12.345.678-2'
 			},
 			{
 				nome: 'Matemática',
-				icone: 'matematica',
-				corPrim: 'cor1',
-				corSec: 'cor2',
+				idIcone: 3,
+				idCores: 3,
 				idSerie: 2,
 				rgProfessor: '12.345.678-3'
 			},
 			{
 				nome: 'Português',
-				icone: 'portugues',
-				corPrim: 'cor1',
-				corSec: 'cor2',
+				idIcone: 4,
+				idCores: 4,
 				idSerie: 2,
 				rgProfessor: '12.345.678-4'
 			},
 			{
 				nome: 'Química',
-				icone: 'quimica',
-				corPrim: 'cor1',
-				corSec: 'cor2',
+				idIcone: 1,
+				idCores: 2,
 				idSerie: 3,
 				rgProfessor: '12.345.678-1'
 			},
 			{
 				nome: 'Física',
-				icone: 'fisica',
-				corPrim: 'cor1',
-				corSec: 'cor2',
+				idIcone: 2,
+				idCores: 3,
 				idSerie: 3,
 				rgProfessor: '12.345.678-2'
 			},
 			{
 				nome: 'Matemática',
-				icone: 'matematica',
-				corPrim: 'cor1',
-				corSec: 'cor2',
+				idIcone: 3,
+				idCores: 4,
 				idSerie: 4,
 				rgProfessor: '12.345.678-3'
 			},
 			{
 				nome: 'Português',
-				icone: 'portugues',
-				corPrim: 'cor1',
-				corSec: 'cor2',
+				idIcone: 4,
+				idCores: 5,
 				idSerie: 4,
 				rgProfessor: '12.345.678-4'
 			},
@@ -805,6 +845,8 @@ async function main() {
 		createManySeries, 
 		createManyAlunos, 
 		createManyProfessores, 
+		createManyCores,
+		createManyIcones,
 		createManyTurmas,
 		createManyTopicos,
 		createManyMateriais,

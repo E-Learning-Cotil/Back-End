@@ -42,9 +42,8 @@ CREATE TABLE `Conversas` (
 CREATE TABLE `Turmas` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
     `nome` VARCHAR(191) NOT NULL,
-    `icone` VARCHAR(191) NOT NULL,
-    `corPrim` VARCHAR(191) NOT NULL,
-    `corSec` VARCHAR(191) NOT NULL,
+    `idCores` INTEGER NOT NULL,
+    `idIcone` INTEGER NOT NULL,
     `idSerie` INTEGER NOT NULL,
     `rgProfessor` VARCHAR(191) NOT NULL,
 
@@ -164,6 +163,23 @@ CREATE TABLE `ArquivosAtividades` (
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
+-- CreateTable
+CREATE TABLE `Icones` (
+    `id` INTEGER NOT NULL AUTO_INCREMENT,
+    `link` VARCHAR(191) NOT NULL,
+
+    PRIMARY KEY (`id`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- CreateTable
+CREATE TABLE `Cores` (
+    `id` INTEGER NOT NULL AUTO_INCREMENT,
+    `corPrim` VARCHAR(191) NOT NULL,
+    `corSec` VARCHAR(191) NOT NULL,
+
+    PRIMARY KEY (`id`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
 -- AddForeignKey
 ALTER TABLE `Alunos` ADD FOREIGN KEY (`idSerie`) REFERENCES `Series`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
@@ -172,6 +188,12 @@ ALTER TABLE `Conversas` ADD FOREIGN KEY (`rgProfessor`) REFERENCES `Professores`
 
 -- AddForeignKey
 ALTER TABLE `Conversas` ADD FOREIGN KEY (`raAluno`) REFERENCES `Alunos`(`ra`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE `Turmas` ADD FOREIGN KEY (`idCores`) REFERENCES `Cores`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE `Turmas` ADD FOREIGN KEY (`idIcone`) REFERENCES `Icones`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE `Turmas` ADD FOREIGN KEY (`idSerie`) REFERENCES `Series`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
