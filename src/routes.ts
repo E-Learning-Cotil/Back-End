@@ -9,6 +9,7 @@ import alunosRouter from './routes/alunos';
 import professoresRouter from './routes/professores';
 import turmasRouter from './routes/turmas';
 import iconesRouter from './routes/icones';
+import coresRouter from './routes/cores';
 
 //WEB & MOBILE
 import topicosRouter from './routes/topicos';
@@ -42,6 +43,9 @@ router.use('/professores', professoresRouter);
 
 //Icones
 router.use('/icones', iconesRouter);
+
+//Cores
+router.use('/cores', coresRouter);
 
 //Turmas 
 router.use('/turmas', turmasRouter);
