@@ -140,7 +140,7 @@ model ArquivosProfessor {
 model Topicos {
   id Int @id @default(autoincrement())
   nome String
-  descricao String
+  descricao String @db.Text
 
   idTurma Int
   turma Turmas @relation(fields: [idTurma], references: [id])
@@ -156,7 +156,7 @@ model Topicos {
 model Materiais{
   id Int @id @default(autoincrement())
   data DateTime @default(now())
-  conteudo String
+  conteudo String @db.Text
   nome String
   
   idTopico Int
@@ -168,7 +168,7 @@ model Materiais{
 //Atividade
 model Atividades {
   id Int @id @default(autoincrement())
-  conteudo String
+  conteudo String @db.Text
   nome String
   dataInicio DateTime
   dataFim DateTime
@@ -202,7 +202,7 @@ model AtividadesAluno {
 //Teste
 model Testes{
   id Int @id @default(autoincrement())
-  conteudo String
+  conteudo String @db.Text
   dataInicio DateTime
   dataFim DateTime
   

@@ -80,7 +80,7 @@ CREATE TABLE `ArquivosProfessor` (
 CREATE TABLE `Topicos` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
     `nome` VARCHAR(191) NOT NULL,
-    `descricao` VARCHAR(191) NOT NULL,
+    `descricao` TEXT NOT NULL,
     `idTurma` INTEGER NOT NULL,
 
     PRIMARY KEY (`id`)
@@ -90,7 +90,7 @@ CREATE TABLE `Topicos` (
 CREATE TABLE `Materiais` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
     `data` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
-    `conteudo` VARCHAR(191) NOT NULL,
+    `conteudo` TEXT NOT NULL,
     `nome` VARCHAR(191) NOT NULL,
     `idTopico` INTEGER NOT NULL,
 
@@ -100,7 +100,7 @@ CREATE TABLE `Materiais` (
 -- CreateTable
 CREATE TABLE `Atividades` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
-    `conteudo` VARCHAR(191) NOT NULL,
+    `conteudo` TEXT NOT NULL,
     `nome` VARCHAR(191) NOT NULL,
     `dataInicio` DATETIME(3) NOT NULL,
     `dataFim` DATETIME(3) NOT NULL,
@@ -126,7 +126,7 @@ CREATE TABLE `AtividadesAluno` (
 -- CreateTable
 CREATE TABLE `Testes` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
-    `conteudo` VARCHAR(191) NOT NULL,
+    `conteudo` TEXT NOT NULL,
     `dataInicio` DATETIME(3) NOT NULL,
     `dataFim` DATETIME(3) NOT NULL,
     `idTopico` INTEGER NOT NULL,
