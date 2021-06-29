@@ -1831,6 +1831,31 @@
                     }
                 }
             },
+            "Icone": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "$ref": "#/components/properties/id"
+                    },
+                    "link": {
+                        "$ref": "#/components/properties/foto"
+                    }
+                }
+            },
+            "Cores": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "$ref": "#/components/properties/id"
+                    },
+                    "corPrim": {
+                        "$ref": "#/components/properties/corPrim"
+                    },
+                    "corSec": {
+                        "$ref": "#/components/properties/corSec"
+                    }
+                }
+            },
             "Turma": {
                 "type": "object",
                 "properties": {
@@ -1840,20 +1865,23 @@
                     "nome": {
                         "$ref": "#/components/properties/nomeTurma"
                     },
-                    "icone": {
-                        "$ref": "#/components/properties/icone"
+                    "idIcone": {
+                        "$ref": "#/components/properties/id"
                     },
-                    "corPrim": {
-                        "$ref": "#/components/properties/corPrim"
-                    },
-                    "corSec": {
-                        "$ref": "#/components/properties/corSec"
+                    "idCores": {
+                        "$ref": "#/components/properties/id"
                     },
                     "idSerie": {
                         "$ref": "#/components/properties/id"
                     },
                     "rgProfessor": {
                         "$ref": "#/components/properties/rg"
+                    },
+                    "icone": {
+                        "$ref": "#/components/schemas/Icone"
+                    },
+                    "cores": {
+                        "$ref": "#/components/schemas/Cores"
                     }
                 }
             },
@@ -2144,14 +2172,11 @@
                     "nome": {
                         "$ref": "#/components/properties/nomeTurma"
                     },
-                    "icone": {
-                        "$ref": "#/components/properties/icone"
+                    "idIcone": {
+                        "$ref": "#/components/properties/id"
                     },
-                    "corPrim": {
-                        "$ref": "#/components/properties/corPrim"
-                    },
-                    "corSec": {
-                        "$ref": "#/components/properties/corSec"
+                    "idCores": {
+                        "$ref": "#/components/properties/id"
                     },
                     "idSerie": {
                         "$ref": "#/components/properties/id"
