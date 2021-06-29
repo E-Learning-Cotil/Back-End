@@ -12,6 +12,10 @@ class turmasController{
             const result = await prisma.turmas.findFirst({
                 where: {
                     id: Number(id)
+                },
+                include: {
+                    icone: true,
+                    cores: true
                 }
             });
             
@@ -29,7 +33,11 @@ class turmasController{
 
         try {
             const results = await prisma.turmas.findMany({
-                where: req.query
+                where: req.query,
+                include: {
+                    icone: true,
+                    cores: true
+                }
             });
             
             return res.json(results);
@@ -47,6 +55,10 @@ class turmasController{
                 const result = await prisma.turmas.findMany({
                     where: {
                         rgProfessor: String(id)
+                    },
+                    include: {
+                        icone: true,
+                        cores: true
                     }
                 });
                 
@@ -70,6 +82,10 @@ class turmasController{
                 const result = await prisma.turmas.findMany({
                     where: {
                         idSerie: idSerie
+                    },
+                    include: {
+                        icone: true,
+                        cores: true
                     }
                 });
                 
@@ -82,15 +98,14 @@ class turmasController{
     }
 
     async create(req: Request, res: Response, next: NextFunction){
-        const { nome, icone, corPrim, corSec, idSerie, rgProfessor } = req.body;
+        const { nome, idIcone, idCores, idSerie, rgProfessor } = req.body;
 
         try {
             await prisma.turmas.create({
                 data: {
                     nome,
-                    icone,
-                    corPrim,
-                    corSec,
+                    idIcone,
+                    idCores,
                     idSerie,
                     rgProfessor
                 }
