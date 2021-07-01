@@ -21,13 +21,12 @@ import testesAlunoRouter from './routes/testesAluno';
 import boletimRouter from './routes/boletim';
 import homePageRouter from './routes/homepage';
 import arquivosRouter from './routes/arquivos';
+import arquivosProfessorRouter from './routes/arquivosProfessor';
 
 //DOCS
 import apiSchema from '../public/api-schema.json';
 
 const router = express.Router();
-
-//Docs
 
 //Authentication
 router.post('/authenticate', authController.authenticate);
@@ -74,9 +73,13 @@ router.use('/boletim', boletimRouter);
 //Pagina Inicial
 router.use('/pagina-inicial', homePageRouter);
 
-//Imagens
-router.use('/arquivos', arquivosRouter)
+//Arquivos
+router.use('/arquivos', arquivosRouter);
 
+//Arquivos Professor
+router.use('/arquivos-professor', arquivosProfessorRouter);
+
+//Documentação
 router.use('/docs', swaggerUi.serve, swaggerUi.setup(apiSchema));
 
 export default router;
