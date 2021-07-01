@@ -34,7 +34,7 @@ class ArquivosProfessorController{
                 name: req.file.filename,
                 bucket: 'e-learning-storage',
             }, async function( err: any, file: any) {
-                await prisma.arquivosProfessor.create({
+                const result = await prisma.arquivosProfessor.create({
                     data: {
                         nome: req.file.filename,
                         link: file,
@@ -42,7 +42,7 @@ class ArquivosProfessorController{
                     }
                 })
 
-                return res.status(201).json({link: file});
+                return res.status(201).json({link: file, idArquivo: result.id});
             });
 		} catch (error) {
 			const err = new InternalError('Falha ao hospedar um arquivo!', 400, error.message);

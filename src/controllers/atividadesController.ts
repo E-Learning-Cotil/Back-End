@@ -12,6 +12,9 @@ class atividadesController{
             const result = await prisma.atividades.findFirst({
                 where: {
                     id: Number(id)
+                },
+                include:{
+                    arquivosAtividades: true
                 }
             });
             
@@ -32,11 +35,18 @@ class atividadesController{
                 results = await prisma.atividades.findMany({
                     where: {
                         idTopico: parseInt(idTopico)
+                    },
+                    include:{
+                        arquivosAtividades: true
                     }
                 });
             }
             else {
-                results = await prisma.atividades.findMany();
+                results = await prisma.atividades.findMany({    
+                    include:{
+                        arquivosAtividades: true
+                    }
+                });
             }
 
             if(!results) return res.json("Nenhuma atividade encontrada!");
@@ -49,16 +59,23 @@ class atividadesController{
     }
 
     async create(req: Request, res: Response, next: NextFunction){
-        const { nome, conteudo, dataInicio, dataFim, idTopico } = req.body;
+        const { nome, conteudo, dataInicio, dataFim, idTopico, arquivos } = req.body;
 
 		try {
+            const arquivosAtividades = arquivos.map(arq => {
+                return {idArquivoProfessor: arq}
+            })
+
 			await prisma.atividades.create({
 				data: {
 					nome, 
                     conteudo,
                     dataInicio,
                     dataFim,
-                    idTopico
+                    idTopico,
+                    arquivosAtividades: {
+                        create: arquivosAtividades
+                    }
 				}
 			});
             
@@ -70,9 +87,29 @@ class atividadesController{
 	}
 
     async update(req: Request, res: Response, next: NextFunction){
-        const { nome, conteudo, dataInicio, dataFim, idTopico } = req.body;
+        const { nome, conteudo, dataInicio, dataFim, idTopico , arquivos } = req.body;
 
         const {id} = req.params;
+
+        const arquivosJaCriados = await prisma.arquivosAtividades.findMany({
+            where: {
+                idAtividade: parseInt(id)
+            }
+        });
+
+        const arquivosJaCriadosIDs = arquivosJaCriados.map(item => item.id);
+
+        const arquivosParaCriar = arquivos.filter((id: number) => !arquivosJaCriadosIDs.includes(id));
+        const arquivosParaExcluir = arquivosJaCriadosIDs.filter((id: number) => !arquivos.includes(id));
+
+        const arquivosParaCriarFormatados = arquivosParaCriar.map(arqId => {
+            return {idArquivoProfessor: arqId};
+        });
+
+        const arquivosParaExcluirFormatados = arquivosParaExcluir.map(arqId => {
+            return {id: arqId};
+        });
+
         try {
 			await prisma.atividades.update({
                 where: {
@@ -82,7 +119,11 @@ class atividadesController{
                     nome, 
                     conteudo,
                     dataInicio,
-                    dataFim
+                    dataFim,
+                    arquivosAtividades: {
+                        deleteMany: arquivosParaExcluirFormatados,
+                        create: arquivosParaCriarFormatados
+                    }
                 }
             });
             

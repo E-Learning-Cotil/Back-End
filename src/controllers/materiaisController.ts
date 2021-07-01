@@ -12,6 +12,9 @@ class materiaisController{
             const result = await prisma.materiais.findFirst({
                 where: {
                     id: Number(id)
+                },
+                include:{
+                    arquivosMateriais: true
                 }
             });
             
@@ -33,11 +36,18 @@ class materiaisController{
                 results = await prisma.materiais.findMany({
                     where: {
                         idTopico: parseInt(idTopico)
+                    },
+                    include:{
+                        arquivosMateriais: true
                     }
                 });
             }
             else {
-                results = await prisma.materiais.findMany();
+                results = await prisma.materiais.findMany({
+                    include:{
+                        arquivosMateriais: true
+                    }
+                });
             }
 
             if(!results) return res.json("Nenhum material encontrado!");
@@ -50,15 +60,22 @@ class materiaisController{
     }
 
     async create(req: Request, res: Response, next: NextFunction){
-        const { conteudo, nome, idTopico } = req.body;
+        const { conteudo, nome, idTopico, arquivos } = req.body;
 
 		try {
+            const arquivosMateriais = arquivos.map(arq => {
+                return {idArquivoProfessor: arq}
+            })
+
 			await prisma.materiais.create({
 				data: {
 					conteudo,
                     nome,
-                    idTopico
-				}
+                    idTopico,
+                    arquivosMateriais: {
+                        create: arquivosMateriais
+                    }
+				},
 			});
             
             return res.status(201).json({message: "Material criado com sucesso!"});
@@ -71,8 +88,27 @@ class materiaisController{
     async update(req: Request, res: Response, next: NextFunction){
         const {id} = req.params;
 
-        const { conteudo, nome } = req.body;
+        const { conteudo, nome, arquivos } = req.body;
 
+        const arquivosJaCriados = await prisma.arquivosMateriais.findMany({
+            where: {
+                idMaterial: parseInt(id)
+            }
+        });
+
+        const arquivosJaCriadosIDs = arquivosJaCriados.map(item => item.id);
+
+        const arquivosParaCriar = arquivos.filter((id: number) => !arquivosJaCriadosIDs.includes(id));
+        const arquivosParaExcluir = arquivosJaCriadosIDs.filter((id: number) => !arquivos.includes(id));
+
+        const arquivosParaCriarFormatados = arquivosParaCriar.map(arqId => {
+            return {idArquivoProfessor: arqId};
+        });
+
+        const arquivosParaExcluirFormatados = arquivosParaExcluir.map(arqId => {
+            return {id: arqId};
+        });
+        
         try {
 			await prisma.materiais.update({
                 where: {
@@ -80,9 +116,17 @@ class materiaisController{
                 },
                 data: {
                     conteudo,
-                    nome
+                    nome,
+                    arquivosMateriais: {
+                        deleteMany: arquivosParaExcluirFormatados,
+                        create: arquivosParaCriarFormatados
+                    }
                 }
             });
+
+            // await prisma.arquivosMateriais.createMany({
+            //         data: arquivosParaExcluirFormatados
+            // })
             
             return res.status(200).json({message: "Material atualizado com sucesso!"});
 		} catch (error) {
