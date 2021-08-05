@@ -28,9 +28,7 @@ class boletimController{
         const browser = await puppeteer.launch({
             args: [
                 '--no-sandbox',
-                '--disable-setuid-sandbox',
-                '--single-process',
-                '--disable-dev-shm-usage'
+                '--disable-setuid-sandbox'
             ]
         });
 
@@ -43,17 +41,6 @@ class boletimController{
         await page.goto(`${process.env.HOST}/boletim/render-pdf/`, {
             waitUntil: 'networkidle0'
         });
-
-        await page.evaluate(async () => {
-            const selectors = Array.from(document.querySelectorAll("img"));
-            await Promise.all(selectors.map(img => {
-              if (img.complete) return;
-              return new Promise((resolve, reject) => {
-                img.addEventListener('load', resolve);
-                img.addEventListener('error', reject);
-              });
-            }));
-        })
 
         const fileName = `${id}-Boletim.pdf`;
         const filePath = path.join(__dirname, "..", "..", "tmp", fileName);
@@ -85,14 +72,14 @@ class boletimController{
     async renderFile(req: any, res: Response){
         const { user: id } = req;
 
-        const {nome: name, ra, foto: img} = await prisma.alunos.findFirst({
+        const {nome: name, ra, email} = await prisma.alunos.findFirst({
             where: {
                 ra: parseInt(id)
             },
             select: {
                 nome: true,
                 ra: true,
-                foto: true
+                email: true
             }
         });
         
@@ -101,7 +88,7 @@ class boletimController{
         const dados = {
             name, 
             ra,
-            img,
+            email,
             boletim
         };
 

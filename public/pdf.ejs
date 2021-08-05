@@ -32,12 +32,6 @@
             font-weight: normal;
         }
 
-        .profile{
-            display: flex;
-            align-items: center;
-            justify-content: flex-end;
-        }
-
         .profile-info{
             display: flex;
             flex-direction: column;
@@ -144,12 +138,9 @@
             <img src="https://i.imgur.com/fWws2fz.png" alt="E-Learning">
             <h2>E-Learning</h2>
         </div>
-        <div class="profile">
-            <div class="profile-info">
-                <p><%=name %></p>
-                <p><%=ra %></p>
-            </div>
-            <img src="<%=img %>" alt="José Pereira">
+        <div class="profile-info">
+            <p><%=name %> - RA: <%=ra %></p>
+            <p><%=email %></p>
         </div>
     </header>
     <h1 class="title">Boletim</h1>
