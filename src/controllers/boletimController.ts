@@ -29,6 +29,8 @@ class boletimController{
             args: [
                 '--no-sandbox',
                 '--disable-setuid-sandbox',
+                '--single-process',
+                '--disable-dev-shm-usage'
             ]
         });
 
