@@ -42,7 +42,16 @@ class boletimController{
             waitUntil: 'networkidle0'
         });
 
-        await page.emulateMediaType('print');
+        await page.evaluate(async () => {
+            const selectors = Array.from(document.querySelectorAll("img"));
+            await Promise.all(selectors.map(img => {
+              if (img.complete) return;
+              return new Promise((resolve, reject) => {
+                img.addEventListener('load', resolve);
+                img.addEventListener('error', reject);
+              });
+            }));
+        })
 
         const fileName = `${id}-Boletim.pdf`;
         const filePath = path.join(__dirname, "..", "..", "tmp", fileName);
