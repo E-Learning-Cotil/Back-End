@@ -42,6 +42,8 @@ class boletimController{
             waitUntil: 'networkidle0'
         });
 
+        await page.waitForTimeout(1000);
+
         const fileName = `${id}-Boletim.pdf`;
         const filePath = path.join(__dirname, "..", "..", "tmp", fileName);
 
