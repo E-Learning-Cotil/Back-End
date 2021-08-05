@@ -1,13 +1,12 @@
 import { Request, Response, NextFunction } from 'express';
 import ejs from 'ejs';
 import puppeteer from 'puppeteer';
-import B2 from 'easy-backblaze';
+import Cloudinary from '../config/cloudinary';
 import path from 'path';
 import { PrismaClient } from '@prisma/client';
 import { InternalError } from '../errors/InternalError';
 
 const prisma = new PrismaClient();
-const b2 = new B2(process.env.B2_ACCOUNT_ID, process.env.B2_APP_KEY);
 
 class boletimController{
     async get(req: any, res: Response, next: NextFunction){
@@ -60,17 +59,14 @@ class boletimController{
 
         await browser.close();
 
-        b2.uploadFile(filePath, {
-            name: fileName,
-            bucket: 'e-learning-storage',
-        }, function(err: any, file: any) {
-            try {
-                return res.status(200).json(file);
-            } catch (error) {
-                const err = new InternalError("Erro ao fazer upload do arquivo", 400);
-                return next(err);
-            }
-        });
+        try {
+            Cloudinary.uploader.upload(filePath, function(error, result) {
+                return res.status(201).json(result.url);
+            });
+        } catch (error) {
+            const err = new InternalError("Erro ao fazer upload do arquivo", 400, error.message);
+            return next(err);
+        }
     }
 
     async renderFile(req: any, res: Response){

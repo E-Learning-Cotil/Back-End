@@ -27,6 +27,7 @@
   "dependencies": {
     "@prisma/client": "^2.21.2",
     "bcrypt": "^5.0.1",
+    "cloudinary": "^1.26.3",
     "cors": "^2.8.5",
     "dotenv": "^9.0.2",
     "easy-backblaze": "^2.0.1",
