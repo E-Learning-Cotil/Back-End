@@ -6,34 +6,39 @@ const prisma = new PrismaClient();
 
 class AuthController{
     async authenticate(req: Request, res: Response){
-        const {user, password, role} = req.body;
+        const {email, password, role} = req.body;
 
         let userHash = null;
+        let user = null;
         if(role === "PROFESSOR"){
             const prof = await prisma.professores.findFirst({
                 where: {
-                    rg: String(user)
+                    email
                 },
                 select: {
-                    senha: true
+                    senha: true,
+                    rg: true
                 }
             });
 
             if(!prof) return res.status(400).json({error: 'Professor não encontrado'});
 
+            user = prof.rg;
             userHash = prof.senha;
         }else if(role === "ALUNO"){
             const aluno = await prisma.alunos.findFirst({
                 where: {
-                    ra: parseInt(user)
+                    email
                 },
                 select: {
-                    senha: true
+                    senha: true,
+                    ra: true
                 }
             });
 
             if(!aluno) return res.status(400).json({error: 'Aluno não encontrado'});
 
+            user = aluno.ra;
             userHash = aluno.senha;
         }else{
             return res.status(401).json({message: "Cargo incorreto"});

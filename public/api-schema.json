@@ -17,10 +17,6 @@
         {
             "url": "http://localhost:3334",
             "description": "Development server"
-        },
-        {
-            "url": "http://985878d8694d.ngrok.io/",
-            "description": "Remote development server"
         }
     ],
     "paths": {
@@ -2267,8 +2263,8 @@
             "AuthenticateRequest": {
                 "type": "object",
                 "properties": {
-                    "user": {
-                        "$ref": "#/components/properties/rg"
+                    "email": {
+                        "$ref": "#/components/properties/email"
                     },
                     "password": {
                         "$ref": "#/components/properties/senha"
