@@ -10,6 +10,7 @@ class AuthController{
 
         let userHash = null;
         let user = null;
+        let userId = null;
         if(role === "PROFESSOR"){
             const prof = await prisma.professores.findFirst({
                 where: {
@@ -17,13 +18,18 @@ class AuthController{
                 },
                 select: {
                     senha: true,
-                    rg: true
+                    rg: true,
+                    foto: true,
+                    nome: true,
+                    telefone: true,
+                    email: true
                 }
             });
 
             if(!prof) return res.status(400).json({error: 'Professor não encontrado'});
 
-            user = prof.rg;
+            user = prof;
+            userId = prof.rg;
             userHash = prof.senha;
         }else if(role === "ALUNO"){
             const aluno = await prisma.alunos.findFirst({
@@ -32,25 +38,33 @@ class AuthController{
                 },
                 select: {
                     senha: true,
-                    ra: true
+                    ra: true,
+                    foto: true,
+                    nome: true,
+                    telefone: true,
+                    email: true,
+                    serie: true
                 }
             });
 
             if(!aluno) return res.status(400).json({error: 'Aluno não encontrado'});
 
-            user = aluno.ra;
+            user = aluno;
+            userId = aluno.ra;
             userHash = aluno.senha;
         }else{
             return res.status(401).json({message: "Cargo incorreto"});
         }
 
+        user.senha = undefined;
+
         const isAuthenticated = await bcrypt.compare(password, userHash);
 
         if(!isAuthenticated) return res.status(401).send({error: 'Senha incorreta'});
 
-        const token = generateToken(user, role);
+        const token = generateToken(userId, role);
 
-        return res.status(200).json({token});
+        return res.status(200).json({token, user});
     }
 }
 
