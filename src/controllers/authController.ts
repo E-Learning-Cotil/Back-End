@@ -42,8 +42,7 @@ class AuthController{
                     foto: true,
                     nome: true,
                     telefone: true,
-                    email: true,
-                    serie: true
+                    email: true
                 }
             });
 
@@ -56,6 +55,10 @@ class AuthController{
             return res.status(401).json({message: "Cargo incorreto"});
         }
 
+        user.id = userId;
+        user.rg = undefined;
+        user.ra = undefined;
+        user.role = role;
         user.senha = undefined;
 
         const isAuthenticated = await bcrypt.compare(password, userHash);
