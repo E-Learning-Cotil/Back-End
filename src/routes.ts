@@ -22,6 +22,7 @@ import boletimRouter from './routes/boletim';
 import homePageRouter from './routes/homepage';
 import arquivosRouter from './routes/arquivos';
 import arquivosProfessorRouter from './routes/arquivosProfessor';
+import usuarioRouter from './routes/usuario';
 
 //DOCS
 import apiSchema from '../public/api-schema.json';
@@ -78,6 +79,9 @@ router.use('/arquivos', arquivosRouter);
 
 //Arquivos Professor
 router.use('/arquivos-professor', arquivosProfessorRouter);
+
+//Usuário
+router.use('/usuario', usuarioRouter);
 
 //Documentação
 router.use('/docs', swaggerUi.serve, swaggerUi.setup(apiSchema));
