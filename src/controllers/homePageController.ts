@@ -40,14 +40,46 @@ class homePageController{
                     const atividades = await prisma.atividades.findMany({
                         where : {
                             idTopico
+                        },
+                        include: {
+                            topico: {
+                                include: {
+                                    turma: {
+                                        include: {
+                                            icone: true,
+                                            cores: true
+                                        }
+                                    }
+                                }
+                            }
                         }
                     });
+
+                    atividades.map((ativ: any) => {
+                        ativ.tipo = "ATIVIDADE"
+                    })
 
                     const testes = await prisma.testes.findMany({
                         where : {
                             idTopico
+                        },
+                        include: {
+                            topicos: {
+                                include: {
+                                    turma: {
+                                        include: {
+                                            icone: true,
+                                            cores: true
+                                        }
+                                    }
+                                }
+                            }
                         }
                     });
+
+                    testes.map((teste: any) => {
+                        teste.tipo = "TESTE"
+                    })
 
                     array = [...array, ...atividades, ...testes];
                 }

@@ -128,6 +128,7 @@ CREATE TABLE `Testes` (
     `conteudo` TEXT NOT NULL,
     `dataInicio` DATETIME(3) NOT NULL,
     `dataFim` DATETIME(3) NOT NULL,
+    `nome` VARCHAR(191) NOT NULL,
     `idTopico` INTEGER NOT NULL,
 
     PRIMARY KEY (`id`)

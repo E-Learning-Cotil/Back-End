@@ -208,6 +208,7 @@ model Testes{
   conteudo String @db.Text
   dataInicio DateTime
   dataFim DateTime
+  nome String
   
   idTopico Int
   topicos Topicos @relation(fields: [idTopico], references: [id])

@@ -48,7 +48,7 @@ class testesController{
     }
 
     async create(req: Request, res: Response, next: NextFunction){
-        const {conteudo, dataInicio, dataFim, idTopico} = req.body;
+        const {conteudo, dataInicio, dataFim, idTopico, nome} = req.body;
 
 		try {
 			await prisma.testes.create({
@@ -56,7 +56,8 @@ class testesController{
 					conteudo, 
                     dataInicio, 
                     dataFim, 
-                    idTopico
+                    idTopico,
+                    nome
 				}
 			});
             
@@ -68,7 +69,7 @@ class testesController{
 	}
 
     async update(req: Request, res: Response, next: NextFunction){
-        const {conteudo, dataInicio, dataFim } = req.body;
+        const {conteudo, dataInicio, dataFim, nome } = req.body;
 
         const {id} = req.params;
 
@@ -80,7 +81,8 @@ class testesController{
                 data: {
                     conteudo, 
                     dataInicio, 
-                    dataFim
+                    dataFim,
+                    nome
                 }
             });
             

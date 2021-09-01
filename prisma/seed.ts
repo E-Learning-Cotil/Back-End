@@ -525,97 +525,113 @@ async function main() {
 				conteudo: 'Conteúdo do teste',
 				idTopico: 1,
 				dataInicio: `${tomorrow.toISOString()}`,
-				dataFim: `${nextWeek.toISOString()}`
+				dataFim: `${nextWeek.toISOString()}`,
+				nome: "Teste 1"
 			},
 			{
 				conteudo: 'Conteúdo do teste',
 				idTopico: 2,
 				dataInicio: `${tomorrow.toISOString()}`,
-				dataFim: `${nextWeek.toISOString()}`
+				dataFim: `${nextWeek.toISOString()}`,
+				nome: "Teste 2"
 			},
 			{
 				conteudo: 'Conteúdo do teste',
 				idTopico: 3,
 				dataInicio: `${tomorrow.toISOString()}`,
-				dataFim: `${nextWeek.toISOString()}`
+				dataFim: `${nextWeek.toISOString()}`,
+				nome: "Teste 3"
 			},
 			{
 				conteudo: 'Conteúdo do teste',
 				idTopico: 4,
 				dataInicio: `${tomorrow.toISOString()}`,
-				dataFim: `${nextWeek.toISOString()}`
+				dataFim: `${nextWeek.toISOString()}`,
+				nome: "Teste 4"
 			},
 			{
 				conteudo: 'Conteúdo do teste',
 				idTopico: 5,
 				dataInicio: `${tomorrow.toISOString()}`,
-				dataFim: `${nextWeek.toISOString()}`
+				dataFim: `${nextWeek.toISOString()}`,
+				nome: "Teste 5"
 			},
 			{
 				conteudo: 'Conteúdo do teste',
 				idTopico: 6,
 				dataInicio: `${tomorrow.toISOString()}`,
-				dataFim: `${nextWeek.toISOString()}`
+				dataFim: `${nextWeek.toISOString()}`,
+				nome: "Teste 6"
 			},
 			{
 				conteudo: 'Conteúdo do teste',
 				idTopico: 7,
 				dataInicio: `${tomorrow.toISOString()}`,
-				dataFim: `${nextWeek.toISOString()}`
+				dataFim: `${nextWeek.toISOString()}`,
+				nome: "Teste 7"
 			},
 			{
 				conteudo: 'Conteúdo do teste',
 				idTopico: 8,
 				dataInicio: `${tomorrow.toISOString()}`,
-				dataFim: `${nextWeek.toISOString()}`
+				dataFim: `${nextWeek.toISOString()}`,
+				nome: "Teste 8"
 			},
 			{
 				conteudo: 'Conteúdo do teste',
 				idTopico: 9,
 				dataInicio: `${tomorrow.toISOString()}`,
-				dataFim: `${nextWeek.toISOString()}`
+				dataFim: `${nextWeek.toISOString()}`,
+				nome: "Teste 9"
 			},
 			{
 				conteudo: 'Conteúdo do teste',
 				idTopico: 10,
 				dataInicio: `${tomorrow.toISOString()}`,
-				dataFim: `${nextWeek.toISOString()}`
+				dataFim: `${nextWeek.toISOString()}`,
+				nome: "Teste 10"
 			},
 			{
 				conteudo: 'Conteúdo do teste',
 				idTopico: 11,
 				dataInicio: `${tomorrow.toISOString()}`,
-				dataFim: `${nextWeek.toISOString()}`
+				dataFim: `${nextWeek.toISOString()}`,
+				nome: "Teste 11"
 			},
 			{
 				conteudo: 'Conteúdo do teste',
 				idTopico: 12,
 				dataInicio: `${tomorrow.toISOString()}`,
-				dataFim: `${nextWeek.toISOString()}`
+				dataFim: `${nextWeek.toISOString()}`,
+				nome: "Teste 12"
 			},
 			{
 				conteudo: 'Conteúdo do teste',
 				idTopico: 13,
 				dataInicio: `${tomorrow.toISOString()}`,
-				dataFim: `${nextWeek.toISOString()}`
+				dataFim: `${nextWeek.toISOString()}`,
+				nome: "Teste 13"
 			},
 			{
 				conteudo: 'Conteúdo do teste',
 				idTopico: 14,
 				dataInicio: `${tomorrow.toISOString()}`,
-				dataFim: `${nextWeek.toISOString()}`
+				dataFim: `${nextWeek.toISOString()}`,
+				nome: "Teste 14"
 			},
 			{
 				conteudo: 'Conteúdo do teste',
 				idTopico: 15,
 				dataInicio: `${tomorrow.toISOString()}`,
-				dataFim: `${nextWeek.toISOString()}`
+				dataFim: `${nextWeek.toISOString()}`,
+				nome: "Teste 15"
 			},
 			{
 				conteudo: 'Conteúdo do teste',
 				idTopico: 16,
 				dataInicio: `${tomorrow.toISOString()}`,
-				dataFim: `${nextWeek.toISOString()}`
+				dataFim: `${nextWeek.toISOString()}`,
+				nome: "Teste 16"
 			},
 		],
 		skipDuplicates: true,
