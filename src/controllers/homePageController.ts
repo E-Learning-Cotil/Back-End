@@ -25,7 +25,8 @@ class homePageController{
                 },
                 include: {
                     cores: true,
-                    icone: true
+                    icone: true,
+                    professor: true
                 }
             });
 
