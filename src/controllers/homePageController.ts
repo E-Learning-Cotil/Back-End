@@ -22,6 +22,10 @@ class homePageController{
             const turmas = await prisma.turmas.findMany({
                 where: {
                     idSerie
+                },
+                include: {
+                    cores: true,
+                    icone: true
                 }
             });
 
