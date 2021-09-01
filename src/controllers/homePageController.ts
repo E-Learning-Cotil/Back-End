@@ -26,7 +26,11 @@ class homePageController{
                 include: {
                     cores: true,
                     icone: true,
-                    professor: true
+                    professor: {
+                        select: {
+                            nome: true
+                        }
+                    }
                 }
             });
 
