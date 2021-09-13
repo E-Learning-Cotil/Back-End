@@ -8,7 +8,12 @@ import http from 'http';
 import socketController from './controllers/socketController';
 
 const httpServer = http.createServer(app);
-const io = new socketio.Server(httpServer);
+const io = new socketio.Server(httpServer, {
+    cors: {
+      origin: "http://localhost:3000",
+      methods: ["GET", "POST"]
+    }
+});
 
 io.on("connection", socketController.connection);
 

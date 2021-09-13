@@ -61,6 +61,8 @@ class SocketController{
                 })
                 
                 //Busca as conversas do aluno
+
+                //Busca a série do aluno
                 const aluno = await prisma.alunos.findFirst({
                     where: {
                         ra: parseInt(identity)
@@ -70,6 +72,7 @@ class SocketController{
                     }
                 });
     
+                //Busca os professores que o aluno tem aula
                 const turmas = await prisma.turmas.findMany({
                     where: {
                         idSerie: aluno.idSerie 
@@ -79,8 +82,10 @@ class SocketController{
                     }
                 })
     
+                //Faz um vetor só com os RGs dos professores
                 const professoresList = turmas.map(turma => turma.rgProfessor);
     
+                //Para cada professor ele acha a primeira conversa
                 for (const prof of professoresList) {
                     const conversas = await prisma.conversas.findFirst({
                         where: {
@@ -102,15 +107,16 @@ class SocketController{
                     if(conversas !== null) {
                         result.push(conversas);
                     }else{
-                        const {nome} = await prisma.professores.findFirst({
+                        const professor = await prisma.professores.findFirst({
                             where: {
                                 rg: prof
                             },
                             select: {
-                                nome: true
+                                nome: true,
+                                foto: true
                             }
                         })
-                        result.push({rgProfessor: prof, data: null, mensagem: null, professor: {nome}})
+                        result.push({rgProfessor: prof, data: null, mensagem: null, professor})
                     }
                 }
             }
@@ -220,6 +226,8 @@ class SocketController{
             if(!socket.role){
                 return;
             }
+
+            console.log(socket);
     
             if(socket.role === "PROFESSOR"){
                 await prisma.professores.update({
