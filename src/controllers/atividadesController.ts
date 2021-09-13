@@ -14,7 +14,17 @@ class atividadesController{
                     id: Number(id)
                 },
                 include:{
-                    arquivosAtividades: true
+                    arquivosAtividades: true,
+                    topico: {
+                        include: {
+                            turma: {
+                                include: {
+                                    icone: true,
+                                    cores: true
+                                }
+                            }
+                        }
+                    }
                 }
             });
             
@@ -37,14 +47,34 @@ class atividadesController{
                         idTopico: parseInt(idTopico)
                     },
                     include:{
-                        arquivosAtividades: true
+                        arquivosAtividades: true,
+                        topico: {
+                            include: {
+                                turma: {
+                                    include: {
+                                        icone: true,
+                                        cores: true
+                                    }
+                                }
+                            }
+                        }
                     }
                 });
             }
             else {
                 results = await prisma.atividades.findMany({    
                     include:{
-                        arquivosAtividades: true
+                        arquivosAtividades: true,
+                        topico: {
+                            include: {
+                                turma: {
+                                    include: {
+                                        icone: true,
+                                        cores: true
+                                    }
+                                }
+                            }
+                        }
                     }
                 });
             }
