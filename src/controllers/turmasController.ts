@@ -57,6 +57,7 @@ class turmasController{
                         rgProfessor: String(id)
                     },
                     include: {
+						serie: true,
                         icone: true,
                         cores: true
                     }
@@ -84,6 +85,7 @@ class turmasController{
                         idSerie: idSerie
                     },
                     include: {
+						serie: true,
                         icone: true,
                         cores: true
                     }
