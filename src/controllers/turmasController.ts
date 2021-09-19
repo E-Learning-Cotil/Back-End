@@ -15,7 +15,8 @@ class turmasController{
                 },
                 include: {
                     icone: true,
-                    cores: true
+                    cores: true,
+                    professor: true
                 }
             });
             
@@ -36,7 +37,8 @@ class turmasController{
                 where: req.query,
                 include: {
                     icone: true,
-                    cores: true
+                    cores: true,
+                    professor: true
                 }
             });
             
@@ -59,7 +61,8 @@ class turmasController{
                     include: {
 						serie: true,
                         icone: true,
-                        cores: true
+                        cores: true,
+                        professor: true
                     }
                 });
                 
@@ -87,7 +90,8 @@ class turmasController{
                     include: {
 						serie: true,
                         icone: true,
-                        cores: true
+                        cores: true,
+                        professor: true
                     }
                 });
                 
