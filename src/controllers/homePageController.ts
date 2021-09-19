@@ -61,6 +61,9 @@ class homePageController{
                                     }
                                 }
                             }
+                        },
+                        orderBy: {
+                            dataFim: 'asc'
                         }
                     });
 
@@ -83,6 +86,9 @@ class homePageController{
                                     }
                                 }
                             }
+                        },
+                        orderBy: {
+                            dataFim: 'asc'
                         }
                     });
 
@@ -94,12 +100,12 @@ class homePageController{
                 }
             }
 
-            array.sort(( {dataInicio: dataInicioA}, {dataInicio: dataInicioB}) => {
-                if (dataInicioA > dataInicioB) {
+            array.sort(( {dataFim: dataFimA}, {dataFim: dataFimB}) => {
+                if (dataFimA > dataFimB) {
                   return 1;
                 }
 
-                if (dataInicioA < dataInicioB) {
+                if (dataFimA < dataFimB) {
                   return -1;
                 }
 

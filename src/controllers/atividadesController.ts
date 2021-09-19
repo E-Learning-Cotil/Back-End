@@ -58,6 +58,9 @@ class atividadesController{
                                 }
                             }
                         }
+                    },
+                    orderBy: {
+                        dataFim: 'asc'
                     }
                 });
             }
@@ -75,6 +78,9 @@ class atividadesController{
                                 }
                             }
                         }
+                    },
+                    orderBy: {
+                        dataFim: 'asc'
                     }
                 });
             }
