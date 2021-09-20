@@ -19,9 +19,7 @@ class topicosController{
                     Materiais: true,
                     turma: {
                         select: {
-                            nome: true
-                        },
-                        include: {
+                            nome: true,
                             icone: true,
                             cores: true
                         }
