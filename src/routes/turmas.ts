@@ -10,7 +10,7 @@ import TurmasController from '../controllers/turmasController';
 const router = Router();
 
 router.get('/list-by-role', auth, TurmasController.listByRole);
-router.get('/:id', basicAuth, TurmasController.listOne);
+router.get('/:id', auth, TurmasController.listOne);
 router.get('/', basicAuth, TurmasController.list);
 router.post('/', basicAuth, validateDto(turma.create), TurmasController.create);
 
