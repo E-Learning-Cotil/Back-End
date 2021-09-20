@@ -16,7 +16,8 @@ class turmasController{
                 include: {
                     icone: true,
                     cores: true,
-                    professor: true
+                    professor: true,
+                    topicos: true
                 }
             });
             
