@@ -12,6 +12,11 @@ class topicosController{
             const result = await prisma.topicos.findFirst({
                 where: {
                     id: Number(id)
+                },
+                include: {
+                    testes: true,
+                    atividades: true,
+                    Materiais: true
                 }
             });
             
