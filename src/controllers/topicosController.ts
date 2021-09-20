@@ -16,7 +16,16 @@ class topicosController{
                 include: {
                     testes: true,
                     atividades: true,
-                    Materiais: true
+                    Materiais: true,
+                    turma: {
+                        select: {
+                            nome: true
+                        },
+                        include: {
+                            icone: true,
+                            cores: true
+                        }
+                    }
                 }
             });
             
