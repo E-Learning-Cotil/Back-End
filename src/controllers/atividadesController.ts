@@ -35,6 +35,93 @@ class atividadesController{
         }
     }
 
+    async listByRole(req: any, res: Response, next: NextFunction){
+        const { user, role } = req;
+
+        try {
+            let results = [];
+
+            if (role === "PROFESSOR") {
+                const turmas = await prisma.turmas.findMany({
+                    where: {
+                        rgProfessor: user,
+
+                    }
+                });
+
+                console.log(turmas);
+
+                for(let turma of turmas){
+                    const tmpResults = await prisma.atividades.findMany({
+                        where: {
+                            topico: {
+                                idTurma: turma.id
+                            }
+                        },
+                        include:{
+                            arquivosAtividades: true,
+                            topico: {
+                                include: {
+                                    turma: {
+                                        include: {
+                                            icone: true,
+                                            cores: true
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        orderBy: {
+                            dataFim: 'asc'
+                        }
+                    });
+
+                    results = [...results, ...tmpResults];
+                }
+            }
+            else {
+                const {idSerie} = await prisma.alunos.findFirst({
+                    where: {
+                        ra: Number(user)
+                    }
+                })
+
+                results = await prisma.atividades.findMany({    
+                    where: {
+                        topico: {
+                            turma: {
+                                idSerie
+                            }
+                        }
+                    },
+                    include:{
+                        arquivosAtividades: true,
+                        topico: {
+                            include: {
+                                turma: {
+                                    include: {
+                                        icone: true,
+                                        cores: true
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    orderBy: {
+                        dataFim: 'asc'
+                    }
+                });
+            }
+
+            if(!results) return res.json("Nenhuma atividade encontrada!");
+
+            return res.json(results);
+        } catch (error) {
+            const err = new InternalError('Falha ao listar todas as atividades!', 400, error.message);
+            next(err);
+        }
+    }
+
     async list(req: any, res: Response, next: NextFunction){
 		const { idTopico } = req.query;
 
