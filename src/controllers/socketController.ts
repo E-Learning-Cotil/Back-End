@@ -120,8 +120,20 @@ class SocketController{
                     }
                 }
             }
+
+            const property = role === "ALUNO" ? 'rgProfessor' : 'raAluno';
+
+            const uniqueValuesSet = new Set();
+
+            const uniqueResults = result.filter((obj) => {
+                const isPresentInSet = uniqueValuesSet.has(obj[property]);
+                uniqueValuesSet.add(obj[property]);
+                return !isPresentInSet;
+              });
                 
-            socket.emit("conversations", result);
+            socket.emit("conversations", uniqueResults);
+
+            return;
         });
 			
 		//Abre a conversa com o outro usuário e lista as mensagens anteriores
@@ -151,8 +163,14 @@ class SocketController{
                     mensagem: true
                 }
             });
+
+            const modifiedPrevious = previous.map((prev: any) => {
+                prev.origem = {role: prev.origem};
+
+                return prev;
+            });
     
-            socket.emit("previous_messages", previous);
+            socket.emit("previous_messages", modifiedPrevious);
     
             return;
         });
@@ -166,6 +184,7 @@ class SocketController{
             if(!identity || !role) return;
     
             let otherUserId = null;
+            let originName = null;
 
             //Pegar o socket do outro usuário
             if(role === "PROFESSOR"){
@@ -197,14 +216,56 @@ class SocketController{
                 }
             }
 
+            if(role === "PROFESSOR"){
+                const professor = await prisma.professores.findFirst({
+                    where: {
+                        rg: String(identity)
+                    },
+                    select: {
+                        nome: true
+                    }
+                })
+                
+                if (professor) {
+                    originName = professor.nome;
+                }
+    
+            }else{
+                const aluno = await prisma.alunos.findFirst({
+                    where: {
+                        ra: parseInt(identity)
+                    }, 
+                    select:{
+                        nome: true
+                    }
+                });
+    
+    
+                if (aluno) {
+                    originName = aluno.nome;
+                }
+            }
+
             const data = new Date();
             const formattedDate = data.toISOString();
                 
             if(otherUserId) {
-                socket.broadcast.to(otherUserId).emit("new_message", [{origem: role, data: formattedDate, mensagem: message}]);
+                socket.broadcast.to(otherUserId).emit("new_message", [{
+                    origem: {
+                        role,
+                        identity,
+                        nome: originName
+                    }, 
+                    data: formattedDate, 
+                    mensagem: message
+                }]);
             }
     
-            socket.emit("new_message", [{origem: role, data: formattedDate, mensagem: message}]);
+            socket.emit("new_message", [{origem: {
+                role,
+                identity,
+                nome: originName
+            }, data: formattedDate, mensagem: message}]);
     
             const rg = role === "PROFESSOR" ? String(identity) : String(otherUser);
             const ra = role !== "PROFESSOR" ? parseInt(identity) : parseInt(otherUser);
