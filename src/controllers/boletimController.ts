@@ -1,10 +1,12 @@
-import { Request, Response, NextFunction } from 'express';
-import ejs from 'ejs';
-import puppeteer from 'puppeteer';
+import { Response, NextFunction } from 'express';
+import fs from 'fs';
 import Cloudinary from '../config/cloudinary';
 import path from 'path';
-import { PrismaClient } from '@prisma/client';
+import { PrismaClient } from "@prisma/client"
 import { InternalError } from '../errors/InternalError';
+import PdfTable from 'voilab-pdf-table';
+import PdfDocument from 'pdfkit';
+import axios from 'axios';
 
 const prisma = new PrismaClient();
 
@@ -22,85 +24,136 @@ class boletimController{
 		}
     }
 
-    async createFile(req: any, res: Response, next: NextFunction){
+    async createFile(req: any, res: Response, next){
         const { user: id } = req;
         
-        const browser = await puppeteer.launch({
-            args: [
-                '--no-sandbox',
-                '--disable-setuid-sandbox'
-            ]
-        });
+        try { 
+            //Cria o PDF e a tabela
+            const pdf = await new PdfDocument({
+                autoFirstPage: true
+            });
+    
+            const table = await new PdfTable(pdf, {
+                bottomMargin: 30
+            });
 
-        const page = await browser.newPage();
+            //Busca o logo e as fontes
+            const righteousPath = path.join(__dirname, "..", "..", "public", "fonts", "Righteous-Regular.ttf");
+            const quicksandPath = path.join(__dirname, "..", "..", "public", "fonts", "Quicksand-Regular.ttf");
+            const logoPath = path.join(__dirname, "..", "..", "public", "images", "logo-elearning.png");
+    
+            //Busca as notas do boletom
+            const data = await boletimQuery(Number(id));
+    
+            //Busca os dados do aluno
+            const { nome, foto } = await prisma.alunos.findFirst({
+                where: {
+                    ra: Number(id)
+                },
+                select: {
+                    nome: true,
+                    foto: true
+                }
+            });
+                        
+            //Formatações necessárias
+            const fileName = Date.now() + "-" + id + ".pdf";
+            const filePath = path.join(__dirname, "..", "..", "tmp", fileName);
+            const fotoBuffer = await fetchImage(foto);
 
-        page.setExtraHTTPHeaders({
-            'Authorization': req.headers.authorization
-        });
+            //Adiciona os textos e as imagens
+            pdf
+                .image(logoPath, 75, 50, {
+                    fit: [40, 40],
+                    align: 'center',
+                    valign: 'center'
+                })
+                .font(righteousPath)
+                .fontSize(25)
+                .text('E-Learning', 120, 53)
+                .fontSize(16)
+                .font(quicksandPath)
+                .text(nome, 500 - (nome.length*11) , 60)
+                .image(fotoBuffer, 500, 50, {
+                    width: 40,
+                    height: 40,
+                    align: 'center',
+                    valign: 'center'
+                })
+                .font(righteousPath)
+                .text('\n')
+                .fontSize(20)
+                .text('Boletim', 70)
 
-        await page.goto(`${process.env.HOST}/boletim/render-pdf/`, {
-            waitUntil: 'networkidle0'
-        });
+            //Cria a tabela
+            await table
+                .addPlugin(new (require('voilab-pdf-table/plugins/fitcolumn'))({
+                    column: 'nome'
+                }))
+                .onHeaderAdd(tb => {
+                    pdf
+                    .font(righteousPath)
+                    .fontSize(12)
+                    .fillColor('#000')
+                })
+                .onHeaderAdded(tb => {
+                    tb.pdf
+                        .font(quicksandPath)
+                        .fillColor('#555')
+                })
+                .setColumnsDefaults({
+                    headerBorder: 'TBLR',
+                    headerPadding: [10],
+                    border: 'TBLR',
+                    align: 'left',
+                    padding: [10],
+                })
+                .addColumns([
+                    {
+                        id: 'nome',
+                        header: 'Nome da matéria',
+                        align: 'left'
+                    },
+                    {
+                        id: 'mediaTestes',
+                        header: 'Média dos testes',
+                        width: 100
+                    },
+                    {
+                        id: 'mediaAtividades',
+                        header: 'Média das atividades',
+                        width: 100
+                    },
+                    {
+                        id: 'mediaTurma',
+                        header: 'Média Final',
+                        width: 100
+                    }
+                ])
+                .onPageAdded(function (tb) {
+                    tb.addHeader();
+                });
+    
+            await table.addBody(data);
+            
+            //Salva o arquivo
+            await pdf.pipe(fs.createWriteStream(filePath)); 
+            await pdf.end();
 
-        const fileName = `${id}-Boletim.pdf`;
-        const filePath = path.join(__dirname, "..", "..", "tmp", fileName);
+            console.log(filePath);
+            console.log(id);
 
-        await page.pdf({
-            path: filePath,
-            printBackground: true,
-            format: 'a4',
-            margin: {
-                top: "25px",
-                bottom: "25px",
-                left: "25px",
-                right: "25px"
-            }
-        });
-
-        await browser.close();
-
-        try {
+            //Faz o upload do arquivo
             Cloudinary.uploader.upload(filePath, function(error, result) {
+                if(error) throw new Error("Erro ao fazer upload do arquivo!");
+
                 return res.status(201).json(result.url);
             });
         } catch (error) {
-            const err = new InternalError("Erro ao fazer upload do arquivo", 400, error.message);
-            return next(err);
-        }
-    }
-
-    async renderFile(req: any, res: Response){
-        const { user: id } = req;
-
-        const {nome: name, ra, email} = await prisma.alunos.findFirst({
-            where: {
-                ra: parseInt(id)
-            },
-            select: {
-                nome: true,
-                ra: true,
-                email: true
-            }
-        });
-        
-        const boletim = await boletimQuery(Number(id));
-        
-        const dados = {
-            name, 
-            ra,
-            email,
-            boletim
-        };
-
-        const viewPath = path.join(__dirname, "..", "..", "public", "pdf.ejs");
-        ejs.renderFile(viewPath, dados, (err, html) => {
-            if(err) {
-                return res.send(err);
-            }
-
-            return res.send(html);
-        });
-    }
+			const err = new InternalError('Falha ao carregar o boletim!', 400, error.message);
+            next(err);
+		}
+    };
 }
 
 async function boletimQuery(id: number){
@@ -163,6 +216,14 @@ async function boletimQuery(id: number){
     }
     
     return notasPorTurmas;
+}
+
+async function fetchImage(src) {
+    const image = await axios
+        .get(src, {
+            responseType: 'arraybuffer'
+        })
+    return image.data;
 }
 
 export default new boletimController();
