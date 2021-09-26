@@ -145,7 +145,10 @@ class boletimController{
 
             //Faz o upload do arquivo
             Cloudinary.uploader.upload(filePath, function(error, result) {
-                if(error) throw new Error("Erro ao fazer upload do arquivo!");
+                if(error) {
+                    console.log(error);
+                    throw new Error("Erro ao fazer upload do arquivo!");
+                }
 
                 return res.status(201).json(result.url);
             });
