@@ -13,7 +13,7 @@ class materiaisController{
                 where: {
                     id: Number(id)
                 },
-                select: {
+                include: {
                     arquivosMateriais: true,
                     topico: {
                         select: {
