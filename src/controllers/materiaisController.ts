@@ -13,8 +13,19 @@ class materiaisController{
                 where: {
                     id: Number(id)
                 },
-                include:{
-                    arquivosMateriais: true
+                select: {
+                    arquivosMateriais: true,
+                    topico: {
+                        select: {
+                            turma: {
+                                select: {
+                                    nome: true,
+                                    cores: true,
+                                    icone: true
+                                }
+                            }
+                        }
+                    }
                 }
             });
             
