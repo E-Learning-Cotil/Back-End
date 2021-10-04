@@ -14,7 +14,11 @@ class materiaisController{
                     id: Number(id)
                 },
                 include: {
-                    arquivosMateriais: true,
+                    arquivosMateriais: {
+                        include: {
+                            arquivoProfessor: true
+                        }
+                    },
                     topico: {
                         select: {
                             turma: {

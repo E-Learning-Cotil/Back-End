@@ -14,7 +14,11 @@ class atividadesController{
                     id: Number(id)
                 },
                 include:{
-                    arquivosAtividades: true,
+                    arquivosAtividades: {
+                        include: {
+                            arquivoProfessor: true
+                        }
+                    },
                     topico: {
                         include: {
                             turma: {
