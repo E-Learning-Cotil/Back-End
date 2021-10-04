@@ -144,7 +144,7 @@ class boletimController{
             console.log(id);
 
             //Faz o upload do arquivo
-            Cloudinary.uploader.upload(filePath, function(error, result) {
+            Cloudinary.uploader.upload(filePath, {format: 'pdf'}, function(error, result) {
                 if(error) {
                     console.log(error);
                     throw new Error("Erro ao fazer upload do arquivo!");
