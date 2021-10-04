@@ -6,7 +6,7 @@ class ArquivosController{
     async upload(req: Request, res: Response, next: NextFunction){
         try {
             let options = {};
-            if(req.file.mimetype === 'application/pdf') options = {format: 'png'};
+            if(req.file.mimetype === 'application/pdf') options = {format: 'pdf'};
             
             Cloudinary.uploader.upload(req.file.path, options,  (error, result) => {
                 console.log(result)
