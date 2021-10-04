@@ -5,9 +5,11 @@ import { InternalError } from '../errors/InternalError';
 class ArquivosController{
     async upload(req: Request, res: Response, next: NextFunction){
         try {
-            Cloudinary.uploader.upload(req.file.path, function(error, result) {
-		console.log(result);
-                return res.status(200).json(result);
+            let options = {};
+            if(req.file.mimetype === 'application/pdf') options = {format: 'png'};
+
+            Cloudinary.uploader.upload(req.file.path, options,  (error, result) => {
+                return res.status(200).json(result.url);
             });
 		} catch (error) {
 			const err = new InternalError('Falha ao subir um arquivo!', 400, error.message);
