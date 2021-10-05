@@ -5,35 +5,73 @@ import { InternalError } from '../errors/InternalError';
 const prisma = new PrismaClient();
 
 class atividadesController{
-    async listOne(req: Request, res: Response, next: NextFunction){
+    async listOne(req: any, res: Response, next: NextFunction){
         const {id} = req.params;
+        const { user, role } = req;
 
         try {
-            const result = await prisma.atividades.findFirst({
-                where: {
-                    id: Number(id)
-                },
-                include:{
-                    arquivosAtividades: {
-                        include: {
-                            arquivoProfessor: true
-                        }
+            let result;
+            if(role === "PROFESSOR"){
+                result = await prisma.atividades.findFirst({
+                    where: {
+                        id: Number(id)
                     },
-                    topico: {
-                        include: {
-                            turma: {
-                                include: {
-                                    icone: true,
-                                    cores: true
+                    include:{
+                        arquivosAtividades: {
+                            include: {
+                                arquivoProfessor: true
+                            }
+                        },
+                        topico: {
+                            include: {
+                                turma: {
+                                    include: {
+                                        icone: true,
+                                        cores: true
+                                    }
                                 }
+                            }
+                        },
+                        _count: {
+                            select: {
+                                atividadesAlunos: true
                             }
                         }
                     }
-                }
-            });
+                });
+            }else{
+                result = await prisma.atividades.findFirst({
+                    where: {
+                        id: Number(id)
+                    },
+                    include:{
+                        arquivosAtividades: {
+                            include: {
+                                arquivoProfessor: true
+                            }
+                        },
+                        topico: {
+                            include: {
+                                turma: {
+                                    include: {
+                                        icone: true,
+                                        cores: true
+                                    }
+                                }
+                            }
+                        },
+                        atividadesAlunos: {
+                            where: {
+                                raAluno: Number(user)
+                            }
+                        }
+                    }
+                });
+            }
             
             return res.json(result);
         } catch (error) {
+            console.log(error);
             const err = new InternalError('Falha ao listar uma atividade!', 400, error.message);
             next(err);
         }
