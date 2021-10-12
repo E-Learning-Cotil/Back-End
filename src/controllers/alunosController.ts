@@ -84,23 +84,37 @@ class AlunosController{
 		const { telefone, email, nome, foto, idSerie } = req.body;
 		
 		let { senha } = req.body;
-        senha = await encryptPassword(senha);
         
 		const { user: id } = req;
 
         try {
-			await prisma.alunos.update({
-                where: {
-                    ra: Number(id)
-                },
-                data: {
-                    telefone,
+			let newData;
+			if(senha === "********"){
+				newData = {
+					telefone,
+					email,
+					nome,
+					foto,
+					idSerie	
+				}
+			}else{
+				senha = await encryptPassword(senha);
+				
+				newData = {
+					telefone,
 					email,
 					nome,
 					foto,
 					idSerie,
-					senha
-                }
+					senha	
+				}
+			}
+
+			await prisma.alunos.update({
+                where: {
+                    ra: Number(id)
+                },
+                data: newData
             });
             
             return res.status(200).json({message: "Aluno atualizado!"});

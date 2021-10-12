@@ -60,15 +60,18 @@ class homePageController{
                                         }
                                     }
                                 }
-                            }
+                            },
+                            atividadesAlunos: true
                         },
                         orderBy: {
                             dataFim: 'asc'
                         }
                     });
 
-                    atividades.map((ativ: any) => {
-                        ativ.tipo = "ATIVIDADE"
+                    const atividadesFiltradas = atividades.filter((ativ: any) => {
+                        ativ.tipo = "ATIVIDADE";
+
+                        if(ativ.atividadesAlunos.length === 0) return ativ;
                     })
 
                     const testes = await prisma.testes.findMany({
@@ -85,18 +88,20 @@ class homePageController{
                                         }
                                     }
                                 }
-                            }
+                            },
+                            testesAlunos: true
                         },
                         orderBy: {
                             dataFim: 'asc'
                         }
                     });
 
-                    testes.map((teste: any) => {
+                    const testesFiltrados = testes.filter((teste: any) => {
                         teste.tipo = "TESTE"
+                        if(teste.testesAlunos.length === 0) return teste;
                     })
 
-                    array = [...array, ...atividades, ...testes];
+                    array = [...array, ...atividadesFiltradas, ...testesFiltrados];
                 }
             }
 

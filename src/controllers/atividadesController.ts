@@ -81,23 +81,23 @@ class atividadesController{
         const { user, role } = req;
 
         try {
-            let results = [];
+            let atividades = [];
 
             if (role === "PROFESSOR") {
                 const turmas = await prisma.turmas.findMany({
                     where: {
-                        rgProfessor: user,
-
+                        rgProfessor: user
                     }
                 });
-
-                console.log(turmas);
 
                 for(let turma of turmas){
                     const tmpResults = await prisma.atividades.findMany({
                         where: {
                             topico: {
                                 idTurma: turma.id
+                            },
+                            dataFim: {
+                                gte: new Date()
                             }
                         },
                         include:{
@@ -118,7 +118,7 @@ class atividadesController{
                         }
                     });
 
-                    results = [...results, ...tmpResults];
+                    atividades = [...atividades, ...tmpResults];
                 }
             }
             else {
@@ -128,7 +128,7 @@ class atividadesController{
                     }
                 })
 
-                results = await prisma.atividades.findMany({    
+                const results = await prisma.atividades.findMany({    
                     where: {
                         topico: {
                             turma: {
@@ -147,17 +147,22 @@ class atividadesController{
                                     }
                                 }
                             }
-                        }
+                        },
+                        atividadesAlunos: true
                     },
                     orderBy: {
                         dataFim: 'asc'
                     }
                 });
+
+                atividades = results.filter(ativ => {
+                    if(ativ.atividadesAlunos.length === 0) return ativ;
+                })
             }
 
-            if(!results) return res.json("Nenhuma atividade encontrada!");
+            if(!atividades) return res.json("Nenhuma atividade encontrada!");
 
-            return res.json(results);
+            return res.json(atividades);
         } catch (error) {
             const err = new InternalError('Falha ao listar todas as atividades!', 400, error.message);
             next(err);
