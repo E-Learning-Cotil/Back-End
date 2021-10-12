@@ -12,6 +12,23 @@ class testesController{
             const result = await prisma.testes.findFirst({
                 where: {
                     id: Number(id)
+                },
+                include: {
+                    testesAlunos: {
+                        where: {
+                            raAluno: Number(id)
+                        }
+                    },
+                    topicos: {
+                        include: {
+                            turma: {
+                                include: {
+                                    cores: true,
+                                    icone: true
+                                }
+                            }
+                        }
+                    }
                 }
             });
             
