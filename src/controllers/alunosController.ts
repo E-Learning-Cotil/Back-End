@@ -89,7 +89,7 @@ class AlunosController{
 
         try {
 			let newData;
-			if(senha === "********"){
+			if(senha === ""){
 				newData = {
 					telefone,
 					email,
