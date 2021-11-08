@@ -113,7 +113,9 @@ class SocketController{
                             },
                             select: {
                                 nome: true,
-                                foto: true
+                                foto: true,
+                                rg: true, 
+                                email: true
                             }
                         })
                         result.push({rgProfessor: prof, data: null, mensagem: null, professor})
