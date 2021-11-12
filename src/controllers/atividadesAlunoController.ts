@@ -32,7 +32,17 @@ class atividadesAlunoController{
 
         try {
             const results = await prisma.atividadesAluno.findMany({
-                where: req.query
+                where: req.query,
+                include: {
+                    aluno: true,
+                    atividade: true,
+                    turma: {
+                        include: {
+                            cores: true,
+                            icone: true
+                        }
+                    }
+                }
             });
             
             return res.json(results);
