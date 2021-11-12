@@ -40,7 +40,9 @@ class atividadesAlunoController{
             
             if(idAtividade){
                 const details = await prisma.atividades.findFirst({
-                    where: req.query.idAtividade,
+                    where: {
+                        id: Number(idAtividade)
+                    },
                     include: {
                         topico: {
                             include:{
