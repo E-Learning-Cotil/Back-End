@@ -34,17 +34,29 @@ class atividadesAlunoController{
             const results = await prisma.atividadesAluno.findMany({
                 where: req.query,
                 include: {
-                    aluno: true,
-                    atividade: true,
-                    turma: {
-                        include: {
-                            cores: true,
-                            icone: true
-                        }
-                    }
+                    aluno: true
                 }
             });
             
+            if(idAtividade){
+                const details = await prisma.atividades.findFirst({
+                    where: req.query.idAtividade,
+                    include: {
+                        topico: {
+                            include:{
+                                turma: {
+                                    include: {
+                                        cores: true,
+                                        icone: true
+                                    }
+                                }
+                            }
+                        }
+                    }
+                })
+                return res.json({atividades: results, details});
+            }
+
             return res.json(results);
         } catch (error) {
             const err = new InternalError('Falha ao listar todas atividades feita por todos alunos!', 400, error.message);
