@@ -101,7 +101,7 @@ class professoresController{
 				}
 			}
 
-			await prisma.professor.update({
+			await prisma.professores.update({
                 where: {
                     rg: String(id)
                 },
