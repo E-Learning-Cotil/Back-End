@@ -37,7 +37,7 @@ class ArquivosProfessorController{
                     }
                 })
 
-                return res.status(201).json({link: result.url, idArquivo: arquivoProfessor.id});
+                return res.status(201).json({link: result.url, idArquivo: arquivoProfessor.id, name: req.file.filename});
             });
 		} catch (error) {
 			const err = new InternalError('Falha ao hospedar um arquivo!', 400, error.message);
