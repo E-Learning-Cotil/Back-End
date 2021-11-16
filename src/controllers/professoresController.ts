@@ -74,27 +74,41 @@ class professoresController{
 	}
 
     async update(req: any, res: Response, next: NextFunction){
-        req.body.senha = await encryptPassword(req.body.senha);
-
-        const {senha, telefone, email, nome, foto} = req.body;
-
-        const { user: id } = req;
+        const { telefone, email, nome, foto } = req.body;
+		
+		let { senha } = req.body;
+        
+		const { user: id } = req;
 
         try {
-			await prisma.professores.update({
+			let newData;
+			if(senha === ""){
+				newData = {
+					telefone,
+					email,
+					nome,
+					foto,
+				}
+			}else{
+				senha = await encryptPassword(senha);
+				
+				newData = {
+					telefone,
+					email,
+					nome,
+					foto,
+					senha	
+				}
+			}
+
+			await prisma.alunos.update({
                 where: {
-                    rg: String(id)
+                    ra: Number(id)
                 },
-                data: {
-                    email,
-                    nome,
-                    telefone,
-                    foto,
-					senha
-                }
+                data: newData
             });
             
-            return res.status(200).json({message: "Professor atualizado com sucesso!"});
+            return res.status(200).json({message: "Professor atualizado!"});
 		} catch (error) {
 			const err = new InternalError('Falha ao atualizar um professor!', 400, error.message);
             next(err);
