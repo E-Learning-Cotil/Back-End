@@ -81,9 +81,12 @@ class atividadesController{
         const { user, role } = req;
 
         try {
-            let atividades = [];
+            let finalList = [];
 
             if (role === "PROFESSOR") {
+                let atividades = [];
+                let testes = [];
+                
                 const turmas = await prisma.turmas.findMany({
                     where: {
                         rgProfessor: user
@@ -91,7 +94,7 @@ class atividadesController{
                 });
 
                 for(let turma of turmas){
-                    const tmpResults = await prisma.atividades.findMany({
+                    const atividadesTmp = await prisma.atividades.findMany({
                         where: {
                             topico: {
                                 idTurma: turma.id
@@ -111,15 +114,71 @@ class atividadesController{
                                         }
                                     }
                                 }
-                            }
+                            },
+                            atividadesAlunos: true
                         },
                         orderBy: {
                             dataFim: 'asc'
                         }
                     });
 
-                    atividades = [...atividades, ...tmpResults];
+                    atividades = [...atividades, ...atividadesTmp];
                 }
+
+                for(let turma of turmas){
+                    const testesTmp = await prisma.testes.findMany({
+                        where: {
+                            topicos: {
+                                idTurma: turma.id
+                            },
+                            dataFim: {
+                                gte: new Date()
+                            }
+                        },
+                        include:{
+                            topicos: {
+                                include: {
+                                    turma: {
+                                        include: {
+                                            icone: true,
+                                            cores: true
+                                        }
+                                    }
+                                }
+                            },
+                            testesAlunos: true
+                        },
+                        orderBy: {
+                            dataFim: 'asc'
+                        }
+                    });
+
+                    testes = [...testes, ...testesTmp];
+                }
+
+                const finalAtividades = atividades.filter((ativ: any) => {
+                    ativ.tipo = "ATIVIDADE";
+                    if(ativ.atividadesAlunos.length === 0) return ativ;
+                })
+
+                const finalTestes = testes.filter((test:any) => {
+                    test.tipo = "TESTE";
+                    if(test.testesAlunos.length === 0) return test;
+                })
+
+                finalList = [...finalAtividades, ...finalTestes];
+
+                finalList.sort(( {dataFim: dataFimA}, {dataFim: dataFimB}) => {
+                    if (dataFimA > dataFimB) {
+                      return 1;
+                    }
+    
+                    if (dataFimA < dataFimB) {
+                      return -1;
+                    }
+    
+                    return 0;
+                });
             }
             else {
                 const {idSerie} = await prisma.alunos.findFirst({
@@ -128,7 +187,7 @@ class atividadesController{
                     }
                 })
 
-                const results = await prisma.atividades.findMany({    
+                const atividadesTmp = await prisma.atividades.findMany({    
                     where: {
                         topico: {
                             turma: {
@@ -155,14 +214,58 @@ class atividadesController{
                     }
                 });
 
-                atividades = results.filter(ativ => {
+                const testesTmp = await prisma.testes.findMany({    
+                    where: {
+                        topicos: {
+                            turma: {
+                                idSerie
+                            }
+                        }
+                    },
+                    include:{
+                        topicos: {
+                            include: {
+                                turma: {
+                                    include: {
+                                        icone: true,
+                                        cores: true
+                                    }
+                                }
+                            }
+                        },
+                        testesAlunos: true
+                    },
+                    orderBy: {
+                        dataFim: 'asc'
+                    }
+                });
+
+                const atividades = atividadesTmp.filter((ativ: any) => {
+                    ativ.tipo = "ATIVIDADE";
                     if(ativ.atividadesAlunos.length === 0) return ativ;
                 })
+
+                const testes = testesTmp.filter((test:any) => {
+                    test.tipo = "TESTE";
+                    if(test.testesAlunos.length === 0) return test;
+                })
+
+                finalList = [...atividades, ...testes];
+
+                finalList.sort(( {dataFim: dataFimA}, {dataFim: dataFimB}) => {
+                    if (dataFimA > dataFimB) {
+                      return 1;
+                    }
+    
+                    if (dataFimA < dataFimB) {
+                      return -1;
+                    }
+    
+                    return 0;
+                });
             }
 
-            if(!atividades) return res.json("Nenhuma atividade encontrada!");
-
-            return res.json(atividades);
+            return res.json(finalList);
         } catch (error) {
             const err = new InternalError('Falha ao listar todas as atividades!', 400, error.message);
             next(err);
