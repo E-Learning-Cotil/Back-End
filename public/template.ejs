@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= nome %></title>
+
+    <style>
+        *{
+            font-family: sans-serif;
+        }
+
+        table{
+            width: 100%;
+            border-collapse: collapse;
+            border: 1px solid black;
+            margin-top: 20px;
+        }
+
+        tr{
+            text-align: left;
+            border: 1px solid black;
+        }
+
+        tr *{
+            padding: 10px;
+            border-right: 1px solid black;
+        }
+
+        th{
+            font-family: 'Righteous', sans-serif;
+            font-weight: normal;
+        }
+
+        td{
+            font-family: 'Quicksand', sans-serif;
+        }
+
+        .red{
+            color: #f00;
+        }
+
+        .yellow{
+            color: #E5B300;
+        }
+
+        .green{
+            color: #279b0b;
+        }
+
+        section{
+            width: 100%;
+            display: flex;
+        }
+
+        section div{
+            display: flex;
+            position: absolute;
+            top: 0;
+            right: 10px;
+        }
+
+        section div img{
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <section>
+        <h1>E-Learning</h1>
+        <div>
+            <span><%= nome %></span>
+            <img src="<%= foto %>" alt="<%= nome %>">
+        </div>
+    </section>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Média atividades</th>
+                <th>Média testes</th>
+                <th>Média geral</th>
+            </tr>
+        </thead>
+        <tbody>
+        <% if (notas.length > 0) { %>
+            <% notas.forEach(nota => { %>
+                <tr>
+                    <td><%= nota.nome %></td>
+                    <td><%= nota.mediaAtividades %></td>
+                    <td><%= nota.mediaTestes %></td>
+                    <% if(nota.mediaTurma < 3) { %>
+                        <td class="red"><%=nota.mediaTurma %></td>
+                    <% } else if(nota.mediaTurma < 6) { %>
+                        <td class="yellow"><%=nota.mediaTurma %></td>
+                    <% } else { %>
+                        <td class="green"><%=nota.mediaTurma %></td>
+                    <% } %>
+                </tr>
+            <%  }); %>
+        <% } %>
+        </tbody>
+    </table>
+</body>
+</html>
