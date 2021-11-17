@@ -5,8 +5,9 @@ import { InternalError } from '../errors/InternalError';
 const prisma = new PrismaClient();
 
 class testesController{
-    async listOne(req: Request, res: Response, next: NextFunction){
+    async listOne(req: any, res: Response, next: NextFunction){
         const {id} = req.params;
+        const {user} = req
 
         try {
             const result = await prisma.testes.findFirst({
@@ -16,7 +17,8 @@ class testesController{
                 include: {
                     testesAlunos: {
                         where: {
-                            raAluno: Number(id)
+                            raAluno: Number(user),
+                            idTeste: Number(id)
                         }
                     },
                     topicos: {

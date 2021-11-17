@@ -5,13 +5,15 @@ import { InternalError } from '../errors/InternalError';
 const prisma = new PrismaClient();
 
 class testesAlunoController{
-    async listOne(req: Request, res: Response, next: NextFunction){
+    async listOne(req: any, res: Response, next: NextFunction){
         const {id} = req.params;
+        const {user} = req;
 
         try {
             const result = await prisma.testesAluno.findFirst({
                 where: {
-                    id: Number(id)
+                    id: Number(id),
+                    raAluno: Number(user)
                 }
             });
             
