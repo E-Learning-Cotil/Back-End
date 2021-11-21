@@ -31,7 +31,7 @@ yarn start
 
 **Gianni Labella**
 
-- :octocat: Github: [@giannilab](https://github.com/giannilab)
+- :octocat: Github: [@giannilabella](https://github.com/giannilabella)
 
 
 ---
