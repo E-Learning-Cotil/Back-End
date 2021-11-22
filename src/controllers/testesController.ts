@@ -7,19 +7,24 @@ const prisma = new PrismaClient();
 class testesController{
     async listOne(req: any, res: Response, next: NextFunction){
         const {id} = req.params;
-        const {user} = req
+        const {user, role} = req
 
         try {
+            let whereRole = {};
+            if(role === "ALUNO"){
+                whereRole = {
+                    raAluno: Number(user),
+                    idTeste: Number(id)
+                };
+            }
+
             const result = await prisma.testes.findFirst({
                 where: {
                     id: Number(id)
                 },
                 include: {
                     testesAlunos: {
-                        where: {
-                            raAluno: Number(user),
-                            idTeste: Number(id)
-                        }
+                        where: whereRole
                     },
                     topicos: {
                         include: {
