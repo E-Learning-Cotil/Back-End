@@ -12,11 +12,11 @@ async function main() {
 	const createManySeries = await prisma.series.createMany({
 		data: [
 			{
-				curso: 'ENFERMAGEM',
-				ano: '1',
-				tipo: 'TECNICO',
+				curso: 'INFORMATICA',
+				ano: '3',
+				tipo: 'MEDIOTECNICO',
 				periodo: 'DIURNO',
-				sigla: 'CT-ENFD'
+				sigla: 'M-INFD'
 			},
 			{
 				curso: 'EDIFICACOES',
@@ -47,36 +47,36 @@ async function main() {
 		data: [
 			{
 				telefone: '19987654321',
-				email: 'emailAluno1@email.com',
-				nome: 'João',
+				email: 'eduardo@email.com',
+				nome: 'Eduardo Correia',
 				idSerie: 1,
-				foto: 'https://i.imgur.com/5hT8bpz.jpg',
+				foto: 'https://avatars.githubusercontent.com/u/60967470?v=4',
 				senha: '$2b$10$UMhTts2J9TZ73yYnhpoVz.X374teS6sIff29VntcbFvLlx5RdTBqi'
 			},
 			{
 				telefone: '19912345678',
-				email: 'emailAluno2@email.com',
-				nome: 'José',
-				idSerie: 2,
-				foto: 'https://i.imgur.com/5hT8bpz.jpg',
+				email: 'gianni@email.com',
+				nome: 'Gianni Labella',
+				idSerie: 1,
+				foto: 'https://avatars.githubusercontent.com/u/59416872?v=4',
 				senha: '$2b$10$UMhTts2J9TZ73yYnhpoVz.X374teS6sIff29VntcbFvLlx5RdTBqi'
 			},
 			{
 				telefone: '19987651234',
-				email: 'emailAluno3@email.com',
-				nome: 'Jorge',
-				idSerie: 3,
-				foto: 'https://i.imgur.com/5hT8bpz.jpg',
+				email: 'bruno@email.com',
+				nome: 'Bruno Corrêa',
+				idSerie: 2,
+				foto: 'https://avatars.githubusercontent.com/u/60991787?v=4',
 				senha: '$2b$10$UMhTts2J9TZ73yYnhpoVz.X374teS6sIff29VntcbFvLlx5RdTBqi'
 			},
 			{
-				telefone: '19956784321',
-				email: 'emailAluno4@email.com',
-				nome: 'Josué',
-				idSerie: 4,
-				foto: 'https://i.imgur.com/5hT8bpz.jpg',
+				telefone: '19987651234',
+				email: 'matheus@email.com',
+				nome: 'Matheus Mastelini',
+				idSerie: 2,
+				foto: 'https://avatars.githubusercontent.com/u/60967298?v=4',
 				senha: '$2b$10$UMhTts2J9TZ73yYnhpoVz.X374teS6sIff29VntcbFvLlx5RdTBqi'
-			},
+			}
 		],
 		skipDuplicates: true,
 	});
@@ -84,35 +84,35 @@ async function main() {
 	const createManyProfessores = await prisma.professores.createMany({
 		data: [
 			{
-				telefone: '19987654321',
-				email: 'emailProfessor1@email.com',
-				nome: 'Maria',
+				telefone: '19987654323',
+				email: 'priscila@email.com',
+				nome: 'Priscila Frizzarin',
 				rg: '12.345.678-1',
-				foto: 'https://i.imgur.com/bHx9lr1.jpg',
+				foto: 'https://www.cotil.unicamp.br/wp-content/uploads/2019/03/Priscila-Keli-de-Lima-Pinto-Frizzarin-150x150.jpeg',
 				senha: '$2b$10$UMhTts2J9TZ73yYnhpoVz.X374teS6sIff29VntcbFvLlx5RdTBqi'
 			},
 			{
 				telefone: '19912345678',
-				email: 'emailProfessor2@email.com',
-				nome: 'Márcia',
+				email: 'rosana@email.com',
+				nome: 'Rosana Ribeiro',
 				rg: '12.345.678-2',
-				foto: 'https://i.imgur.com/bHx9lr1.jpg',
+				foto: 'https://www.cotil.unicamp.br/wp-content/uploads/2019/03/Rosana-Ribeiro-150x150.jpg',
 				senha: '$2b$10$UMhTts2J9TZ73yYnhpoVz.X374teS6sIff29VntcbFvLlx5RdTBqi'
 			},
 			{
 				telefone: '19987651234',
-				email: 'emailProfessor3@email.com',
-				nome: 'Mônica',
+				email: 'tania@email.com',
+				nome: 'Tânia Basso',
 				rg: '12.345.678-3',
-				foto: 'https://i.imgur.com/bHx9lr1.jpg',
+				foto: 'https://www.cotil.unicamp.br/wp-content/uploads/2019/03/Tania-Basso-150x150.jpg',
 				senha: '$2b$10$UMhTts2J9TZ73yYnhpoVz.X374teS6sIff29VntcbFvLlx5RdTBqi'
 			},
 			{
 				telefone: '19956784321',
-				email: 'emailProfessor4@email.com',
-				nome: 'Mariana',
+				email: 'simone@email.com',
+				nome: 'Simone Dapólito',
 				rg: '12.345.678-4',
-				foto: 'https://i.imgur.com/bHx9lr1.jpg',
+				foto: 'https://www.cotil.unicamp.br/wp-content/uploads/2019/02/Simone-Berbert-150x150.jpg',
 				senha: '$2b$10$UMhTts2J9TZ73yYnhpoVz.X374teS6sIff29VntcbFvLlx5RdTBqi'
 			},
 		],
@@ -278,59 +278,59 @@ async function main() {
 	const createManyTurmas = await prisma.turmas.createMany({
 		data: [
 			{
-				nome: 'Química',
+				nome: 'Des. Aplic. Web',
 				idIcone: 1,
 				idCores: 1,
 				idSerie: 1,
-				rgProfessor: '12.345.678-1'
+				rgProfessor: '12.345.678-4'
 			},
 			{
-				nome: 'Física',
+				nome: 'Ling. Prog. Mult.',
 				idIcone: 2,
+				idCores: 2,
+				idSerie: 1,
+				rgProfessor: '12.345.678-3'
+			},
+			{
+				nome: 'Des. de Projetos',
+				idIcone: 3,
+				idCores: 3,
+				idSerie: 1,
+				rgProfessor: '12.345.678-2'
+			},
+			{
+				nome: 'Sistemas Operacionais',
+				idIcone: 4,
+				idCores: 4,
+				idSerie: 1,
+				rgProfessor: '12.345.678-2'
+			},
+			{
+				nome: 'Introdução à informática',
+				idIcone: 1,
 				idCores: 2,
 				idSerie: 1,
 				rgProfessor: '12.345.678-2'
 			},
 			{
-				nome: 'Matemática',
-				idIcone: 3,
+				nome: 'Redes',
+				idIcone: 2,
 				idCores: 3,
-				idSerie: 2,
-				rgProfessor: '12.345.678-3'
-			},
-			{
-				nome: 'Português',
-				idIcone: 4,
-				idCores: 4,
-				idSerie: 2,
-				rgProfessor: '12.345.678-4'
-			},
-			{
-				nome: 'Química',
-				idIcone: 1,
-				idCores: 2,
-				idSerie: 3,
+				idSerie: 1,
 				rgProfessor: '12.345.678-1'
 			},
 			{
-				nome: 'Física',
-				idIcone: 2,
-				idCores: 3,
-				idSerie: 3,
-				rgProfessor: '12.345.678-2'
-			},
-			{
-				nome: 'Matemática',
+				nome: 'Técnicas Digitais',
 				idIcone: 3,
 				idCores: 4,
-				idSerie: 4,
+				idSerie: 1,
 				rgProfessor: '12.345.678-3'
 			},
 			{
-				nome: 'Português',
+				nome: 'APSI',
 				idIcone: 4,
 				idCores: 5,
-				idSerie: 4,
+				idSerie: 1,
 				rgProfessor: '12.345.678-4'
 			},
 		],
@@ -340,85 +340,50 @@ async function main() {
 	const createManyTopicos = await prisma.topicos.createMany({
 		data: [
 			{
-				nome: 'Tópico Química 1',
-				descricao: 'Descrição do tópico de química',
+				nome: 'Bootstrap',
+				descricao: 'Bootstrap é um framework web com código-fonte aberto para desenvolvimento de componentes de interface e front-end para sites e aplicações web usando HTML, CSS e JavaScript, baseado em modelos de design para a tipografia, melhorando a experiência do usuário em um site amigável e responsivo.',
 				idTurma: 1
 			},
 			{
-				nome: 'Tópico Química 2',
-				descricao: 'Descrição do tópico de química',
+				nome: 'PHP',
+				descricao: 'PHP é uma linguagem interpretada livre, usada originalmente apenas para o desenvolvimento de aplicações presentes e atuantes no lado do servidor, capazes de gerar conteúdo dinâmico na World Wide Web.',
 				idTurma: 1
 			},
 			{
-				nome: 'Tópico Física 1',
-				descricao: 'Descrição do tópico de física',
+				nome: 'JTable',
+				descricao: 'O JTable é um componente visual utilizado para visualizar dados em forma de grid, com cabeçalho, colunas e linhas e é um dos componentes mais complexos do pacote Swing. ... Model: Cuida dos dados da tabela, ou seja, é quem controla e distribui os mesmos. É implementado pela interface TableModel.',
 				idTurma: 2
 			},
 			{
-				nome: 'Tópico Física 2',
-				descricao: 'Descrição do tópico de física',
+				nome: 'API',
+				descricao: 'API é um conjunto de rotinas e padrões de programação para acesso a um aplicativo de software ou plataforma baseado na Web. A sigla API refere-se ao termo em inglês "Application Programming Interface" que significa em tradução para o português "Interface de Programação de Aplicativos".',
 				idTurma: 2
 			},
 			{
-				nome: 'Tópico Matemática 1',
-				descricao: 'Descrição do tópico de matemática',
+				nome: 'Orientações 1ª apresentação',
+				descricao: 'Orientações para a nossa primeira apresentação do ano do TCC da sala do diurno do ano de 2021',
 				idTurma: 3
 			},
 			{
-				nome: 'Tópico Matemática 2',
-				descricao: 'Descrição do tópico de matemática',
-				idTurma: 3
-			},
-			{
-				nome: 'Tópico Português 1',
-				descricao: 'Descrição do tópico de português',
+				nome: 'Android',
+				descricao: 'Android é um sistema operacional baseado no núcleo Linux, desenvolvido por um consórcio de desenvolvedores conhecido como Open Handset Alliance, sendo o principal colaborador o Google.',
 				idTurma: 4
 			},
 			{
-				nome: 'Tópico Português 2',
-				descricao: 'Descrição do tópico de português',
+				nome: 'Linux',
+				descricao: 'Linux é um termo popularmente empregado para se referir a sistemas operativos ou sistemas operacionais que utilizam o Kernel Linux. O núcleo foi desenvolvido pelo programador finlandês Linus Torvalds, inspirado no sistema Minix.',
 				idTurma: 4
 			},
 			{
-				nome: 'Tópico Química 1',
-				descricao: 'Descrição do tópico de química',
-				idTurma: 5
+				nome: 'macOS',
+				descricao: 'macOS é um sistema operativo proprietário desenvolvido e distribuído pela empresa Apple Inc. desde 2001 e destinado exclusivamente aos computadores Mac. Dentro do mercado de desktops, laptops e pelo uso da web, é o segundo sistema operacional desktop mais usado, depois do Microsoft Windows.',
+				idTurma: 4
 			},
 			{
-				nome: 'Tópico Química 2',
-				descricao: 'Descrição do tópico de química',
-				idTurma: 5
-			},
-			{
-				nome: 'Tópico Física 1',
-				descricao: 'Descrição do tópico de física',
-				idTurma: 6
-			},
-			{
-				nome: 'Tópico Física 2',
-				descricao: 'Descrição do tópico de física',
-				idTurma: 6
-			},
-			{
-				nome: 'Tópico Matemática 1',
-				descricao: 'Descrição do tópico de matemática',
-				idTurma: 7
-			},
-			{
-				nome: 'Tópico Matemática 2',
-				descricao: 'Descrição do tópico de matemática',
-				idTurma: 7
-			},
-			{
-				nome: 'Tópico Português 1',
-				descricao: 'Descrição do tópico de português',
-				idTurma: 8
-			},
-			{
-				nome: 'Tópico Português 2',
-				descricao: 'Descrição do tópico de português',
-				idTurma: 8
-			},
+				nome: 'Windows',
+				descricao: 'Windows é um sistema operacional de multitarefas para computadores e dispositivos móveis, desenvolvido pela Microsoft. A palavra Windows significa literalmente “janelas”, na tradução do inglês para o português.',
+				idTurma: 4
+			}
 		],
 		skipDuplicates: true,
 	});
@@ -426,85 +391,25 @@ async function main() {
 	const createManyMateriais = await prisma.materiais.createMany({
 		data: [
 			{
-				conteudo: 'Conteúdo do material',
-				nome: 'Nome do Material',
+				conteudo: '"<h3>Responsividade</h3><p>Responsabilidade é o dever de arcar com as consequências do próprio comportamento ou do comportamento de outras pessoas. É uma <b>obrigação jurídica</b> concluída a partir do desrespeito de algum direito, no decurso de uma ação contrária ao ordenamento jurídico.</p>"',
+				nome: 'Responsividade',
 				idTopico: 1
 			},
 			{
-				conteudo: 'Conteúdo do material',
-				nome: 'Nome do Material',
-				idTopico: 2
+				conteudo: '"<h3>Entrada de arquivos</h3><ul><li>1º passo: Adicionar o jumbotron</li><li>2º passo: Adicionar o código javascript</li><li>3º passo: Pronto! Agora é só usar o arquivo!</li></ul>"',
+				nome: 'Arquivos',
+				idTopico: 1
 			},
 			{
-				conteudo: 'Conteúdo do material',
-				nome: 'Nome do Material',
-				idTopico: 3
-			},
-			{
-				conteudo: 'Conteúdo do material',
-				nome: 'Nome do Material',
-				idTopico: 4
-			},
-			{
-				conteudo: 'Conteúdo do material',
-				nome: 'Nome do Material',
-				idTopico: 5
-			},
-			{
-				conteudo: 'Conteúdo do material',
-				nome: 'Nome do Material',
-				idTopico: 6
-			},
-			{
-				conteudo: 'Conteúdo do material',
-				nome: 'Nome do Material',
-				idTopico: 7
-			},
-			{
-				conteudo: 'Conteúdo do material',
-				nome: 'Nome do Material',
-				idTopico: 8
-			},
-			{
-				conteudo: 'Conteúdo do material',
-				nome: 'Nome do Material',
+				conteudo: '"<h2>Windows 7</h2><p>Windows 7 é uma versão do Microsoft Windows, uma série de sistemas operativos produzidos pela Microsoft para uso em computadores pessoais, incluindo computadores domésticos e empresariais, laptops, tablets e PCs de centros de mídia, entre outros.[4] Windows 7 foi lançado para empresas no dia 22 de julho de 2009, e começou a ser vendido livremente para usuários comuns às 00h00 do dia 22 de outubro de 2009, menos de três anos depois do lançamento de seu predecessor, Windows Vista. Pouco mais de três anos depois, o seu sucessor, Windows 8, foi lançado em 26 de outubro de 2012.</p><br /><p><a href="https://pt.wikipedia.org/wiki/Windows_7">Saiba mais aqui</a></p>"',
+				nome: 'Windows 7',
 				idTopico: 9
 			},
 			{
-				conteudo: 'Conteúdo do material',
-				nome: 'Nome do Material',
-				idTopico: 10
-			},
-			{
-				conteudo: 'Conteúdo do material',
-				nome: 'Nome do Material',
-				idTopico: 11
-			},
-			{
-				conteudo: 'Conteúdo do material',
-				nome: 'Nome do Material',
-				idTopico: 12
-			},
-			{
-				conteudo: 'Conteúdo do material',
-				nome: 'Nome do Material',
-				idTopico: 13
-			},
-			{
-				conteudo: 'Conteúdo do material',
-				nome: 'Nome do Material',
-				idTopico: 14
-			},
-			{
-				conteudo: 'Conteúdo do material',
-				nome: 'Nome do Material',
-				idTopico: 15
-			},
-			{
-				conteudo: 'Conteúdo do material',
-				nome: 'Nome do Material',
-				idTopico: 16
-			},
+				conteudo: '"<h2>Windows 10</h2><p>Windows 10 é uma versão do Microsoft Windows, uma série de sistemas operativos comercializados pela Microsoft. A sua primeira versão de testes foi lançada a 1 de outubro de 2014 e o lançamento oficial foi em 29 de julho de 2015.[2] Foi o sucessor do Windows 8.1. O Windows 10 foi disponibilizado para download via MSDN e Technet como uma atualização gratuita para cópias de varejo de usuários do Windows 8 e Windows 8.1 através da Windows Store e também para usuários do Windows 7 via Windows Update no primeiro ano de lançamento.[3] O sistema recebe novas atualizações de forma contínua, que estão disponíveis sem custo adicional para os usuários, além de compilações de testes adicionais do Windows 10 que estão disponíveis para o usuários do Windows Insider.</p><br /><p><a href="https://pt.wikipedia.org/wiki/Windows_10">Saiba mais aqui</a></p>"',
+				nome: 'Windows 10',
+				idTopico: 9
+			}
 		],
 		skipDuplicates: true,
 	});
@@ -512,117 +417,33 @@ async function main() {
 	const createManyAtividades = await prisma.atividades.createMany({
 		data: [
 			{
-				conteudo: 'Conteúdo da atividade',
-				nome: 'Nome da Atividade',
+				conteudo: '"<h2>Boostrap - JUMBOTRON</h2><p>This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p><br /><p><a href="https://getbootstrap.com/docs/4.5/components/jumbotron/">Documentação do Jumbotron</a></p>"',
+				nome: 'Aplicando Jumbotron',
 				idTopico: 1,
 				dataInicio: `${tomorrow.toISOString()}`,
 				dataFim: `${nextWeek.toISOString()}`
 			},
 			{
-				conteudo: 'Conteúdo da atividade',
-				nome: 'Nome da Atividade',
-				idTopico: 2,
+				conteudo: '"<h2>Boostrap - MODAL</h2><p>Before getting started with Bootstrap’s modal component, be sure to read the following as our menu options have recently changed. Modals are built with HTML, CSS, and JavaScript. They’re positioned over everything else in the document and remove scroll from the so that modal content scrolls instead.</p><br /><p><a href="https://getbootstrap.com/docs/4.5/components/modal/">Documentação do Modal</a></p>"',
+				nome: 'Aplicando Modal',
+				idTopico: 1,
 				dataInicio: `${tomorrow.toISOString()}`,
 				dataFim: `${nextWeek.toISOString()}`
 			},
 			{
-				conteudo: 'Conteúdo da atividade',
-				nome: 'Nome da Atividade',
-				idTopico: 3,
-				dataInicio: `${tomorrow.toISOString()}`,
-				dataFim: `${nextWeek.toISOString()}`
-			},
-			{
-				conteudo: 'Conteúdo da atividade',
-				nome: 'Nome da Atividade',
-				idTopico: 4,
-				dataInicio: `${tomorrow.toISOString()}`,
-				dataFim: `${nextWeek.toISOString()}`
-			},
-			{
-				conteudo: 'Conteúdo da atividade',
-				nome: 'Nome da Atividade',
-				idTopico: 5,
-				dataInicio: `${tomorrow.toISOString()}`,
-				dataFim: `${nextWeek.toISOString()}`
-			},
-			{
-				conteudo: 'Conteúdo da atividade',
-				nome: 'Nome da Atividade',
-				idTopico: 6,
-				dataInicio: `${tomorrow.toISOString()}`,
-				dataFim: `${nextWeek.toISOString()}`
-			},
-			{
-				conteudo: 'Conteúdo da atividade',
-				nome: 'Nome da Atividade',
-				idTopico: 7,
-				dataInicio: `${tomorrow.toISOString()}`,
-				dataFim: `${nextWeek.toISOString()}`
-			},
-			{
-				conteudo: 'Conteúdo da atividade',
-				nome: 'Nome da Atividade',
-				idTopico: 8,
-				dataInicio: `${tomorrow.toISOString()}`,
-				dataFim: `${nextWeek.toISOString()}`
-			},
-			{
-				conteudo: 'Conteúdo da atividade',
-				nome: 'Nome da Atividade',
+				conteudo: '"<h2>Atividade - Resumo do Windows 7</h2><p>Faça um resumo do conteúdo aprendido sobre o windows 7</p><br /><p><a href="https://pt.wikipedia.org/wiki/Windows_7">Saiba mais aqui</a></p>"',
+				nome: 'Resumo Windows 7',
 				idTopico: 9,
 				dataInicio: `${tomorrow.toISOString()}`,
 				dataFim: `${nextWeek.toISOString()}`
 			},
 			{
-				conteudo: 'Conteúdo da atividade',
-				nome: 'Nome da Atividade',
-				idTopico: 10,
+				conteudo: '"<h2>Atividade - Resumo do Windows 10</h2><p>Faça um resumo do conteúdo aprendido sobre o windows 10</p><br /><p><a href="https://pt.wikipedia.org/wiki/Windows_10">Saiba mais aqui</a></p>"',
+				nome: 'Resumo Windows 10',
+				idTopico: 9,
 				dataInicio: `${tomorrow.toISOString()}`,
 				dataFim: `${nextWeek.toISOString()}`
-			},
-			{
-				conteudo: 'Conteúdo da atividade',
-				nome: 'Nome da Atividade',
-				idTopico: 11,
-				dataInicio: `${tomorrow.toISOString()}`,
-				dataFim: `${nextWeek.toISOString()}`
-			},
-			{
-				conteudo: 'Conteúdo da atividade',
-				nome: 'Nome da Atividade',
-				idTopico: 12,
-				dataInicio: `${tomorrow.toISOString()}`,
-				dataFim: `${nextWeek.toISOString()}`
-			},
-			{
-				conteudo: 'Conteúdo da atividade',
-				nome: 'Nome da Atividade',
-				idTopico: 13,
-				dataInicio: `${tomorrow.toISOString()}`,
-				dataFim: `${nextWeek.toISOString()}`
-			},
-			{
-				conteudo: 'Conteúdo da atividade',
-				nome: 'Nome da Atividade',
-				idTopico: 14,
-				dataInicio: `${tomorrow.toISOString()}`,
-				dataFim: `${nextWeek.toISOString()}`
-			},
-			{
-				conteudo: 'Conteúdo da atividade',
-				nome: 'Nome da Atividade',
-				idTopico: 15,
-				dataInicio: `${tomorrow.toISOString()}`,
-				dataFim: `${nextWeek.toISOString()}`
-			},
-			{
-				conteudo: 'Conteúdo da atividade',
-				nome: 'Nome da Atividade',
-				idTopico: 16,
-				dataInicio: `${tomorrow.toISOString()}`,
-				dataFim: `${nextWeek.toISOString()}`
-			},
+			}
 		],
 		skipDuplicates: true,
 	});
@@ -630,117 +451,26 @@ async function main() {
 	const createManyTestes = await prisma.testes.createMany({
 		data: [
 			{
-				conteudo: 'Conteúdo do teste',
+				conteudo: '[{\"pergunta\":\"Qual o componente mais difícil de implementar?\",\"imagem\":\"https://www.alura.com.br/artigos/assets/bootstrap/bootstrap.png\",\"certo\": 2, \"alternativas\":[{\"texto\":\"Modal\"},{\"texto\":\"Jumbotron\"},{\"texto\":\"Carousel\"},{\"texto\":\"Toast\"}]},\n{\"pergunta\":\"Qual o componente mais fácil de implementar?\",\"imagem\": null, \"certo\": 3, \"alternativas\":[{\"texto\":\"Modal\"},{\"texto\":\"Jumbotron\"},{\"texto\":\"Carousel\"},{\"texto\":\"Toast\"}]}]',
 				idTopico: 1,
+				nome: "P1 - Componentes",
 				dataInicio: `${tomorrow.toISOString()}`,
 				dataFim: `${nextWeek.toISOString()}`,
-				nome: "Teste 1"
 			},
 			{
-				conteudo: 'Conteúdo do teste',
-				idTopico: 2,
+				conteudo: '[{\"pergunta\":\"Qual o componente mais difícil de implementar?\",\"imagem\":\"https://www.alura.com.br/artigos/assets/bootstrap/bootstrap.png\",\"certo\": 2, \"alternativas\":[{\"texto\":\"Modal\"},{\"texto\":\"Jumbotron\"},{\"texto\":\"Carousel\"},{\"texto\":\"Toast\"}]},\n{\"pergunta\":\"Qual o componente mais fácil de implementar?\",\"imagem\": null, \"certo\": 3, \"alternativas\":[{\"texto\":\"Modal\"},{\"texto\":\"Jumbotron\"},{\"texto\":\"Carousel\"},{\"texto\":\"Toast\"}]}]',
+				idTopico: 1,
+				nome: "P2 - Componentes Pt.2",
 				dataInicio: `${tomorrow.toISOString()}`,
 				dataFim: `${nextWeek.toISOString()}`,
-				nome: "Teste 2"
 			},
 			{
-				conteudo: 'Conteúdo do teste',
-				idTopico: 3,
+				conteudo: '[{\"pergunta\":\"Qual o Windows foi lançado em 2009?\",\"imagem\":\"https://files.tecnoblog.net/wp-content/uploads/2015/07/windows-10-wallpaper-700x438.jpg\",\"certo\": 3, \"alternativas\":[{\"texto\":\"Windows XP\"},{\"texto\":\"Windows 9\"},{\"texto\":\"Windows 10\"},{\"texto\":\"Windows 7\"}]}]',
+				idTopico: 1,
+				nome: "Teste sobre Windows",
 				dataInicio: `${tomorrow.toISOString()}`,
 				dataFim: `${nextWeek.toISOString()}`,
-				nome: "Teste 3"
-			},
-			{
-				conteudo: 'Conteúdo do teste',
-				idTopico: 4,
-				dataInicio: `${tomorrow.toISOString()}`,
-				dataFim: `${nextWeek.toISOString()}`,
-				nome: "Teste 4"
-			},
-			{
-				conteudo: 'Conteúdo do teste',
-				idTopico: 5,
-				dataInicio: `${tomorrow.toISOString()}`,
-				dataFim: `${nextWeek.toISOString()}`,
-				nome: "Teste 5"
-			},
-			{
-				conteudo: 'Conteúdo do teste',
-				idTopico: 6,
-				dataInicio: `${tomorrow.toISOString()}`,
-				dataFim: `${nextWeek.toISOString()}`,
-				nome: "Teste 6"
-			},
-			{
-				conteudo: 'Conteúdo do teste',
-				idTopico: 7,
-				dataInicio: `${tomorrow.toISOString()}`,
-				dataFim: `${nextWeek.toISOString()}`,
-				nome: "Teste 7"
-			},
-			{
-				conteudo: 'Conteúdo do teste',
-				idTopico: 8,
-				dataInicio: `${tomorrow.toISOString()}`,
-				dataFim: `${nextWeek.toISOString()}`,
-				nome: "Teste 8"
-			},
-			{
-				conteudo: 'Conteúdo do teste',
-				idTopico: 9,
-				dataInicio: `${tomorrow.toISOString()}`,
-				dataFim: `${nextWeek.toISOString()}`,
-				nome: "Teste 9"
-			},
-			{
-				conteudo: 'Conteúdo do teste',
-				idTopico: 10,
-				dataInicio: `${tomorrow.toISOString()}`,
-				dataFim: `${nextWeek.toISOString()}`,
-				nome: "Teste 10"
-			},
-			{
-				conteudo: 'Conteúdo do teste',
-				idTopico: 11,
-				dataInicio: `${tomorrow.toISOString()}`,
-				dataFim: `${nextWeek.toISOString()}`,
-				nome: "Teste 11"
-			},
-			{
-				conteudo: 'Conteúdo do teste',
-				idTopico: 12,
-				dataInicio: `${tomorrow.toISOString()}`,
-				dataFim: `${nextWeek.toISOString()}`,
-				nome: "Teste 12"
-			},
-			{
-				conteudo: 'Conteúdo do teste',
-				idTopico: 13,
-				dataInicio: `${tomorrow.toISOString()}`,
-				dataFim: `${nextWeek.toISOString()}`,
-				nome: "Teste 13"
-			},
-			{
-				conteudo: 'Conteúdo do teste',
-				idTopico: 14,
-				dataInicio: `${tomorrow.toISOString()}`,
-				dataFim: `${nextWeek.toISOString()}`,
-				nome: "Teste 14"
-			},
-			{
-				conteudo: 'Conteúdo do teste',
-				idTopico: 15,
-				dataInicio: `${tomorrow.toISOString()}`,
-				dataFim: `${nextWeek.toISOString()}`,
-				nome: "Teste 15"
-			},
-			{
-				conteudo: 'Conteúdo do teste',
-				idTopico: 16,
-				dataInicio: `${tomorrow.toISOString()}`,
-				dataFim: `${nextWeek.toISOString()}`,
-				nome: "Teste 16"
-			},
+			}
 		],
 		skipDuplicates: true,
 	});
@@ -748,115 +478,115 @@ async function main() {
 	const createManyAtividadesAluno = await prisma.atividadesAluno.createMany({
 		data: [
 			{
-				link: 'https://linkResolucaoAtividade.com',
-				nome: 'ResolucaoDaAtividade',
+				link: 'https://res.cloudinary.com/educorreia/image/upload/v1633368266/kyipefmyelhktetkblml.pdf',
+				nome: 'arquivo1.pdf',
 				raAluno: 1,
 				idAtividade: 1,
 				idTurma: 1
 			},
 			{
-				link: 'https://linkResolucaoAtividade.com',
-				nome: 'ResolucaoDaAtividade',
-				raAluno: 1,
-				idAtividade: 2,
-				idTurma: 1
+				link: 'https://res.cloudinary.com/educorreia/image/upload/v1633368266/kyipefmyelhktetkblml.pdf',
+				nome: 'arquivo1.pdf',
+				raAluno: 3,
+				idAtividade: 4,
+				idTurma: 4
 			},
 			{
-				link: 'https://linkResolucaoAtividade.com',
-				nome: 'ResolucaoDaAtividade',
-				raAluno: 1,
-				idAtividade: 3,
-				idTurma: 2
+				link: 'https://res.cloudinary.com/educorreia/image/upload/v1633368266/kyipefmyelhktetkblml.pdf',
+				nome: 'arquivo1.pdf',
+				raAluno: 2,
+				idAtividade: 4,
+				idTurma: 4
 			},
 			{
-				link: 'https://linkResolucaoAtividade.com',
-				nome: 'ResolucaoDaAtividade',
+				link: 'https://res.cloudinary.com/educorreia/image/upload/v1633368266/kyipefmyelhktetkblml.pdf',
+				nome: 'arquivo1.pdf',
 				raAluno: 1,
 				idAtividade: 4,
-				idTurma: 2
-			},
-			{
-				link: 'https://linkResolucaoAtividade.com',
-				nome: 'ResolucaoDaAtividade',
-				raAluno: 2,
-				idAtividade: 5,
-				idTurma: 3
-			},
-			{
-				link: 'https://linkResolucaoAtividade.com',
-				nome: 'ResolucaoDaAtividade',
-				raAluno: 2,
-				idAtividade: 6,
-				idTurma: 3
-			},
-			{
-				link: 'https://linkResolucaoAtividade.com',
-				nome: 'ResolucaoDaAtividade',
-				raAluno: 2,
-				idAtividade: 7,
 				idTurma: 4
 			},
 			{
-				link: 'https://linkResolucaoAtividade.com',
-				nome: 'ResolucaoDaAtividade',
+				link: 'https://res.cloudinary.com/educorreia/image/upload/v1633368266/kyipefmyelhktetkblml.pdf',
+				nome: 'arquivo1.pdf',
 				raAluno: 2,
-				idAtividade: 8,
+				idAtividade: 2,
+				idTurma: 3
+			},
+			{
+				link: 'https://res.cloudinary.com/educorreia/image/upload/v1633368266/kyipefmyelhktetkblml.pdf',
+				nome: 'arquivo1.pdf',
+				raAluno: 2,
+				idAtividade: 3,
+				idTurma: 3
+			},
+			{
+				link: 'https://res.cloudinary.com/educorreia/image/upload/v1633368266/kyipefmyelhktetkblml.pdf',
+				nome: 'arquivo1.pdf',
+				raAluno: 2,
+				idAtividade: 1,
 				idTurma: 4
 			},
 			{
-				link: 'https://linkResolucaoAtividade.com',
-				nome: 'ResolucaoDaAtividade',
+				link: 'https://res.cloudinary.com/educorreia/image/upload/v1633368266/kyipefmyelhktetkblml.pdf',
+				nome: 'arquivo1.pdf',
+				raAluno: 2,
+				idAtividade: 2,
+				idTurma: 4
+			},
+			{
+				link: 'https://res.cloudinary.com/educorreia/image/upload/v1633368266/kyipefmyelhktetkblml.pdf',
+				nome: 'arquivo1.pdf',
 				raAluno: 3,
-				idAtividade: 9,
+				idAtividade: 1,
 				idTurma: 5
 			},
 			{
-				link: 'https://linkResolucaoAtividade.com',
-				nome: 'ResolucaoDaAtividade',
+				link: 'https://res.cloudinary.com/educorreia/image/upload/v1633368266/kyipefmyelhktetkblml.pdf',
+				nome: 'arquivo1.pdf',
 				raAluno: 3,
-				idAtividade: 10,
+				idAtividade: 4,
 				idTurma: 5
 			},
 			{
-				link: 'https://linkResolucaoAtividade.com',
-				nome: 'ResolucaoDaAtividade',
+				link: 'https://res.cloudinary.com/educorreia/image/upload/v1633368266/kyipefmyelhktetkblml.pdf',
+				nome: 'arquivo1.pdf',
 				raAluno: 3,
-				idAtividade: 11,
+				idAtividade: 3,
 				idTurma: 6
 			},
 			{
-				link: 'https://linkResolucaoAtividade.com',
-				nome: 'ResolucaoDaAtividade',
+				link: 'https://res.cloudinary.com/educorreia/image/upload/v1633368266/kyipefmyelhktetkblml.pdf',
+				nome: 'arquivo1.pdf',
 				raAluno: 3,
-				idAtividade: 12,
+				idAtividade: 2,
 				idTurma: 6
 			},
 			{
-				link: 'https://linkResolucaoAtividade.com',
-				nome: 'ResolucaoDaAtividade',
+				link: 'https://res.cloudinary.com/educorreia/image/upload/v1633368266/kyipefmyelhktetkblml.pdf',
+				nome: 'arquivo1.pdf',
 				raAluno: 4,
-				idAtividade: 13,
+				idAtividade: 3,
 				idTurma: 7
 			},
 			{
-				link: 'https://linkResolucaoAtividade.com',
-				nome: 'ResolucaoDaAtividade',
+				link: 'https://res.cloudinary.com/educorreia/image/upload/v1633368266/kyipefmyelhktetkblml.pdf',
+				nome: 'arquivo1.pdf',
 				raAluno: 4,
-				idAtividade: 14,
+				idAtividade: 1,
 				idTurma: 7
 			},
 			{
-				link: 'https://linkResolucaoAtividade.com',
-				nome: 'ResolucaoDaAtividade',
+				link: 'https://res.cloudinary.com/educorreia/image/upload/v1633368266/kyipefmyelhktetkblml.pdf',
+				nome: 'arquivo1.pdf',
 				raAluno: 4,
-				idAtividade: 15,
+				idAtividade: 4,
 				idTurma: 8
 			},
 			{
-				link: 'https://linkResolucaoAtividade.com',
-				nome: 'ResolucaoDaAtividade',
+				link: 'https://res.cloudinary.com/educorreia/image/upload/v1633368266/kyipefmyelhktetkblml.pdf',
+				nome: 'arquivo1.pdf',
 				raAluno: 4,
-				idAtividade: 16,
+				idAtividade: 1,
 				idTurma: 8
 			},
 		],
